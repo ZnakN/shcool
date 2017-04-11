@@ -1,0 +1,22 @@
+.form-control {
+  color:#000000;
+}
+.form-control[readonly]
+{
+  color:gray;
+}
+
+#load_image 
+{
+  width: 250px;
+  height: 250px;
+  position: relative;
+  border: solid;
+  border-color: #0000;
+}
+
+#img_d {
+  width: 450px;
+  height: 450px;
+  position: relative;
+}
