@@ -29,12 +29,20 @@ Route::get('/admin/users/edit/{id}', 'Admin\UsersController@edit');
 Route::post('/admin/users/update', 'Admin\UsersController@update');
 Route::post('/admin/users/change_status', 'Admin\UsersController@change_status');
 
+Route::get('/admin/trainings', 'Admin\TrainingsController@index');
+Route::get('/admin/trainings/users_data', 'Admin\TrainingsController@anyData');
+Route::get('/admin/trainings/edit/{id}', 'Admin\TrainingsController@edit');
+Route::post('/admin/trainings/update', 'Admin\TrainingsController@update');
+Route::post('/admin/trainings/change_status', 'Admin\TrainingsController@change_status');
+Route::get('/admin/trainings/create', 'Admin\TrainingsController@create');
+
+
 Route::get('/admin/brands', 'Admin\BrandsController@index');
 Route::get('/admin/brands/users_data', 'Admin\BrandsController@anyData');
-Route::get('/admin/brands/edit/{id}', 'Admin\BrandsController@edit');
+Route::get('/admin/brands/edit/{id}', 'Admin\BrandsController@edit');  // ===== 2
 Route::post('/admin/brands/update', 'Admin\BrandsController@update');
 Route::post('/admin/brands/change_status', 'Admin\BrandsController@change_status');
-Route::get('/admin/brands/create', 'Admin\BrandsController@create');
+Route::get('/admin/brands/create', 'Admin\BrandsController@create'); //  ----- 1
 
 Route::post('/admin/images/upload', 'Admin\ImagesController@upload');
 Route::post('/admin/images/crop', 'Admin\ImagesController@crop');
