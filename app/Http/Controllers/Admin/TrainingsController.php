@@ -46,7 +46,19 @@ class TrainingsController extends Controller
       })->addColumn('status', function($training) {
         $status = ($training->status == 1) ? "<span id='s" . $training->id . "'>Активный</span>" : "<span id='s" . $training->id . "' >Заблокирован</span>";
         return $status;
-      })->addColumn('image',function($training)
+      })
+              ->addColumn('lektor_id', function($training) {
+        $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
+        for ($i=0; $i<count($lektors); $i++)
+        {
+            if($training->lektor_id == $lektors[$i]->id)
+            {
+        $lektor_name = "<span>{$lektors[$i]->name_surname}</span>" ;
+            }
+        }    
+        return $lektor_name;
+      })
+              ->addColumn('image',function($training)
         {
            $image = ($training->image)&&(File::exists(public_path($training->logo)))? "<img src='$training->image' alt='logo' width='150px' >":"";
            return $image;
