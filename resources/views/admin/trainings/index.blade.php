@@ -64,7 +64,7 @@ $(function() {
     $('#brands-table').on('click','.block',function()
     {
        var id = $(this).data('id');
-       $.post('/admin/brands/change_status',{'brand_id':id},function(res)
+       $.post('/admin/trainings/change_status',{'trainings_id':id},function(res)
        {
           var r = jQuery.parseJSON(res);
           if (r.res == 'ok')

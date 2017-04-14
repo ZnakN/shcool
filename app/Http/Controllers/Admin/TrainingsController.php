@@ -67,17 +67,17 @@ class TrainingsController extends Controller
 
   public function edit($id) {
 
-    $trainings = Trainings::find($id);
-
-    if ($trainings == null) {
+    $training = Trainings::find($id);
+    $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
+    if ($training == null) {
       return view('errors.404', ['message' => 'Brand not found']);
     }
-
-    return view('admin.trainings.edit', ['trainings' => $trainings]);
+ return view('admin.trainings.edit',['trainings'=>$training, 'lektors'=>$lektors]);
+   // return view('admin.trainings.edit', ['trainings' => $trainings]);
   }
 
   public function update(Request $request) {
-    dump($request);
+   
     $id = $request->input('id', '');
 
     $validator = Validator::make($request->all(), [
@@ -120,20 +120,20 @@ class TrainingsController extends Controller
 
   public function change_status(Request $request) {
     $res = [];
-    $id = $request->input('brand_id');
-    $brand = Brands::find($id);
+    $id = $request->input('trainings_id');
+    $trainings = Trainings::find($id);
 
-    if (!($brand == null)) {
-      if ($brand->status == 1) {
-        $block_button = '<span id="b' . $brand->id . '" data-id="' . $brand->id . '"  class="btn btn-xs btn-success block"><i class="glyphicon glyphicon-ok"></i> Активировать</span>';
-        $status = "<span id='s" . $brand->id . "' >Заблокирован</span>";
-        $brand->status = 2;
+    if (!($trainings == null)) {
+      if ($trainings->status == 1) {
+        $block_button = '<span id="b' . $trainings->id . '" data-id="' . $trainings->id . '"  class="btn btn-xs btn-success block"><i class="glyphicon glyphicon-ok"></i> Активировать</span>';
+        $status = "<span id='s" . $trainings->id . "' >Заблокирован</span>";
+        $trainings->status = 2;
       } else {
-        $block_button = '<span id="b' . $brand->id . '" data-id="' . $brand->id . '"   class="btn btn-xs btn-warning block"><i class="glyphicon glyphicon-remove"></i> Заблокировать</span>';
-        $status = "<span id='s" . $brand->id . "'>Активный</span>";
-        $brand->status = 1;
+        $block_button = '<span id="b' . $trainings->id . '" data-id="' . $trainings->id . '"   class="btn btn-xs btn-warning block"><i class="glyphicon glyphicon-remove"></i> Заблокировать</span>';
+        $status = "<span id='s" . $trainings->id . "'>Активный</span>";
+        $trainings->status = 1;
       }
-      $brand->save();
+      $trainings->save();
       $res = ['res' => 'ok', 'block_button' => $block_button, 'status' => $status];
     } else {
       $res = ['res' => 'error', 'message' => 'Error : User not found'];
