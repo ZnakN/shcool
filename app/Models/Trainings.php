@@ -9,7 +9,7 @@ class Trainings extends Model
      protected $table = 'trainings';
     
     protected $fillable = [
-    'description','begin_date', 'end_date', 'image','status', 'lektor_id'
+    'description','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title_ru','meta_description_ru','meta_keywords_ru'
     ];
     
     public function setUrlAttribute($value) {

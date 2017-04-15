@@ -70,6 +70,21 @@
                         <img id="holder" @if ($trainings->image) src="{{$trainings->image}}" @endif   style="margin-top:15px;max-height:100px;">
                              
                        
+                         <div class="form-group">
+                          <label for="name">Мета Title</label>
+                          <input type="input" class="form-control" value="{{$trainings->meta_title_ru}}"  id="meta_title_ru" placeholder="Meta title" name="meta_title_ru" >
+                        </div>
+                             
+                        <div class="form-group">
+                          <label for="name">Мета Description</label>
+                          <textarea class="form-control" id="meta_description_ru" placeholder="Meta description"  name="meta_description_ru" >{{$trainings->meta_description_ru}} </textarea>
+                        </div>     
+                             
+                        <div class="form-group">
+                          <label for="name">Мета Key Words</label>
+                          <input type="input" class="form-control" value="{{$trainings->meta_keywords_ru}}"  id="meta_keywords_ru" placeholder="Meta KeyWords" name="meta_keywords_ru" >
+                        </div>          
+                             
                              
                              
                         <div class="form-group">
