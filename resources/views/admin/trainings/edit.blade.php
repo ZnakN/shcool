@@ -56,10 +56,18 @@
                         
 <!--                        <div class="form-group">
                           <label for="role">Logo image</label>
-                          <?php Img::show('logo',$trainings->image,'brands','500x200',['main'=>'600x500','tumb'=>'125x100']); ?>
+                          <?php Img::show('image',$trainings->image,'brands','500x200',['main'=>'600x500','tumb'=>'125x100']); ?>
                         </div>-->
                         
-<!--image-->
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                              <i class="fa fa-picture-o"></i> Изображение
+                            </a>
+                          </span>
+                          <input id="thumbnail" class="form-control" type="text" @if ($trainings->image) value="{{$trainings->image}}" @endif   name="image">
+                        </div>
+                        <img id="holder" @if ($trainings->image) src="{{$trainings->image}}" @endif   style="margin-top:15px;max-height:100px;">
                              
                        
                              
@@ -110,7 +118,7 @@ $(function()
       uploadUrl: '/admin/images/upload',
       cropUrl: '/admin/images/crop',
       modal:true,
-      outputUrlId:'logo',
+      outputUrlId:'image',
       customUploadButtonId:'load_logo',
       uploadData:{
         '_token':'{{csrf_token()}}'
@@ -123,7 +131,7 @@ $(function()
       onReset:		function(){ console.log('onReset') },
       onAfterImgCrop:		function(data){
       $('#img_d').hide();
-      $('#load_image').html('<img src="'+data.url+'" width="'+div_img.width()+'" height="'+div_img.height()+'"   alt="logo">');
+      $('#load_image').html('<img src="'+data.url+'" width="'+div_img.width()+'" height="'+div_img.height()+'"   alt="image">');
       },
       };
     

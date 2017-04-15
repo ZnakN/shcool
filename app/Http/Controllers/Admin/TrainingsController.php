@@ -60,7 +60,7 @@ class TrainingsController extends Controller
       })
               ->addColumn('image',function($training)
         {
-           $image = ($training->image)&&(File::exists(public_path($training->logo)))? "<img src='$training->image' alt='logo' width='150px' >":"";
+           $image = ($training->image)&&(File::exists(public_path($training->image)))? "<img src='$training->image' alt='image' width='150px' >":"";
            return $image;
         })->make(true);
   }
@@ -79,7 +79,7 @@ class TrainingsController extends Controller
   public function update(Request $request) {
    
     $id = $request->input('id', '');
-
+//dump($request);
     $validator = Validator::make($request->all(), [
         'description' => 'required|max:2000',
     ]);
