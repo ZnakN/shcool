@@ -13,13 +13,19 @@ class CreateLessons extends Migration
      */
   public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+       Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 1024)->nullable();
             $table->longText('description')->nullable();
-            $table->integer('training_id')->nullable();
+            $table->integer('training_id')->unsigned();
+           
             $table->timestamps();
         });
+        
+           Schema::table('lessons', function(Blueprint $table) {
+      $table->foreign('training_id')->references('id')->on('trainings')->onDelete('cascade')->onUpdate('cascade');
+   });
+        
     }
 
     /**

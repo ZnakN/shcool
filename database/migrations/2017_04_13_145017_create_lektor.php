@@ -13,7 +13,7 @@ class CreateLektor extends Migration
      */
      public function up()
     {
-        Schema::create('lektor', function (Blueprint $table) {
+        Schema::create('lektors', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name_surname',1024)->nullable();
       $table->longText('description', 1024)->nullable();

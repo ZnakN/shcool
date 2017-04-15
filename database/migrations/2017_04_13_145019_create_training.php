@@ -13,16 +13,24 @@ class CreateTraining extends Migration
      */
     public function up()
     {
-        Schema::create('training', function (Blueprint $table) {
+         Schema::create('trainings', function (Blueprint $table) {
       $table->increments('id');
       $table->longText('description')->nullable();
       $table->date('begin_date')->nullable();
       $table->date('end_date')->nullable();
       $table->string('image',1024)->nullable();
-      $table->integer('lektor_id')->nullable();
+      $table->integer('lektor_id')->unsigned();
+     
       $table->integer('status')->nullable();
+      $table->mediumText('meta_title_ru')->nullable();
+      $table->mediumText('meta_description_ru')->nullable();
+      $table->mediumText('meta_keywords_ru')->nullable();
       $table->timestamps();
         });
+        
+         Schema::table('trainings', function(Blueprint $table) {
+       $table->foreign('lektor_id')->references('id')->on('lektors')->onDelete('cascade')->onUpdate('cascade');
+   });
     }
 
     /**

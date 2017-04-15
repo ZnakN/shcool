@@ -75,8 +75,8 @@
                           <label for="name">Мета Key Words</label>
                           <input type="input" class="form-control" value="{{$brand->meta_keywords_ru}}"  id="meta_keywords_ru" placeholder="Meta KeyWords" name="meta_keywords_ru" >
                         </div>     
-                             
-                             
+<!--                             a
+                             -->
                              
                         <div class="form-group">
                           <label for="role">Статус</label>
