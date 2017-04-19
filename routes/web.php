@@ -36,6 +36,15 @@ Route::post('/admin/trainings/update', 'Admin\TrainingsController@update');
 Route::post('/admin/trainings/change_status', 'Admin\TrainingsController@change_status');
 Route::get('/admin/trainings/create', 'Admin\TrainingsController@create');
 
+// =============================== lektors =============================================
+Route::get('/admin/lektors', 'Admin\LektorsController@index');
+Route::get('/admin/lektors/users_data', 'Admin\LektorsController@anyData');
+Route::get('/admin/lektors/edit/{id}', 'Admin\LektorsController@edit');
+Route::post('/admin/lektors/update', 'Admin\LektorsController@update');
+Route::post('/admin/lektors/change_status', 'Admin\LektorsController@change_status');
+Route::get('/admin/lektors/create', 'Admin\LektorsController@create');
+// =========================== end lektors =============================================
+
 
 Route::get('/admin/brands', 'Admin\BrandsController@index');
 Route::get('/admin/brands/users_data', 'Admin\BrandsController@anyData');
