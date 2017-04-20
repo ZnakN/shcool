@@ -3,21 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Trainings;
 
-class Trainings extends Model
+class Lessons extends Model
 {
-     protected $table = 'trainings';
+     protected $table = 'lessons';
     
     protected $fillable = [
-    'name','description','url','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title','meta_description','meta_keywords'
+     'name', 'description', 'training_id','image','status', 'meta_title','meta_description','meta_keywords','url'
     ];
-    
+    // , 'date_created'
     public function setUrlAttribute($value) {
       if (!$value)
       {
         $this->attributes['url'] = $this->translit($this->attributes['name']);
       }
-    }    
+    }
+
+    public function training()
+    {
+       return $this->hasOne('App\Trainings','id','training_id');
+    }
+    
     
     private function translit($str) {
       $translit = array(

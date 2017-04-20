@@ -21,7 +21,10 @@
                         </div>
                         @endif
                         
-                        
+                        <div class="form-group">
+                          <label for="name">Название</label>
+                          <input type="input" class="form-control" value="{{$trainings->name}}"  id="name" placeholder="name" name="name"  >
+                        </div>
 
                         
                         <div class="form-group">
@@ -71,18 +74,18 @@
                              
                        
                          <div class="form-group">
-                          <label for="name">Мета Title</label>
-                          <input type="input" class="form-control" value="{{$trainings->meta_title_ru}}"  id="meta_title_ru" placeholder="Meta title" name="meta_title_ru" >
+                           <label for="meta_title">Мета Title</label>
+                          <input type="input" class="form-control" value="{{$trainings->meta_title}}"  id="meta_title" placeholder="Meta title" name="meta_title" >
                         </div>
                              
                         <div class="form-group">
-                          <label for="name">Мета Description</label>
-                          <textarea class="form-control" id="meta_description_ru" placeholder="Meta description"  name="meta_description_ru" >{{$trainings->meta_description_ru}} </textarea>
+                          <label for="meta_description">Мета Description</label>
+                          <textarea class="form-control" id="meta_description" placeholder="Meta description"  name="meta_description" >{{$trainings->meta_description}} </textarea>
                         </div>     
                              
                         <div class="form-group">
-                          <label for="name">Мета Key Words</label>
-                          <input type="input" class="form-control" value="{{$trainings->meta_keywords_ru}}"  id="meta_keywords_ru" placeholder="Meta KeyWords" name="meta_keywords_ru" >
+                          <label for="meta_keywords">Мета Key Words</label>
+                          <input type="input" class="form-control" value="{{$trainings->meta_keywords}}"  id="meta_keywords" placeholder="Meta KeyWords" name="meta_keywords" >
                         </div>          
                              
                              
