@@ -9,13 +9,14 @@ class Lektors extends Model
      protected $table = 'lektors';
     
     protected $fillable = [
-     'name_surname', 'description', 'image','status', 'meta_title_ru','meta_description_ru','meta_keywords_ru'
+     'name_surname', 'description', 'url', 'image',  'status', 'meta_title','meta_description','meta_keywords'
     ];
     // , 'date_created'
+    
     public function setUrlAttribute($value) {
       if (!$value)
       {
-        $this->attributes['url'] = $this->translit($this->attributes['name_ru']);
+        $this->attributes['url'] = $this->translit($this->attributes['name_surname']);
       }
     }    
     

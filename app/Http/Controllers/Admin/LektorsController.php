@@ -61,11 +61,12 @@ class LektorsController extends Controller
   }
 
   public function update(Request $request) {
-
+//dump($request);
     $id = $request->input('id', '');
 
     $validator = Validator::make($request->all(), [
         'description' => 'required|max:3000',
+        'name_surname' => 'required|string|max:1024',
     ]);
 
     if ($validator->fails()) {

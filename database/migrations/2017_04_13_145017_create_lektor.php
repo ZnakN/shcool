@@ -16,8 +16,17 @@ class CreateLektor extends Migration
         Schema::create('lektors', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name_surname',1024)->nullable();
-      $table->longText('description', 1024)->nullable();
+      $table->longText('description', 2024)->nullable();
+      $table->string('url',1024)->nullable();
       $table->string('image',1024)->nullable();
+    
+    
+      
+      $table->string('meta_title',1024)->nullable();
+      $table->longText('meta_description',2048)->nullable();
+      $table->string('meta_keywords',1024)->nullable();
+      $table->integer('status')->nullable();
+      
       $table->timestamps();
         });
     }

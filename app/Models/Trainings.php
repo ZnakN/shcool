@@ -9,13 +9,13 @@ class Trainings extends Model
      protected $table = 'trainings';
     
     protected $fillable = [
-    'description','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title_ru','meta_description_ru','meta_keywords_ru'
+    'description', 'training_name', 'url' ,'begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_title','meta_description','meta_keywords'
     ];
     
     public function setUrlAttribute($value) {
       if (!$value)
       {
-        $this->attributes['url'] = $this->translit($this->attributes['name_ru']);
+        $this->attributes['url'] = $this->translit($this->attributes['training_name']);
       }
     }    
     

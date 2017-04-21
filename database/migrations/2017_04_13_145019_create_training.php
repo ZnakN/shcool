@@ -15,16 +15,18 @@ class CreateTraining extends Migration
     {
          Schema::create('trainings', function (Blueprint $table) {
       $table->increments('id');
+      $table->string('training_name',1024)->nullable();
       $table->longText('description')->nullable();
+      $table->string('url',1024)->nullable();
       $table->date('begin_date')->nullable();
       $table->date('end_date')->nullable();
       $table->string('image',1024)->nullable();
+      
       $table->integer('lektor_id')->unsigned();
-     
       $table->integer('status')->nullable();
-      $table->mediumText('meta_title_ru')->nullable();
-      $table->mediumText('meta_description_ru')->nullable();
-      $table->mediumText('meta_keywords_ru')->nullable();
+      $table->mediumText('meta_title')->nullable();
+      $table->mediumText('meta_description')->nullable();
+      $table->mediumText('meta_keywords')->nullable();
       $table->timestamps();
         });
         

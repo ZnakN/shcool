@@ -21,7 +21,10 @@
                         </div>
                         @endif
                         
-                        
+                          <div class="form-group">
+                          <label for="name">Название тренинга</label>
+                          <input type="input" class="form-control" value="{{$trainings->training_name}}"  id="training_name" placeholder="training_name" name="training_name" >
+                        </div>  
 
                         
                         <div class="form-group">
@@ -29,12 +32,16 @@
                           <textarea class="form-control"   id="description" placeholder="description" name="description" >{{$trainings->description}}</textarea>
                         </div>
                         
+                        <div class="form-group">
+                          <label for="name">URL</label>
+                          <input type="input" class="form-control" value="{{$trainings->url}}"  id="url" placeholder="url" name="url" >
+                        </div>
                         
                         
 <!--            size="3"            Лектор ----------------------------------------------------->
                          <div class="form-group">
                           <label for="name">Лектор</label>
-                          <select class="form-control" name="lektor_id" id="lektor" >    
+                          <select class="form-control" name="lektor_id" id="lektor" size="5" >    
                                @foreach ($lektors as $lektor)
                             <option value="{{$lektor->id}}"  @if ($trainings->lektor_id == $lektor->id) {!! 'selected="selected"' !!} @endif >{{$lektor->name_surname}}</option>
                             @endforeach
@@ -72,17 +79,17 @@
                        
                          <div class="form-group">
                           <label for="name">Мета Title</label>
-                          <input type="input" class="form-control" value="{{$trainings->meta_title_ru}}"  id="meta_title_ru" placeholder="Meta title" name="meta_title_ru" >
+                          <input type="input" class="form-control" value="{{$trainings->meta_title}}"  id="meta_title" placeholder="Meta title" name="meta_title" >
                         </div>
                              
                         <div class="form-group">
                           <label for="name">Мета Description</label>
-                          <textarea class="form-control" id="meta_description_ru" placeholder="Meta description"  name="meta_description_ru" >{{$trainings->meta_description_ru}} </textarea>
+                          <textarea class="form-control" id="meta_description" placeholder="Meta description"  name="meta_description" >{{$trainings->meta_description}} </textarea>
                         </div>     
                              
                         <div class="form-group">
                           <label for="name">Мета Key Words</label>
-                          <input type="input" class="form-control" value="{{$trainings->meta_keywords_ru}}"  id="meta_keywords_ru" placeholder="Meta KeyWords" name="meta_keywords_ru" >
+                          <input type="input" class="form-control" value="{{$trainings->meta_keywords}}"  id="meta_keywords" placeholder="Meta KeyWords" name="meta_keywords" >
                         </div>          
                              
                              

@@ -45,6 +45,12 @@ Route::post('/admin/lektors/change_status', 'Admin\LektorsController@change_stat
 Route::get('/admin/lektors/create', 'Admin\LektorsController@create');
 // =========================== end lektors =============================================
 
+// ============================== view cources==========================================
+Route::get('/admin/viewTrainings', 'Admin\ViewController@viewTrainings');
+Route::get('/admin/viewTrainings/users_data', 'Admin\ViewController@anyData');
+Route::get('/admin/viewTrainings/view/{url}', 'Admin\ViewController@viewDetails');
+// =====================================================================================
+
 
 Route::get('/admin/brands', 'Admin\BrandsController@index');
 Route::get('/admin/brands/users_data', 'Admin\BrandsController@anyData');

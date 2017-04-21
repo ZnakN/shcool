@@ -35,7 +35,10 @@
                           <textarea class="form-control"   id="description" placeholder="description" name="description" >{{$lektors->description}}</textarea>
                         </div>
                         
-              
+                        <div class="form-group">
+                          <label for="name">URL</label>
+                          <input type="input" class="form-control" value="{{$lektors->url}}"  id="url" placeholder="url" name="url" >
+                        </div>
                         
 <!--                        <div class="form-group">
                           <label for="role">Logo image</label>
@@ -54,17 +57,17 @@
                              
                         <div class="form-group">
                           <label for="name">Мета Title</label>
-                          <input type="input" class="form-control" value="{{$lektors->meta_title_ru}}"  id="meta_title_ru" placeholder="Meta title" name="meta_title_ru" >
+                          <input type="input" class="form-control" value="{{$lektors->meta_title}}"  id="meta_title" placeholder="Meta title" name="meta_title" >
                         </div>
                              
                         <div class="form-group">
                           <label for="name">Мета Description</label>
-                          <textarea class="form-control" id="meta_description_ru"  name="meta_description_ru" placeholder="Meta description">{{$lektors->meta_description_ru}} </textarea>
+                          <textarea class="form-control" id="meta_description"  name="meta_description" placeholder="Meta description">{{$lektors->meta_description}} </textarea>
                         </div>     
                              
                         <div class="form-group">
                           <label for="name">Мета Key Words</label>
-                          <input type="input" class="form-control" value="{{$lektors->meta_keywords_ru}}"  id="meta_keywords_ru" placeholder="Meta KeyWords" name="meta_keywords_ru" >
+                          <input type="input" class="form-control" value="{{$lektors->meta_keywords}}"  id="meta_keywords" placeholder="Meta KeyWords" name="meta_keywords" >
                         </div>     
 <!--                             a
                              -->
