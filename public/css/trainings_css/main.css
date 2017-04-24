@@ -1,0 +1,500 @@
+@font-face{
+    font-family:copperplate;
+    font-style:normal;
+    font-weight:400;
+    src:url(../fonts/CopperplateRegular/CopperplateRegular.eot?#iefix)
+    format("embedded-opentype"),url(../fonts/CopperplateRegular/CopperplateRegular.woff)
+    format("woff"),url(../fonts/CopperplateRegular/CopperplateRegular.ttf)
+    format("truetype")
+}
+
+@font-face{
+    font-family:EdwardianScriptITC;
+    font-style:normal;
+    font-weight:400;
+    src:url(../fonts/EdwardianScriptITC/EdwardianScriptITC.eot?#iefix)
+    format("embedded-opentype"),url(../fonts/EdwardianScriptITC/EdwardianScriptITC.woff)
+    format("woff"),url(../fonts/EdwardianScriptITC/EdwardianScriptITC.ttf)
+    format("truetype")
+}
+
+body {
+    color: #000000;
+    font: 15px Arial;
+}
+
+.event-header {
+    width: 100%;
+    height: 560px;
+    background: url("../image/header-bg.jpg") 50% 100% no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.header-row{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-circle {
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.80);
+    position: absolute;
+    top: 65px;
+    text-align: center;
+    padding-top: 88px;
+}
+
+.header-date {
+    font: bold 20px Arial;
+    margin-bottom: 20px;
+}
+
+.header-school-name{
+    font-family: EdwardianScriptITC,sans-serif;
+    font-size: 60px;
+    text-transform: capitalize;
+    font-weight: 400;
+    display: inline-block;
+    text-align: center;
+    padding-bottom: .1em;
+    margin-left: -21px;
+}
+
+.header-event-topic {
+    font-family: copperplate,sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.header-contact {
+    font: 18px Arial;
+    margin-top: 8px;
+    margin-left: 9px;
+    line-height: 24px;
+}
+
+.event-info {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 49px;
+    font: 15px Arial;
+}
+
+.event-info p {
+    margin-bottom: 22px;
+    line-height: 22px;
+}
+
+.event-info>h1 {
+    font: 30px Arial;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.event-date {
+    font: bold 24px Arial;
+    color: #810000;
+    text-align: center;
+    margin-bottom: 39px;
+}
+
+.event-program, .lecturer, .registration-form {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.event-program>h3 {
+    font: bold 18px Arial;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+
+.trainings {
+    background-color: #e5e5e5;
+    margin-bottom: 30px;
+    padding: 30px 35px 16px 30px;
+    line-height: 22px;
+    height: 100%;
+}
+
+.trainings p {
+    margin-bottom: -10px;
+}
+
+.line-wrap {
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    align-items: stretch;
+    -webkit-align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.top-line {
+    height: 190px;
+}
+
+.bottom-line {
+    height: 308px;
+}
+
+.training {
+    color: #810000;
+    font-weight: bold;
+}
+
+.training-topic {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.lecturer {
+    padding-top: 51px;
+    padding-bottom: 1em;
+    border-bottom: 3px solid #8b0000;
+    font: 23px Arial, sans-serif;
+}
+
+.lecturer-title {
+    font-family: copperplate,sans-serif;
+    color: #8b0000;
+    font-size: 28px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+    border-top: 3px solid #8b0000;
+    width: 116px;
+    margin: 0 auto 29px;
+}
+
+.photo-wrap {
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.lecturer-name {
+    color: #8b0000;
+    margin-top: 21px;
+    text-align: center;
+    font-size: 22.5px;
+}
+.lecturer p {
+    line-height: 33px;
+}
+
+.registration-form>h3 {
+    font-weight: bold;
+    text-align: center;
+    margin: 36px auto 34px;
+}
+
+label {
+    font-size: 18px;
+}
+
+.text-input {
+    width: 100%;
+    max-width: 369px;
+    height: 43px;
+    padding: 13px;
+    margin-bottom: 30px;
+}
+
+.label-title {
+    font-size: 15px;
+    color: #ff0000;
+    margin-bottom: 8px;
+}
+
+.simple-text {
+    color: #9b9b9b;
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-top: 4px;
+}
+
+.checkbox-label {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 7px;
+}
+
+.text-input-other {
+    height: 25px;
+    width: 21vw;
+    max-width: 307px;
+    margin-left: 8px;
+}
+
+input, textarea, select {
+    border: 1px solid #e0e0e0;
+}
+
+.red-border {
+    border-color: #ff0000;
+    outline: none;
+}
+
+.must-filled {
+    color: #ff0000;
+}
+
+#promocode {
+    width: 180px;
+    height: 43px;
+    padding: 13px;
+    margin: 0 8px 12px 17px;
+}
+
+select {
+    width: 220px;
+    height: 33px;
+    padding: 7px;
+    margin-top: 31px;
+    margin-bottom: 48px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 369px;
+    height: 98px;
+    padding: 7px;
+    margin-top: 16px;
+}
+
+.long-label {
+    font-size: 15px;
+}
+
+.certificate-label {
+    margin-top: 100px;
+}
+
+input[type=radio] {
+    margin-bottom: 10px;
+}
+
+hr {
+    margin: 27px auto;
+}
+
+.to-pay {
+    text-align: center;
+}
+
+.amount-to-pay {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 11px;
+}
+.amount-to-pay>span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.check-promocode {
+    background: white;
+    color: #810000;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: none;
+}
+
+.indent {
+    margin-left: 28px;
+}
+
+.btn-footer {
+    -webkit-box-shadow: 0 0 5px 0 #000;
+    box-shadow: 0 0 5px 0 #000;
+    background-color: #8b0000;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(5%,#8b0000),to(#720000));
+    background: -webkit-linear-gradient(top,#8b0000 5%,#720000 100%);
+    background: linear-gradient(to bottom,#8b0000 5%,#720000 100%);
+    -webkit-border-radius: 1em;
+    border-radius: 23px;
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    padding: .3em 2.5em;
+    min-width: 196px;
+    height: 45px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    outline: 0;
+    font-size: 1.125em;
+    font-weight: bold;
+}
+
+.footer-menu li{
+    display: inline-block;
+    text-align: center;
+}
+
+.footer-menu li:last-child{
+    padding-top: 16px;
+    line-height: 32px;
+}
+
+.footer-menu li:last-child>a{
+    color: #777777;
+    font-size: 22px;
+}
+.footer-menu li:last-child>a:hover{
+    color: #23527c;
+    text-decoration: underline;
+}
+
+.footer-menu {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    color: #777777;
+}
+
+.logo-container .header-school-name{
+    font-size: 50px;
+}
+
+.logo-container .header-event-topic{
+    font-size: 18px;
+}
+
+.modal-header>.event-date{
+    font-size: 15px;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-header {
+    border: none;
+    padding: 20px 30px 0;
+}
+
+.modal-title {
+    margin-bottom: 10px;
+}
+
+.modal-body {
+    padding: 45px 30px;
+}
+
+@media (max-width: 1230px) {
+    article{
+        padding: 0 15px;
+    }
+}
+
+
+@media (max-width: 1064px) {
+    .top-line {
+        height: 242px;
+    }
+}
+
+@media (max-width: 885px) {
+    .top-line {
+        height: 273px;
+    }
+
+    .bottom-line {
+        height: 355px;
+    }
+}
+
+@media (max-width: 845px) {
+    .bottom-line {
+        height: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .line-wrap {
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .trainings {
+        padding-bottom: 37px;
+    }
+
+    .certificate-label {
+        margin-top: 0;
+    }
+
+    .text-input-other, textarea {
+        margin-bottom: 15px;
+    }
+
+    .text-input-other {
+        width: 70%;
+    }
+
+    .indent {
+        margin-left: 0;
+    }
+
+    .footer-menu {
+        padding: 0;
+        text-align: center;
+        margin-top: 40px;
+        display: block;
+    }
+
+    .footer-menu li{
+        display: block;
+    }
+
+    .top-line, .bottom-line {
+        height: auto;
+    }
+}
+
+@media (max-width: 500px) {
+    .to-pay label{
+        display: block;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .event-header {
+        background-position-x: 6%;
+    }
+
+    .header-date {
+        margin-bottom: 0;
+    }
+
+    .header-circle {
+        width: 100%;
+        height: 205px;
+        border-radius: 0;
+        top: 339px;
+        padding-top: 20px;
+        left: 0;
+    }
+}

@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Trainings;
 use App\Models\Lektors;
+use App\Models\Lessons;
 use Yajra\Datatables\Facades\Datatables;
 use Illuminate\Support\Facades\File;
 use Validator;
 use DB;
-
+use View;
 class ViewController extends Controller
 {
      public function __construct() {
@@ -35,10 +36,22 @@ class ViewController extends Controller
     public function viewDetails($url) {
 
      $training = Trainings::where('url',$url)->first();
-
+     
+  $lessons = DB::table('Lessons')->where('training_id' ,$training->id)->where('status', 1)->get();
+ 
   $lektors = DB::table('Lektors')->where('id' ,$training->lektor_id)->get();
-  $lektor = $lektors[0]->name_surname;
-  return view('admin.view.viewDetails',['trainings'=>$training, 'lektor'=>$lektor]);
+ // $lektor = $lektors[0];  //->name_surname
+ // dump($lessons);
+  
+//    View::composer('layouts.training', function($view)
+//{
+//    $view->with('training', $training);
+//});
+  
+  return view('training.index',['training'=>$training, 'lektor'=>$lektors, 'lessons'=>$lessons]);
   }
    
+ 
+  
+  
 }
