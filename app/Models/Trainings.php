@@ -9,7 +9,8 @@ class Trainings extends Model
      protected $table = 'trainings';
     
     protected $fillable = [
-    'name','description','url','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title','meta_description','meta_keywords'
+    'name','description','url','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title','meta_description','meta_keywords', 
+        'time_from', 'time_to', 'adress_where',  'adress',  'full_price', 'one_price'
     ];
     
     public function setUrlAttribute($value) {

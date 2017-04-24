@@ -57,11 +57,42 @@
                         </div>
                              
                         <div class="form-group">
-                          <label for="name">Дата конца</label>
+                          <label for="name">Дата окончания</label>
                           <input type="date" class="form-control" value="{{$trainings->end_date}}"  id="end_date"  name="end_date" >
                         </div>
                         
-                        
+                        <div class="form-group">
+                          <label for="name">Время начала</label>
+                          <input type="time" class="form-control" value="{{$trainings->time_from}}"  id="time_from"  name="time_from" >
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Время окончания</label>
+                          <input type="time" class="form-control" value="{{$trainings->time_to}}"  id="time_to"  name="time_to" >
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="name">Место проведения</label>
+                          <input type="input" class="form-control" value="{{$trainings->adress_where}}"  id="adress_where"  name="adress_where" >
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Адрес</label>
+                          <input type="input" class="form-control" value="{{$trainings->adress}}"  id="adress"  name="adress" >
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Общая цена</label>
+                          <input type="number" min="1" step="any" class="form-control" value="{{$trainings->full_price}}"  id="full_price"  name="full_price" >
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Цена за урок</label>
+                          <input type="number" min="1" step="any" class="form-control" value="{{$trainings->one_price}}"  id="one_price"  name="one_price" >
+                        </div>
+
+                  
                         
 <!--                        <div class="form-group">
                           <label for="role">Logo image</label>
