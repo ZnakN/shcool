@@ -17,9 +17,6 @@ class FixTrainingsTable extends Migration
         Schema::table('trainings', function (Blueprint $table) {
         $table->string('name', 1050)->after('id')->nullable();
         $table->string('url', 2050)->after('description')->nullable();
-        $table->dropColumn('meta_title_ru');
-        $table->dropColumn('meta_description_ru');
-        $table->dropColumn('meta_keywords_ru');
         $table->string('meta_title', 2050)->nullable();
         $table->text('meta_description')->nullable();
         $table->string('meta_keywords', 2050)->nullable();
