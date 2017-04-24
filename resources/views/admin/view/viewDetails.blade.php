@@ -18,7 +18,7 @@
                    
                                                  <tr>
                                                     <th>Название тренинга</th>
-                                                    <td>{{$trainings->training_name}}</td>
+                                                    <td>{{$trainings->name}}</td>
                                                 </tr>    
                     
                                                 <tr>
@@ -59,7 +59,7 @@
                                                 
                                                 <tr>
                                                   <th>Лектор</th>
-                                                  <td>{{$trainings->lektor_id}}</td>
+                                                  <td>{{$lektor}}</td>
                                                 </tr>   
                      
                      </table>

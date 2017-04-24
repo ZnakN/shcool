@@ -47,7 +47,7 @@ $(function() {
        ajax: '{!! url('/admin/viewTrainings/users_data') !!}',
         columns: [
 //            { data: 'id', name: 'id' },
-            { data: 'training_name', name: 'training_name' },
+            { data: 'name', name: 'name' },
 //            { data: 'begin_date', name: 'begin_date' },
 //            { data: 'end_date', name: 'end_date' },
 //            { data: 'image', name: 'image' },

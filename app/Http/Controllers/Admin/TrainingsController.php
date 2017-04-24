@@ -84,7 +84,7 @@ class TrainingsController extends Controller
         'description' => 'required|max:2000',
         'begin_date' =>'required|date',
         'end_date' =>'required|date|after:begin_date',
-        'training_name' => 'required|string|max:1024',
+        'name' => 'required|string|max:1024',
     ]);
 
     if ($validator->fails()) {
