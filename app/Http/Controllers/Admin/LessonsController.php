@@ -27,7 +27,7 @@ class LessonsController extends Controller
       $lesson = new Lessons;
       $tranings = Trainings::all();
     
-      return view('admin.trainings.edit',['lesson'=>$lesson, 'trannings'=>$tranings]);
+      return view('admin.lessons.edit',['lesson'=>$lesson, 'trainings'=>$tranings]);
   }
 
   
@@ -35,7 +35,7 @@ class LessonsController extends Controller
   public function anyData() {
     return Datatables::of(Lessons::query())->addColumn('action', function ($lesson) {
 
-        $edit = '<a href="/admin/trainings/edit/' . $lesson->id . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Редактировать</a>';
+        $edit = '<a href="/admin/lessons/edit/' . $lesson->id . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Редактировать</a>';
         if ($lesson->status == 1) {
           $block = '<span id="b' . $lesson->id . '" data-id="' . $lesson->id . '"   class="btn btn-xs btn-warning block"><i class="glyphicon glyphicon-remove"></i> Заблокировать</span>';
         } else {
@@ -66,7 +66,7 @@ class LessonsController extends Controller
     if ($lesson == null) {
       return view('errors.404', ['message' => 'Урок не найден']);
     }
- return view('admin.lessons.edit',['lesson'=>$lesson, 'trainings'=>$trainings]);
+ return view('admin.lessons.edit',['lesson'=>$lesson, 'trainings'=> $tranings]);
    // return view('admin.trainings.edit', ['trainings' => $trainings]);
   }
 

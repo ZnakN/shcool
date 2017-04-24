@@ -39,7 +39,7 @@
                           <label for="name">Трениг</label>
                           <select class="form-control" name="training_id" id="lektor" >    
                             @foreach ($trainings as $training)
-                              <option value="{{$training->id}}"  @if ($trainings->id == $lesson->training_id) {!! 'selected="selected"' !!} @endif >{{$training->name}}</option>
+                              <option value="{{$training->id}}"  @if ($training->id == $lesson->training_id) {!! 'selected="selected"' !!} @endif >{{$training->name}}</option>
                             @endforeach
                           </select>
                         </div>

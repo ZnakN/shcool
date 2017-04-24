@@ -57,7 +57,7 @@ $(function() {
         ]
     });
     
-    $('#lessons-table').on('click','.block',function()
+    $('#lesson-table').on('click','.block',function()
     {
        var id = $(this).data('id');
        $.post('/admin/lessons/change_status',{'lesson_id':id},function(res)

@@ -22,7 +22,7 @@ class Lessons extends Model
 
     public function training()
     {
-       return $this->hasOne('App\Trainings','id','training_id');
+       return $this->hasOne('App\Models\Trainings','id','training_id');
     }
     
     
