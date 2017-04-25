@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
 Route::get('/activate/{code}','Auth\RegisterController@activate');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'IndexController@index');
 
 Route::get('/admin','Admin\AdminController@index');
 
