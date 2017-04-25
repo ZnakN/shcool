@@ -25,8 +25,8 @@ class TrainingsController extends Controller
   {
       $training = new Trainings;
       $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
-    
-      return view('admin.trainings.edit',['trainings'=>$training, 'lektors'=>$lektors]);
+   
+     return view('admin.trainings.edit',['trainings'=>$training, 'lektors'=>$lektors]);
   }
 
   

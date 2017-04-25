@@ -45,39 +45,55 @@
     
         <article class="registration-form">
         <h3>Заповніть данні для реєстрації на курс</h3>
-        <form>
+        <form form action="/admin/requests/update" method="post" role="form" enctype="multipart/form-data" >
             <div class="row">
+                
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                 
+                 <input type="hidden" name="training_id" value="{{ $training->id }}">
+                 
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                    <label for="name">ПІБ <span class="must-filled">*</span></label><br>
-                    <input type="text" id="name" placeholder="Як до вас звертатися?" class="text-input red-border"><br>
+                    <label for="PIB">ПІБ <span class="must-filled">*</span></label><br>
+                    <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input red-border"><br>
                     <label for="phone">Номер телефону <span class="must-filled">*</span></label><br>
-                    <input type="tel" id="phone" placeholder="+38(0__) ___-__-__"  class="text-input"><br>
+                    <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input"><br>
                     <div class="label-title"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b></div>
+                    
+                    
                     <div class="simple-text">Обиріть один або декілька варіантів.</div>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Повний курс"> Повний курс</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 1"> Лекція 1</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 2"> Лекція 2</label><br>
+                    
+                    <label class="checkbox-label"><input type="checkbox" name="lessons_to_visit" value="Повний курс"> Повний курс</label><br>
+                    
+                    @for ($i = 0; $i < count($lessons); $i++)
+                    <label class="checkbox-label"><input type="checkbox" name="lessons_to_visit" value="Лекція {{$i+1}}">Лекція {{$i+1}}</label><br>
+<!--                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 2"> Лекція 2</label><br>
                     <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 3"> Лекція 3</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 4"> Лекція 4</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Інше"> Інше
+                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 4"> Лекція 4</label><br>-->
+                    @endfor
+                    
+                    <label class="checkbox-label"><input type="checkbox" name="lessons_to_visit" value="Інше"> Інше
                         <input type="text" id="other" class="text-input-other">
                     </label>
+                    
                 </div>
+                
+                
+                
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <label for="company">Ваша компанія <span class="must-filled">*</span></label><br>
-                    <input type="text" id="company" placeholder="Назва" class="text-input"><br>
+                    <input type="text" id="company" placeholder="Назва" name="company_name" class="text-input"><br>
                     <label for="email">E-mail <span class="must-filled">*</span></label><br>
-                    <input type="email" id="email" placeholder="Ваш e-mail" class="text-input"><br>
+                    <input type="email" id="email" placeholder="Ваш e-mail" name="E_mail" class="text-input"><br>
                     <label for="wishes" class="long-label">Яка назва теми найточніше відобразила би Ваші побажання? <span class="must-filled">*</span></label><br>
-                    <textarea id="wishes"></textarea>
+                    <textarea id="wishes" name="wishes"></textarea>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <label for="scope">Сфера діяльності <span class="must-filled">*</span></label><br>
-                    <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" class="text-input"><br>
+                    <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input"><br>
                     <label class="long-label certificate-label">Чи бажаєте оформити курс лекцій як подарунок?</label>
                         <div class="simple-text">Після оплати та реєстрації Ви отримаєте подарунковий сертифікат та запрошення на курс</div>
-                    <input type="radio" name="certificate" value="yes"> Так<br>
-                    <input type="radio" name="certificate" value="no"> Ні
+                    <input type="radio" name="present" value="1"> Так<br>
+                    <input type="radio" name="present" value="2"> Ні
 
                 </div>
             </div>
@@ -85,15 +101,17 @@
             <div class="to-pay">
                 <div class="amount-to-pay">Сума для оплати<br><span>{{$training->full_price}} грн</span></div>
                 <label for="promocode" class="indent">Промо-код</label>
-                <input id="promocode" type="text" placeholder="Введіть промо-код">
-                <input type="submit" value="Перевірити" class="check-promocode">
+                <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
+                <input type="submit" value="Перевірити"  class="check-promocode">
                 <div class="indent label-title">Промо-код не дійсний, можливо ви зробили помилку</div>
-                <select name="pay" required>
+                <select name="way_to_pay" required>
                     <option disabled selected>Виберіть спосіб оплати</option>
                     <option value="cash">Готівкою</option>
                     <option value="bankCard">Банківською карткою</option>
                 </select><br>
-                <button type="button" class="btn-footer btn btn-primary" data-toggle="modal" data-target="#myModal">Далі</button>
+                  <input type="submit" class="btn-footer btn btn-primary"  value="Далі" > 
+<!--                  data-toggle="modal" data-target="#myModal"-->
+<!--                <button type="button" class="btn-footer btn btn-primary" data-toggle="modal" data-target="#myModal">Далі</button>-->
 
             </div>
         </form>

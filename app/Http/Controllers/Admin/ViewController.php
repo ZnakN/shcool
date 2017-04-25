@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Validator;
 use DB;
 use View;
+
 class ViewController extends Controller
 {
      public function __construct() {

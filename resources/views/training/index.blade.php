@@ -1,4 +1,4 @@
-  @extends('layouts.training',  ['training' => $training])
+  @extends('layouts.training',  ['training' => $training, 'lessons'=>$lessons])
 
 @section('content')
 <article class="event-info">
@@ -41,7 +41,7 @@
         <h3 class="lecturer-title">ЛЕКТОР</h3>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="photo-wrap"><img src="{{$lektor[0]->image}}" alt="{{$lektor[0]->name_surname}}"> </div>
+                <div class="photo-wrap"><img src="{{$lektor[0]->image}}" alt="{{$lektor[0]->name_surname}}" style="border-radius: 50%; height:260px; width:260px;"> </div>
                 <div class="lecturer-name">{{$lektor[0]->name_surname}}</div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -51,4 +51,5 @@
             </div>
         </div>
     </article>
+<?php echo Session::get('message');?>
 @endsection

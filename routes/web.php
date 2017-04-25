@@ -52,6 +52,19 @@ Route::get('/admin/viewTrainings/users_data', 'Admin\ViewController@anyData');
 Route::get('/admin/viewTrainings/view/{url}', 'Admin\ViewController@viewDetails');
 // =====================================================================================
 
+
+// =========================== add request =============================================
+Route::get('/admin/requests', 'Admin\RequestsController@index');
+Route::get('/admin/requests/users_data', 'Admin\RequestsController@anyData');
+Route::get('/admin/requests/edit/{id}', 'Admin\RequestsController@edit');
+Route::post('/admin/requests/update', 'Admin\RequestsController@update');
+Route::post('/admin/requests/change_status', 'Admin\RequestsController@change_status');
+//Route::get('/admin/requests/create', 'Admin\RequestsController@create');
+// ======================= end add request =============================================
+
+
+
+
 // =============================== lessons =============================================
 Route::get('/admin/lessons', 'Admin\LessonsController@index');
 Route::get('/admin/lessons/users_data', 'Admin\LessonsController@anyData');
