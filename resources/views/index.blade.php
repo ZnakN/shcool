@@ -8,31 +8,9 @@
       <h2 class="logo">Etiquette School</h2>
       <h3 class="topic">найближчі тренінги</h3>
     </div>
-       <table class="table-responsive table-striped timetable__table" id="brands-table">
-                        <thead>
-                          <tr>
-                           
-                            <th>Название тренинга</th>
-                            <th>Статус</th>
-                            <th>Детали</th>
-                            
-                          </tr>
-                          
-                             @foreach ($trainings as $training)
-                             <tr>
-                            <td>{{$training->name}}</td>
-                            @if($training->status==1) <td>Активнен </td>
-                            @else <td>Неактивен </td>
-                            @endif
-                            <td> <a href="/viewTraining/{{$training->url}}" class="btn">Детальніше</a> </td>
-                            </tr>
-                            @endforeach 
-                         
-                          
-                        </thead>
-                      </table>
-<!--    <table class="table-responsive table-striped timetable__table">
-      <tr>
+       
+    <table class="table-responsive table-striped timetable__table">
+<!--      <tr>
         <td>Індивідуальні заняття</td>
         <td><a href="http://goo.gl/forms/OCw3DCm9YT" target="_blank" class="btn" role="button">Реєстрація</a></td>
       </tr>
@@ -40,7 +18,22 @@
         <td>Корпоративний тренінг для компанії</td>
         <td><a href="https://goo.gl/forms/P6bxxjG3KN2PFEHF2" target="_blank" class="btn" role="button">Реєстрація</a></td>
       </tr>
+      -->
+      @foreach($trainings as $training)
       <tr>
+      <td><div class="table-date">{{ date('j',strtotime($training->begin_date))}}  - {{ date('j F',strtotime($training->end_date))}}</div> 
+           @for ($i = 0; $i < count($lektors); $i++)
+          @if($lektors[$i]->id == $training->id) 
+          {{$lektors[$i]->name_surname}}
+          @endif
+          @endfor
+
+          «{{$training->name}}» <div class="table-subtext">{{$training->type}}</div></td>
+      <td><a href="/viewTraining/{{$training->url}}" target="_blank" class="btn" role="button">Детальніше</a></td>
+      </tr>
+      @endforeach 
+      
+<!--      <tr>
         <td><div class="table-date">18 квітня</div> Фарід Сафаров «Тонкощі успішних переговорів» <div class="table-subtext">майстер-клас</div></td>
         <td><a href="http://schastiehub.com/events/farid-safarov-tonkosti-uspeshnyh-peregovorov/" target="_blank" class="btn" role="button">Реєстрація</a></td>
       </tr>
@@ -59,8 +52,8 @@
       <tr>
         <td><div class="table-date">17 травня – 18 травня</div> Ресторанний етикет «Покажи мені етикет» <div class="table-subtext">дводенний курс</div></td>
         <td><a href="https://goo.gl/forms/5aQCnnv0wp23hatq1" target="_blank" class="btn" role="button">Реєстрація</a></td>
-      </tr>
-    </table>	-->
+      </tr>-->
+    </table>	
   </div>	
 </div>
 </div>

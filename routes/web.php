@@ -21,7 +21,7 @@ Route::get('/activate/{code}','Auth\RegisterController@activate');
 
 Route::get('/', 'IndexController@index');
 Route::get('/viewTraining/{url}', 'IndexController@viewDetails');
-
+Route::post('/update', 'IndexController@update');
 
 
 Route::get('/admin','Admin\AdminController@index');

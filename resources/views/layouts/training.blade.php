@@ -58,7 +58,7 @@
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                  
                  <input type="hidden" name="training_id" id="training_id" value="{{ $training->id }}">
-                 <input type="hidden" name="urL" id="urL" value="{{ asset('/admin/requests/update') }}">
+                 <input type="hidden" name="urL" id="urL" value="{{ asset('/update') }}">
                  
                  
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

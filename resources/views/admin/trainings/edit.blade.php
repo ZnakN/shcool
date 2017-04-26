@@ -27,7 +27,10 @@
                           <input type="input" class="form-control" value="{{$trainings->name}}"  id="name" placeholder="name" name="name"  >
                         </div>
 
-
+                        <div class="form-group">
+                          <label for="type">Тип тренинга</label>
+                          <input type="input" class="form-control" value="{{$trainings->type}}"  id="type" placeholder="type" name="type"  >
+                        </div>
                         
                         <div class="form-group">
                           <label for="text_ru">Описание</label>
