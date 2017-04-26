@@ -70,7 +70,7 @@ class TrainingsController extends Controller
     $training = Trainings::find($id);
     $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
     if ($training == null) {
-      return view('errors.404', ['message' => 'Brand not found']);
+      return view('errors.404', ['message' => 'Training not found']);
     }
  return view('admin.trainings.edit',['trainings'=>$training, 'lektors'=>$lektors]);
    // return view('admin.trainings.edit', ['trainings' => $trainings]);

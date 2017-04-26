@@ -85,6 +85,9 @@ class RequestsController extends Controller
   public function edit($id) {
 
     $requests = Requests::find($id);
+     if ($requests == null) {
+      return view('errors.404', ['message' => 'Request not found']);
+    }
      $trainings = DB::table('Trainings')->select('name', 'id')->get();
         for ($i=0; $i<count($trainings); $i++)
         {
@@ -101,13 +104,17 @@ class RequestsController extends Controller
    
     $id = $request->input('id', '');
 //dump($request);
+    $res = [];
+    
     $validator = Validator::make($request->all(), [
         'PIB' => 'required|string|max:1024',
         'company_name' =>'required|string|max:1024',
-        'sphere' =>'required|string|max:1024',
+        'sphere' =>'required|string|max:2048',
         'E_mail' => 'required|string|max:1024',
         'phone_number' => 'required|string|max:1024',
-        'wishes' => 'required|string|max:3050',
+        'lessons_to_visit' => 'string|max:2048',
+        'promo' => 'string|max:2048',
+        'wishes' => 'required|string|max:2048',
     ]);
 
     if ($validator->fails()) {
@@ -119,10 +126,12 @@ class RequestsController extends Controller
       }
       else
       {
-        return back()->with('message','Ви ввели не вірні поля !');
+        //$res = ['res' => 'error', 'message' => 'Ви ввели некоректні дані!'];
+        return response()->json(array('error' => 'yes', 'message' => 'Ви ввели некоректні дані!'), 200);
       }
       
     }
+    else { $res = ['res' => 'ok', 'message' => 'Все добре!'];    }
 
     if ($id)
     {
@@ -135,6 +144,8 @@ class RequestsController extends Controller
       $r = $request->except('_token');
       
       $Requests = Requests::create($r);
+      //return json_encode($res);
+      return response()->json(array('error' => 'no', 'message' => 'Все добре!'), 200);
     }
     
     //ppr($r);
@@ -142,6 +153,17 @@ class RequestsController extends Controller
     
     return back();
   }
+  
+//  public function test()
+//  {
+//      
+//     $res['status'] = 'ok';
+//     $res['message'] ='';
+//     return json_encode($res);
+//      
+//  }
+  
+  
 
   public function change_status(Request $request) {
     $res = [];

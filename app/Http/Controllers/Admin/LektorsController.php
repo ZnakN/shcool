@@ -54,7 +54,7 @@ class LektorsController extends Controller
     $lektors = Lektors::find($id);
 
     if ($lektors == null) {
-      return view('errors.404', ['message' => 'Brand not found']);
+      return view('errors.404', ['message' => 'Lektor not found']);
     }
 
     return view('admin.lektors.edit', ['lektors' => $lektors]);

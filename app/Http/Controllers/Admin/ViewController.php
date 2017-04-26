@@ -37,7 +37,9 @@ class ViewController extends Controller
     public function viewDetails($url) {
 
      $training = Trainings::where('url',$url)->first();
-     
+     if ($training == null) {
+      return view('errors.404', ['message' => 'Training not found']);
+    }
   $lessons = DB::table('Lessons')->where('training_id' ,$training->id)->where('status', 1)->get();
  
   $lektors = DB::table('Lektors')->where('id' ,$training->lektor_id)->get();
