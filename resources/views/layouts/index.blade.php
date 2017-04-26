@@ -350,39 +350,6 @@
     /* ]]> */
     </script>
     
-<script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('/plugins/croppic/croppic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/plugins/holder/holder.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/js/img.js') }}" type="text/javascript"></script>
-
-    <script>
-window.Laravel = <?php echo json_encode([
-        'csrfToken' => csrf_token(),
-]); ?>
-</script>
-    
-    <script>
-$(function() {
-    $('#brands-table').DataTable({
-        "sDom": '<"top">t<"bottom"<"clear">>',
-        processing: true,
-        serverSide: true,
-        language : rus_lang,
-       ajax: '{!! url('/admin/viewTrainings/users_data') !!}',
-        columns: [
-//            { data: 'id', name: 'id' },
-            { data: 'name', name: 'name' },
-//            { data: 'begin_date', name: 'begin_date' },
-//            { data: 'end_date', name: 'end_date' },
-//            { data: 'image', name: 'image' },
-//            { data: 'lektor_id', name: 'lektor_id' },
-            { data: 'status', name: 'status' },
-            { data: 'action', name: 'action', orderable: false, searchable: false}
-        ]
-    });   
-});
-</script>
     
     
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">

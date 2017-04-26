@@ -15,7 +15,20 @@
                             <th>Название тренинга</th>
                             <th>Статус</th>
                             <th>Детали</th>
+                            
                           </tr>
+                          
+                             @foreach ($trainings as $training)
+                             <tr>
+                            <td>{{$training->name}}</td>
+                            @if($training->status==1) <td>Активнен </td>
+                            @else <td>Неактивен </td>
+                            @endif
+                            <td> <a href="/viewTraining/{{$training->url}}" class="btn">Детальніше</a> </td>
+                            </tr>
+                            @endforeach 
+                         
+                          
                         </thead>
                       </table>
 <!--    <table class="table-responsive table-striped timetable__table">
