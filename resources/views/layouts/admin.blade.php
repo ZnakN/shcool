@@ -53,6 +53,10 @@ desired effect
   }
 } ;
 </script>  
+
+
+
+
 <body class="skin-blue sidebar-mini">
 <div id="app">
     <div class="wrapper">
@@ -69,6 +73,15 @@ desired effect
             <!-- Your Page Content Here -->
             @yield('main-content')
         </section><!-- /.content -->
+        <br/>
+        <br/>
+        <br/>
+        <br/><br/>
+        <br/>
+        <br/>
+        <br/><br/>
+        
+        
     </div><!-- /.content-wrapper -->
 
     @include('layouts.partials.controlsidebar')
