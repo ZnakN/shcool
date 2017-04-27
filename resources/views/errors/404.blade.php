@@ -45,7 +45,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <h3 class="title"><b>Error</b> : {{$message}}</h3>
+                <h3 class="title">Такой страницы не существует</h3>
                 <div class="title2"><a href="{{url('/')}}">{{url('/')}}</a></div>
             </div>
         </div>
