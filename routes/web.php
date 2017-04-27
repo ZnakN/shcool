@@ -59,6 +59,10 @@ Route::get('/admin/viewTrainings/view/{url}', 'Admin\ViewController@viewDetails'
 // =========================== add request =============================================
 Route::get('/admin/requests', 'Admin\RequestsController@index');
 Route::get('/admin/requests/users_data', 'Admin\RequestsController@anyData');
+
+Route::get('/admin/requests/export', 'Admin\RequestsController@viewExport');
+Route::get('/admin/requests/makeExport', 'Admin\RequestsController@makeExport');
+
 Route::get('/admin/requests/edit/{id}', 'Admin\RequestsController@edit');
 Route::post('/admin/requests/update', 'Admin\RequestsController@update');
 Route::post('/admin/requests/change_status', 'Admin\RequestsController@change_status');

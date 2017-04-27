@@ -16,8 +16,9 @@
         "yajra/laravel-datatables-oracle":"*",
         "acacha/admin-lte-template-laravel": "3.*",
         "unisharp/laravel-filemanager": "^1.7",
-        "unisharp/laravel-ckeditor": "^4.6"
-          
+        "unisharp/laravel-ckeditor": "^4.6",
+        "phpexcel/phpexcel": "dev-master"
+        
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

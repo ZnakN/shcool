@@ -30,6 +30,7 @@
                           </tr>
                         </thead>
                       </table>
+ <a href="/admin/requests/export" class="btn btn-default" style="margin-bottom: 15px"  >Экпорт</a>
 <!--                       { data: 'id', name: 'id' },
             { data: 'description', name: 'description' },
             { data: 'begin_date', name: 'begin_date' },

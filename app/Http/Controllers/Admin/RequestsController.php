@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\File;
 use Validator;
 use DB;
 use View;
+use PHPExcel; 
+use PHPExcel_IOFactory;
 
 class RequestsController extends Controller
 {
@@ -189,5 +191,71 @@ class RequestsController extends Controller
 
     return json_encode($res);
   }
-       
+     
+  public function viewExport() {
+        $requests = Requests::all();
+       return view('admin.exportExcel.viewExport')->with(['requests' =>$requests]);
+  }
+
+  public function makeExport() {
+       $requests = Requests::all();
+
+
+$objPHPExcel = new PHPExcel();
+$objPHPExcel->getProperties()->setCreator("Admin") 
+                             ->setTitle("Заявки")
+                             ->setSubject("Office 2007 XLSX  Document")
+                             ->setDescription("Просмотр заявок.")
+                             ->setKeywords("office 2007  php")
+                             ->setCategory("Заявки");
+
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Id')
+            ->setCellValue('B1', 'Имя фамилия отчество')
+            ->setCellValue('C1', 'Название фирмы')
+            ->setCellValue('D1', 'Номер телефона')
+            ->setCellValue('E1', 'E_mail')
+            ->setCellValue('F1', 'Тренинг')
+            ->setCellValue('G1', 'Статус')
+            ->setCellValue('H1', 'Пожелания')
+            ->setCellValue('I1', 'Подарок')
+            ->setCellValue('J1', 'Сфера деятельности')
+            ->setCellValue('K1', 'Какие уроки посетить')
+            ->setCellValue('L1', 'Оплачено')
+            ->setCellValue('M1', 'Скидка')
+            ->setCellValue('N1', 'Промо-код')
+            ->setCellValue('O1', 'Способ оплаты')
+        ;
+
+for ($i = 2; $i<=count($requests)+1; $i++)
+{
+    $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue("A{$i}", $requests[$i-2]->id)
+            ->setCellValue("B{$i}", $requests[$i-2]->PIB)
+            ->setCellValue("C{$i}", $requests[$i-2]->company_name)
+            ->setCellValue("D{$i}", $requests[$i-2]->phone_number)
+            ->setCellValue("E{$i}", $requests[$i-2]->E_mail)         
+            ->setCellValue("F{$i}", $requests[$i-2]->training_id)
+            ->setCellValue("G{$i}", $requests[$i-2]->status)           
+            ->setCellValue("H{$i}", $requests[$i-2]->wishes)
+            ->setCellValue("I{$i}", $requests[$i-2]->present)
+            ->setCellValue("J{$i}", $requests[$i-2]->sphere)
+            ->setCellValue("K{$i}", $requests[$i-2]->lessons_to_visit) 
+            ->setCellValue("L{$i}", $requests[$i-2]->payed)
+            ->setCellValue("M{$i}", $requests[$i-2]->discount)
+            ->setCellValue("N{$i}", $requests[$i-2]->promo)
+            ->setCellValue("O{$i}", $requests[$i-2]->way_to_pay)           
+                    ;
+}
+
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="RequestsExcel.xlsx"');
+header('Cache-Control: max-age=0');
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter->save('php://output'); 
+//return true;
+  }
+
+
+  
 }
