@@ -33,7 +33,7 @@
         <ul class="sidebar-menu">
             <li class="header">Меню</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>На сайт</span></a></li>
+            <li class="active"><a href="{{ url('/') }}"><i class='fa fa-link'></i> <span>На сайт</span></a></li>
             <li class=""><a href="{{ url('admin/users') }}"><i class='fa fa-link'></i> <span>Пользователи</span></a></li>
             <li class=""><a href="{{ url('admin/brands') }}"><i class='fa fa-link'></i> <span>Бренды</span></a></li>
             <li class=""><a href="{{ url('admin/trainings') }}"><i class='fa fa-link'></i> <span>Тренинги</span></a></li>

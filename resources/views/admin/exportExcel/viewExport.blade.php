@@ -7,13 +7,32 @@
 				<div class="panel panel-default">
                   <div class="panel-heading">Экпорт в Excel</div>
 
-		  <div >
+                  
+                  
+		  <div style="padding:5px;">
                     <p>
                      Записей: {{count($requests)}}
                     </p>
-                    <a class="btn btn-primary btn-lg" id='export' href="/admin/requests/makeExport" target="_blank">Экспортировать в Excel</a>
+                  
+                    <form action="/admin/requests/makeExport" method="post" role="form" enctype="multipart/form-data" target="_blank">
+                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                     <div class="form-group">
+                          <label for="name">Экпорт с даты</label>
+                          <input type="date" class="form-control" value=""  id="begin_date"  name="begin_date" >
+                        </div>
+                             
+                        <div class="form-group">
+                          <label for="name">Экспорт по дату</label>
+                          <input type="date" class="form-control" value=""  id="end_date"  name="end_date" >
+                        </div>
+                        
+                         <input type="submit" class="btn btn-default" value="Экспортировать в Excel"> <a href="/admin/requests" class="btn btn-default"  >Назад</a>
+                    </form>
+                    
+                    <!--<a class="btn btn-default" id='export' href="/admin/requests/makeExport" target="_blank">Экспортировать в Excel</a>-->  
+                   
                  </div>
-                  <a href="/admin/requests" class="btn btn-default" style="margin-bottom: 15px"  >Назад</a>
+                
 					</div>
 				</div>
 			</div>

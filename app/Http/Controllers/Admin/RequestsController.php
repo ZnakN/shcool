@@ -197,10 +197,115 @@ class RequestsController extends Controller
        return view('admin.exportExcel.viewExport')->with(['requests' =>$requests]);
   }
 
-  public function makeExport() {
-       $requests = Requests::all();
+  
+  
+  
+  public function makeExport(Request $request) {
+     // dump($request->begin_date);
+     // dump($request->end_date);
 
+       $validator = Validator::make($request->all(), [
+        'begin_date' => 'date',
+        'end_date' =>'date|after:begin_date',    
+    ]);
 
+    if ($validator->fails()) {
+        return back();
+    }
+      
+       //$requests = Requests::all();
+   //  $requests =  DB::table('requests')->get();
+       $trainings = Trainings::all();
+        
+        if($request->begin_date != "")
+        {
+           
+            if($request->end_date != "")
+            {
+                 $requests = DB::table('requests')->whereBetween('created_at', [$request->begin_date.' 00:00:00', $request->end_date.' 23:59:59'])->get();
+            }
+             else {
+                $requests = DB::table('requests')->where('created_at', '>=', $request->begin_date.' 00:00:00')->get();
+                }
+        }
+        else
+        {
+            if($request->end_date != "")
+            {
+                
+                 $requests = DB::table('requests')->where('created_at', '<=', $request->end_date.' 23:59:59')->get();
+            }
+            else 
+            {
+                $requests =  DB::table('requests')->get();
+            }
+        }
+        
+       // $test = DB::table('requests')->where('created_at', '>=', $request->begin_date)->where('created_at', '<=', $request->end_date)->get();
+       // dump($requests);
+        
+$names = [];
+        for ($i = 0; $i<count($requests); $i++)
+    {
+            for ($j = 0; $j<count($trainings); $j++)
+            {
+         if($requests[$i]->training_id == $trainings[$j]->id  )
+         {
+             $names[$i] = $trainings[$j]->name;
+         }
+             }
+    }
+
+    
+    $status = [];
+    $present = [];
+    $payed =[];
+    $discount = [];
+    for ($i = 0; $i<count($requests); $i++)
+    {
+         if($requests[$i]->status == 1  )
+         {
+             $status[$i] = "Активный";
+         }
+         else
+         {
+             $status[$i] = "Пассивный";
+         }
+         
+         if($requests[$i]->present == 1  )
+         {
+             $present[$i] = "Да";
+         }
+         else
+         {
+             $present[$i] = "Нет";
+         }
+         
+         if($requests[$i]->payed == 1  )
+         {
+             $payed [$i] = "Да";
+         }
+         else
+         {
+             $payed [$i] = "Нет";
+         }
+         
+         if($requests[$i]->discount == 1  )
+         {
+             $discount [$i] = "Есть";
+         }
+         else
+         {
+             $discount [$i] = "Нету";
+         }
+         
+    }
+    
+//    dump($status);
+//    dump($present);  
+//    dump($payed);
+//    dump($discount);
+ 
 $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()->setCreator("Admin") 
                              ->setTitle("Заявки")
@@ -225,6 +330,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('M1', 'Скидка')
             ->setCellValue('N1', 'Промо-код')
             ->setCellValue('O1', 'Способ оплаты')
+            ->setCellValue('P1', 'Дата регистрации') 
         ;
 
 for ($i = 2; $i<=count($requests)+1; $i++)
@@ -235,16 +341,17 @@ for ($i = 2; $i<=count($requests)+1; $i++)
             ->setCellValue("C{$i}", $requests[$i-2]->company_name)
             ->setCellValue("D{$i}", $requests[$i-2]->phone_number)
             ->setCellValue("E{$i}", $requests[$i-2]->E_mail)         
-            ->setCellValue("F{$i}", $requests[$i-2]->training_id)
-            ->setCellValue("G{$i}", $requests[$i-2]->status)           
+            ->setCellValue("F{$i}", $names[$i-2])
+            ->setCellValue("G{$i}", $status[$i-2])           
             ->setCellValue("H{$i}", $requests[$i-2]->wishes)
-            ->setCellValue("I{$i}", $requests[$i-2]->present)
+            ->setCellValue("I{$i}", $present[$i-2])
             ->setCellValue("J{$i}", $requests[$i-2]->sphere)
             ->setCellValue("K{$i}", $requests[$i-2]->lessons_to_visit) 
-            ->setCellValue("L{$i}", $requests[$i-2]->payed)
-            ->setCellValue("M{$i}", $requests[$i-2]->discount)
+            ->setCellValue("L{$i}", $payed[$i-2])
+            ->setCellValue("M{$i}", $discount[$i-2])
             ->setCellValue("N{$i}", $requests[$i-2]->promo)
-            ->setCellValue("O{$i}", $requests[$i-2]->way_to_pay)           
+            ->setCellValue("O{$i}", $requests[$i-2]->way_to_pay)     
+            ->setCellValue("P{$i}", $requests[$i-2]->created_at) 
                     ;
 }
 
@@ -253,7 +360,7 @@ header('Content-Disposition: attachment;filename="RequestsExcel.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output'); 
-//return true;
+
   }
 
 

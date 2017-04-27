@@ -31,8 +31,8 @@ class IndexController extends Controller
   public function index()
   {
        $trainings = Trainings::select(['id','name','begin_date','end_date','url','type'])->get();
-       $lektors = Lektors::select(['id','name_surname'])->get();
-     //  dump($trainings);
+       $lektors = Lektors::select()->get(['id','name_surname','description','image']);
+     //  dump($trainings); 
     return view('index')->with(['trainings' =>$trainings, 'lektors' => $lektors]);
   }
   
