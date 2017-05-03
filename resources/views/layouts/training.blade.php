@@ -29,7 +29,7 @@
         <div class="row header-row">
             <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4">
                 <div class="header-circle">
-                    <div class="header-date">{{ date('j',strtotime($training->begin_date))}}  - {{ date('j F',strtotime($training->end_date))}}</div>
+                    <div class="header-date">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
                     <div class="header-school-name">Etiquette School</div>
                     <div class="header-event-topic">{{$training->name}}</div>
                     <div class="header-contact">(044) 466-74-76 <br> info@etiqschool.com.ua</div>
@@ -50,7 +50,7 @@
     
     
         <article class="registration-form">
-        <h3>Заповніть данні для реєстрації на курс</h3>
+        <h3>Заповніть данні для реєстрації на курс </h3>
         <!-- ============================== form =================================================================================== -->
 <!--        form action="/admin/requests/update" method="post" role="form" enctype="multipart/form-data"-->
         <form enctype="multipart/form-data" id="form" >
@@ -68,6 +68,7 @@
                     <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input red-border"><br>
                     <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
                     <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input"><br>
+                    <div id="lektions_count" >
                     <div class="label-title"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
                     
                     
@@ -85,6 +86,7 @@
                     <label class="checkbox-label"><input class="lessons" type="checkbox" id="another_check" name="lessons_to_visit" value="Інше"> Інше
                         <input type="text" id="other" class="text-input-other">
                     </label>
+                    </div>
                     
                 </div>
                 
@@ -179,16 +181,27 @@ $("#form").submit(function(e)
 {
         
  e.preventDefault(e);
- $('#globalError').hide();
-  $('#errPIB').hide(); 
-    $('#errcompany_name').hide();  
-   $('#errE_mail').hide(); 
-   $('#errphone_number').hide();  
-  $('#errwishes').hide(); 
-   $('#errshpere').hide(); 
-   $('#errlessons_to_visit').hide(); 
-  $('#errway').hide();  
+ $('#name').css("border-color", "#e0e0e0"); 
+ $('#company').css("border-color", "#e0e0e0");
+ $('#email').css("border-color", "#e0e0e0"); 
+ $('#phone').css("border-color", "#e0e0e0");
+ $('#wishes').css("border-color", "#e0e0e0");
+ $('#scope').css("border-color", "#e0e0e0");
+ $('#other').css("border-color", "#e0e0e0");
+ $("#way_to_pay").css("border-color", "#e0e0e0");
+ $("#lektions_count").css("border", "none");
+
+// $('#globalError').hide();
+//  $('#errPIB').hide(); 
+//    $('#errcompany_name').hide();  
+//   $('#errE_mail').hide(); 
+//   $('#errphone_number').hide();  
+//  $('#errwishes').hide(); 
+//   $('#errshpere').hide(); 
+//   $('#errlessons_to_visit').hide(); 
+//  $('#errway').hide();  
  //url = asset('/admin/requests/update');
+ 
  url = $('#urL').val();
  if(($('#promocode').val()!=null)&&($('#promocode').val()!=""))
  {
@@ -220,16 +233,16 @@ $("#form").submit(function(e)
       {
 lessons_to_visit = $('#other').val();
       }
-   
+//   $('#errPIB').show(); a = 1;
       var a = 0;
-    if($('#name').val()=='') { $('#errPIB').show(); a = 1;  }
-    if($('#company').val()=='') { $('#errcompany_name').show(); a = 1;  }   
-    if($('#email').val()=='') { $('#errE_mail').show(); a = 1;  }
-    if($('#phone').val()=='') { $('#errphone_number').show(); a = 1;  }     
-    if($('#wishes').val()=='') { $('#errwishes').show(); a = 1;  }
-    if($('#scope').val()=='') { $('#errshpere').show(); a = 1;  }    
-    if(lessons_to_visit=='') { $('#errlessons_to_visit').show(); a = 1;  }
-    if(way_to_pay=='Виберіть спосіб оплати') { $('#errway').show(); a = 1;  }
+    if($('#name').val()=='') {  $('#name').css("border-color", "red");      }
+    if($('#company').val()=='') { $('#company').css("border-color", "red"); }   
+    if($('#email').val()=='') { $('#email').css("border-color", "red");     }
+    if($('#phone').val()=='') { $('#phone').css("border-color", "red");     }     
+    if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   }
+    if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    }    
+    if(lessons_to_visit=='') {  $("#lektions_count").css("border", "1px solid red");       }
+    if(way_to_pay=='Виберіть спосіб оплати') { $("#way_to_pay").css("border-color", "red");  }
         if(a==1)
         {
             

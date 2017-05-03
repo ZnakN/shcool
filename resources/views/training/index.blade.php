@@ -11,7 +11,7 @@
                 Адреса: <strong>{{$training->adress}}</strong><br>
                 Вартість курсу: <strong>{{$training->full_price}} грн.</strong> (Попередня оплата обов'язкова)<br>
                 Варість одного заняття: <strong>{{$training->one_price}} грн.</strong><br>
-            </p>
+              
         </div>
     </article>
     <article class="event-program">

@@ -85,7 +85,7 @@
       -->
       @foreach($trainings as $training)
       <tr>
-      <td><div class="table-date">{{ date('j',strtotime($training->begin_date))}}  - {{ date('j F',strtotime($training->end_date))}}</div> 
+      <td><div class="table-date">{{ date('j',strtotime($training->begin_date))}}  -  {{ $training->end_date }}  </div> 
            @for ($i = 0; $i < count($lektors); $i++)
           @if($lektors[$i]->id == $training->id) 
           {{$lektors[$i]->name_surname}}

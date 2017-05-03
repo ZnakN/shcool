@@ -66,7 +66,7 @@ return [
     | to any of the locales which will be supported by the application.
     |
    */
-  'locale' => 'en',
+  'locale' => 'uk',
   /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -168,6 +168,7 @@ return [
     Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
     Intervention\Image\ImageServiceProvider::class,
     Unisharp\Ckeditor\ServiceProvider::class,
+    Jenssegers\Date\DateServiceProvider::class,  
   ],
   /*
     |--------------------------------------------------------------------------
@@ -219,5 +220,6 @@ return [
     // 'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
     'Datatables' => Yajra\Datatables\Facades\Datatables::class,
     'Image' => Intervention\Image\Facades\Image::class,
+      'Date' => Jenssegers\Date\Date::class,
   ],
 ];

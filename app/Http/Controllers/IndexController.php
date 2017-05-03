@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\File;
 use Validator;
 use DB;
 use View;
+use Jenssegers\Date\Date;
 
 class IndexController extends Controller
 {
@@ -33,6 +34,16 @@ class IndexController extends Controller
        $trainings = Trainings::select(['id','name','begin_date','end_date','url','type'])->get();
        $lektors = Lektors::select()->get(['id','name_surname','description','image']);
      //  dump($trainings); 
+       
+
+//       , 'end_date'=> $end_date
+       
+       for ($i = 0; $i<count($trainings); $i++)
+       {
+  $trainings[$i]->end_date = strtotime($trainings[$i]->end_date);
+  $trainings[$i]->end_date = new Date($trainings[$i]->end_date);  
+  $trainings[$i]->end_date = $trainings[$i]->end_date->format('j F');
+       }
     return view('index')->with(['trainings' =>$trainings, 'lektors' => $lektors]);
   }
   
@@ -53,8 +64,13 @@ class IndexController extends Controller
 //{
 //    $view->with('training', $training);
 //});
-  
-  return view('training',['training'=>$training, 'lektor'=>$lektors, 'lessons'=>$lessons]);
+  $timestamp = strtotime($training->end_date);
+  $end_date = new Date($timestamp);
+  $end_date = $end_date->format('j F');
+ // $end_date = strtotime($end_date);
+  //$teststr =  strstr($end_date, ' ', true);
+  //$teststr[0] =  strtoupper($teststr[0]);
+  return view('training',['training'=>$training, 'lektor'=>$lektors, 'lessons'=>$lessons, 'end_date'=> $end_date]);
   }
   
   public function update(Request $request) {

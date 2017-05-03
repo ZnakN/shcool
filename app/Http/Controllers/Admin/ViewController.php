@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Validator;
 use DB;
 use View;
+use Jenssegers\Date\Date;
 
 class ViewController extends Controller
 {

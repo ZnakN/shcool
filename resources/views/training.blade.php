@@ -1,16 +1,18 @@
-  @extends('layouts.training',  ['training' => $training, 'lessons'=>$lessons])
+  @extends('layouts.training',  ['training' => $training, 'lessons'=>$lessons, 'end_date'=>$end_date])
 
 @section('content')
 <article class="event-info">
         <h1>Реєстрація на курс з ділового етикету «{{$training->name}}»</h1>
-        <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ date('j F',strtotime($training->end_date))}}</div>
+        <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date}}</div>
         <div>
            {{$training->name}}
-                Дата та час: <strong>{{ date('j',strtotime($training->begin_date))}}  - {{ date('j F',strtotime($training->end_date))}} включно, з {{ date('H:i',strtotime($training->time_from))}} до {{date('H:i',strtotime($training->time_to))}}</strong><br>
+                Дата та час: <strong>{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date }} включно, з {{ date('H:i',strtotime($training->time_from))}} до {{date('H:i',strtotime($training->time_to))}}</strong><br>
                 Місце проведення: <strong>{{$training->adress_where}}</strong><br>
                 Адреса: <strong>{{$training->adress}}</strong><br>
                 Вартість курсу: <strong>{{$training->full_price}} грн.</strong> (Попередня оплата обов'язкова)<br>
                 Варість одного заняття: <strong>{{$training->one_price}} грн.</strong><br>
+                 
+<!--                 Date::createFromDate($training->end_date)->format('j-F')-->
             </p>
         </div>
     </article>
