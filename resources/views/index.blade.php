@@ -3,26 +3,47 @@
 @section('content')
 
 <div class="lectors">
-      <div class="container">
-        <div class="logo-container">
-          <h2 class="logo">Etiquette School</h2>
-          <h3 class="topic">Наші лектори</h3>
-        </div>
-          @foreach($lektors as $lektor)
-        <div class="row lectors__row">
-          <div class="col-md-4 col-center-content">
-            <img src="{{$lektor->image}}" alt="{{$lektor->name_surname}}" style="border-radius: 50%; height:260px; width:260px;">
-            <h4 class="lectors__name">{{$lektor->name_surname}}</h4>
-          </div>
-          <div class="col-md-8">
-            {{strip_tags($lektor->description)}}
-          </div>
-        </div>
-          @endforeach
-          
-        
+  <div class="container">
+    <div class="logo-container">
+      <h2 class="logo">Etiquette School</h2>
+      <h3 class="topic">Наші лектори</h3>
+    </div>
+    <div class="row lectors__row">
+      <div class="col-md-4 col-center-content">
+        <img src="img/adamenko.png" alt="НАТАЛІЯ АДАМЕНКО">
+        <h4 class="lectors__name">НАТАЛІЯ АДАМЕНКО</h4>
       </div>
-    </div><!--
+      <div class="col-md-8">
+        <p>Експерт з етикету і дипломатичним протоколом, професійний бізнес-тренер</p>
+        <p>Посол Миру Міжнародної федерації світу, Активний діяч науки і мистецтва України</p>
+        <p>Переможець премії "Жінка року 2015"</p>
+        <p>Відома по проектам на 1 + 1 "Від пацанки до панянки", "Школа джентльменів", Експерт телепередачі "Легко бути жінкою"</p>
+      </div>
+    </div>
+    <div class="row lectors__row">
+      <div class="col-md-4 col-center-content">
+        <img src="img/safarov.png" alt="ФАРІД САФАРОВ">
+        <h4 class="lectors__name">ФАРІД САФАРОВ</h4>
+      </div>
+      <div class="col-md-8">
+        <p>Дипломат, фахівець з міжнародного права і міжнародної економіки, засновник і виконавчий директор Morisise Bank</p>
+        <p>Член Федерації Дебатів України</p>
+        <p>Фіналіст Міжнародного Оксфордського дебатного турніру, фіналіст Національного раунду Міжнародного судового конкурсу з права Світової організації торгівлі (СОТ)</p>
+      </div>
+    </div>
+    <div class="row lectors__row">
+      <div class="col-md-4 col-center-content">
+        <img src="img/cheremshinska.png" alt="НАТАЛІЯ ЧЕРЕМШИНСЬКА">
+        <h4 class="lectors__name">НАТАЛІЯ ЧЕРЕМШИНСЬКА</h4>
+      </div>
+      <div class="col-md-8">
+        <p>Викладач з ораторської майстерності та медіа-тренер</p>
+        <p>Автор понад 20 тренінгів, присвячених риториці, саморозвитку та комунікуції</p>
+        <p>Член міжнародної органїзації з постановки голосу і мови "Voice & Speech Trainers Association"</p>
+      </div>
+    </div>
+  </div>
+</div><!--
 
 -->    <div class="profit">
       <div class="container">
@@ -72,7 +93,7 @@
           @endfor
 
           «{{$training->name}}» <div class="table-subtext">{{$training->type}}</div></td>
-      <td><a href="/viewTraining/{{$training->url}}" target="_blank" class="btn" role="button">Детальніше</a></td>
+      <td><a href="/view/{{$training->url}}" target="_blank" class="btn" role="button">Детальніше</a></td>
       </tr>
       @endforeach 
       

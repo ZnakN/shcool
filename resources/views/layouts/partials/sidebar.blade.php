@@ -35,12 +35,12 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('/') }}"><i class='fa fa-link'></i> <span>На сайт</span></a></li>
             <li class=""><a href="{{ url('admin/users') }}"><i class='fa fa-link'></i> <span>Пользователи</span></a></li>
-            <li class=""><a href="{{ url('admin/brands') }}"><i class='fa fa-link'></i> <span>Бренды</span></a></li>
+            <li class=""><a href="{{ url('/admin/requests') }}"><i class='fa fa-link'></i> <span>Заявки</span></a></li>
             <li class=""><a href="{{ url('admin/trainings') }}"><i class='fa fa-link'></i> <span>Тренинги</span></a></li>
             <li class=""><a href="{{ url('admin/lessons') }}"><i class='fa fa-link'></i> <span>Уроки</span></a></li>
             <li class=""><a href="{{ url('admin/lektors') }}"><i class='fa fa-link'></i> <span>Лекторы</span></a></li>
-            <li class=""><a href="{{ url('admin/viewTrainings') }}"><i class='fa fa-link'></i> <span>Описание курсов</span></a></li>
-            <li class=""><a href="{{ url('/admin/requests') }}"><i class='fa fa-link'></i> <span>Заявки</span></a></li>
+            <!--li class=""><a href="{{ url('admin/viewTrainings') }}"><i class='fa fa-link'></i> <span>Описание курсов</span></a></li-->
+            
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

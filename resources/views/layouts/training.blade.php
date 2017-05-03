@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Реєстрація на курс з ділового етикету «Етикет знає як»</title>
+    <title>Etiquette school - Реєстрація на курс {{$training->meta_title}}</title>
+    <meta name="description" content="{{$training->meta_description}}">
+    <meta name="keywords" content="{{$training->meta_keywords}}">
 
     <link href="{{ asset('/css/trainings_css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/trainings_css/main.css') }}"/>
