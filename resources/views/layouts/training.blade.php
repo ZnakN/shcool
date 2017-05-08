@@ -62,6 +62,11 @@
                  <input type="hidden" name="training_id" id="training_id" value="{{ $training->id }}">
                  <input type="hidden" name="urL" id="urL" value="{{ asset('/update') }}">
                  
+                 <input type="hidden" name="urrL" id="urrL" value="{{ asset('/checkCode') }}">
+                 
+                  <input type="hidden" name="price_val" id="price_val" value="{{$training->full_price}}">
+                  <input type="hidden" name="price_val2" id="price_val2" value="{{$training->one_price}}">
+                  
                  
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <label for="PIB">ПІБ <span class="must-filled">*</span></label><label for="PIB" hidden="true" id="errPIB" class="errorValue">Ви не ввели це поле</label><br> 
@@ -112,11 +117,18 @@
             </div>
         <hr>
             <div class="to-pay">
-                <div class="amount-to-pay">Сума для оплати<br><span>{{$training->full_price}} грн</span></div>
+                <div class="amount-to-pay" >Сума для оплати<br><span><div id="paypaypay">{{$training->full_price}}</div> грн</span></div>
                 <label for="promocode" class="indent">Промо-код</label>
+                
+            
                 <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
-                <input type="submit" value="Перевірити"  class="check-promocode">
-                <div class="indent label-title">Промо-код не дійсний, можливо ви зробили помилку</div>
+                
+                
+             
+                <button  id="checkCode" class="check-promocode">Перевірити</button>
+               
+                
+                <div class="indent label-title" id="promo_message">Промо-код не дійсний, можливо ви зробили помилку</div>
                
                 <select name="way_to_pay" id="way_to_pay" required> 
                     <option disabled selected>Виберіть спосіб оплати</option>
@@ -139,8 +151,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="{{asset('trainings_images/close.png')}}"></button>
-                        <div class="modal-title" id="myModalLabel"><b>Ви зареєструвались на курс «Етикет знає як»</b></div>
-                        <div class="event-date">24-27 квітня</div>
+                        <div class="modal-title" id="myModalLabel"><b>Ви зареєструвались на курс «{{$training->name}}»</b></div>
+                        <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
                     </div>
                     <div class="modal-body">
                         Найближчим часом з Вами зв’яжеться менеджер для узгодження деталей.
@@ -177,6 +189,66 @@
     <script src="{{ asset('js/js/index.js')}}" type="text/javascript"></script>
         
     <script>
+        
+$("#checkCode").click(function(e)
+{
+  e.preventDefault(e);
+  var  url = $('#urrL').val();
+    
+     $.ajax({
+               method:'POST',
+               url:url,
+               headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+               data:{
+                   promo_code:$('#promocode').val(),
+                   id:$('#training_id').val()
+                    
+                },
+             beforeSend: function (xhr) {
+//            var token = $('meta[name="csrf_token"]').attr('content');
+//        if (token) {
+//                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+       },
+              success:function(data){
+                if(data.error =='no')
+                  {
+                  console.log(data.error);
+                  console.log(data.message);
+                  console.log(data.discount);
+                 
+                  $("#promo_message").css("color", "green");
+                  $("#promo_message").html(data.message);
+                  var sum =  ($("#paypaypay").html() - (($("#paypaypay").html()/100)*data.discount)).toFixed(2);
+                  var sum3 =  ($("#paypaypay3").html() - (($("#paypaypay3").html()/100)*data.discount)).toFixed(2);
+                  // console.log(sum);
+                  $("#paypaypay").html(sum);
+                  $("#paypaypay2").html(sum);
+                  $("#paypaypay3").html(sum3);
+                  }
+                  else
+                  {
+                  console.log('error');
+                  console.log('message');
+                  $("#paypaypay").html($('#price_val').val());
+                  $("#paypaypay2").html($('#price_val').val());
+                  $("#paypaypay3").html($('#price_val2').val());
+                  $("#promo_message").css("color", "red");
+                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');  
+                  }
+              },
+              error:function(data) { 
+//                  var errors = data.responseJSON;
+//                  console.log(errors);
+alert('error');
+    }      
+          });
+});           
+        
+        
+        
+        
 $("#form").submit(function(e)
 {
         
@@ -235,14 +307,14 @@ lessons_to_visit = $('#other').val();
       }
 //   $('#errPIB').show(); a = 1;
       var a = 0;
-    if($('#name').val()=='') {  $('#name').css("border-color", "red");      }
-    if($('#company').val()=='') { $('#company').css("border-color", "red"); }   
-    if($('#email').val()=='') { $('#email').css("border-color", "red");     }
-    if($('#phone').val()=='') { $('#phone').css("border-color", "red");     }     
-    if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   }
-    if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    }    
-    if(lessons_to_visit=='') {  $("#lektions_count").css("border", "1px solid red");       }
-    if(way_to_pay=='Виберіть спосіб оплати') { $("#way_to_pay").css("border-color", "red");  }
+    if($('#name').val()=='') {  $('#name').css("border-color", "red");   a=1;   }
+    if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
+    if($('#email').val()=='') { $('#email').css("border-color", "red");     a=1; }
+    if($('#phone').val()=='') { $('#phone').css("border-color", "red");    a=1;  }     
+    if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
+    if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
+    if(lessons_to_visit=='') {  $("#lektions_count").css("border", "1px solid red");     a=1;   }
+    if(way_to_pay=='Виберіть спосіб оплати') { $("#way_to_pay").css("border-color", "red");  a=1; }
         if(a==1)
         {
             
@@ -284,13 +356,37 @@ lessons_to_visit = $('#other').val();
                   {
                   console.log(data.error);
                   console.log(data.message);
+                  
+                 if(data.message=='Промо-код не дійсний, можливо ви зробили помилку')
+                 {
+                  $("#promo_message").css("color", "red");
+                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');  
+                  $("#paypaypay").html($('#price_val').val());
+                  $("#paypaypay2").html($('#price_val').val());
+                  $("#paypaypay3").html($('#price_val2').val());
+                 }
+                             else
+                             {
                   $('#globalError').show();
                   $('#globalError').html(data.message);
+                             }
                   }
                   else
                   {
                   console.log(data.error);
                   console.log(data.message);
+                  console.log(data.discount);
+                  if(data.discount !='')
+                  {
+                  $("#promo_message").css("color", "green");
+                  $("#promo_message").html('Промо-код дійсний');
+                  }
+                  var sum =  ($("#paypaypay").html() - (($("#paypaypay").html()/100)*data.discount)).toFixed(2);
+                  var sum3 =  ($("#paypaypay3").html() - (($("#paypaypay3").html()/100)*data.discount)).toFixed(2);
+                  // console.log(sum);
+                  $("#paypaypay").html(sum);
+                  $("#paypaypay2").html(sum);
+                  $("#paypaypay3").html(sum3);
                   $('#openModal').click();
                   }
 
@@ -307,8 +403,9 @@ lessons_to_visit = $('#other').val();
  
  
 });
-            
-            
+        
+        
+       
     </script>
 </body>
 </html>

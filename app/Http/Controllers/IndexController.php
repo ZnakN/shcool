@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Trainings;
 use App\Models\Lektors;
+use App\Models\Discounts;
 use App\Models\Lessons;
 use App\Models\Requests;
 use Yajra\Datatables\Facades\Datatables;
@@ -78,7 +79,8 @@ class IndexController extends Controller
     $id = $request->input('id', '');
 //dump($request);
     $res = [];
-    
+    $a=0;
+    $disc = '';
     $validator = Validator::make($request->all(), [
         'PIB' => 'required|string|max:1024',
         'company_name' =>'required|string|max:1024',
@@ -104,8 +106,39 @@ class IndexController extends Controller
       }
       
     }
+    
+    else 
+        if( $request->input('promo') != '' )
+    {
+        
+        $discounts = Discounts::select(['id','training_id','code','value','status'])->get();
+          for ($i = 0; $i<count($discounts); $i++)
+         {
+           if($request->input('training_id') == $discounts[$i]->training_id)
+           {
+               if($request->input('promo') == $discounts[$i]->code)
+               {
+                   if($discounts[$i]->status == 1)
+                   {
+                       
+                    $a=1;
+                    $disc = $discounts[$i]->value;
+                   $discountWhere = Discounts::find($discounts[$i]->id);
+                   $discountWhere->status = 2;
+                   $discountWhere->save();
+                   
+                   }
+               }
+           }
+         }
+        if($a!=1)
+        {
+             return response()->json(array('error' => 'yes', 'message' => 'Промо-код не дійсний, можливо ви зробили помилку' ), 200);
+        }    
+    }
     else { $res = ['res' => 'ok', 'message' => 'Все добре!'];    }
 
+    
     if ($id)
     {
       $Requests = Requests::find($id);
@@ -114,11 +147,21 @@ class IndexController extends Controller
     }
     else
     {
+    
       $r = $request->except('_token');
       
       $Requests = Requests::create($r);
+      
+      if($disc!='')
+      {
+    $idd =  DB::table('requests')->max('id');
+    $rr = Requests::find($idd);
+    $rr->discount_value = $disc;
+    $rr->save();
+      }
+    
       //return json_encode($res);
-      return response()->json(array('error' => 'no', 'message' => 'Все добре!'), 200);
+      return response()->json(array('error' => 'no', 'message' => 'Все добре!', 'discount' => $disc), 200);
     }
     
     //ppr($r);
@@ -127,5 +170,26 @@ class IndexController extends Controller
     return back();
   }
   
+  
+  public function checkCode(Request $request) {
+      $discounts = Discounts::select(['id','training_id','code','value','status'])->get();
+       $id = $request->input('id', '');
+       $promo = $request->input('promo_code', '');
+      
+       for ($i = 0; $i<count($discounts); $i++)
+       {
+           if($id == $discounts[$i]->training_id)
+           {
+               if($promo == $discounts[$i]->code)
+               {
+                   if($discounts[$i]->status == 1)
+                   {
+                    return response()->json(array('error' => 'no', 'message' => 'Промо-код дійсний', 'discount' => $discounts[$i]->value ), 200);
+                   }
+               }
+           }
+       }
+      
+  }
   
 }

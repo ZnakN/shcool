@@ -331,6 +331,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('N1', 'Промо-код')
             ->setCellValue('O1', 'Способ оплаты')
             ->setCellValue('P1', 'Дата регистрации') 
+            ->setCellValue('Q1', 'Размер скидки') 
         ;
 
 for ($i = 2; $i<=count($requests)+1; $i++)
@@ -352,6 +353,7 @@ for ($i = 2; $i<=count($requests)+1; $i++)
             ->setCellValue("N{$i}", $requests[$i-2]->promo)
             ->setCellValue("O{$i}", $requests[$i-2]->way_to_pay)     
             ->setCellValue("P{$i}", $requests[$i-2]->created_at) 
+            ->setCellValue("Q{$i}", $requests[$i-2]->discount_value)         
                     ;
 }
 

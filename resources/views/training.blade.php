@@ -9,8 +9,8 @@
                 Дата та час: <strong>{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date }} включно, з {{ date('H:i',strtotime($training->time_from))}} до {{date('H:i',strtotime($training->time_to))}}</strong><br>
                 Місце проведення: <strong>{{$training->adress_where}}</strong><br>
                 Адреса: <strong>{{$training->adress}}</strong><br>
-                Вартість курсу: <strong>{{$training->full_price}} грн.</strong> (Попередня оплата обов'язкова)<br>
-                Варість одного заняття: <strong>{{$training->one_price}} грн.</strong><br>
+                Вартість курсу: <strong><div id="paypaypay2">{{$training->full_price}}</div> грн.</strong> (Попередня оплата обов'язкова)<br>
+                Варість одного заняття: <strong><div id="paypaypay3">{{$training->one_price}}</div> грн.</strong><br>
                  
 <!--                 Date::createFromDate($training->end_date)->format('j-F')-->
             </p>
