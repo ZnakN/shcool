@@ -32,7 +32,7 @@ class IndexController extends Controller
   
   public function index()
   {
-       $trainings = Trainings::select(['id','name','begin_date','end_date','url','type'])->get();
+       $trainings = Trainings::select(['id','name','begin_date','end_date','url','type'])->where(['status'=>1])->get();
        $lektors = Lektors::select()->get(['id','name_surname','description','image']);
      //  dump($trainings); 
        
