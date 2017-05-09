@@ -128,12 +128,12 @@
                 <button  id="checkCode" class="check-promocode">Перевірити</button>
                
                 
-                <div class="indent label-title" id="promo_message" style="display:none"  >Промо-код не дійсний, можливо ви зробили помилку</div>
+                <div class="indent label-title" id="promo_message"  ></div>
                
                 <select name="way_to_pay" id="way_to_pay" required> 
-                    <option disabled selected>Виберіть спосіб оплати</option>
-                    <option value="cash">Готівкою</option>
-                    <option value="bankCard">Банківською карткою</option>
+                    <option disabled >Виберіть спосіб оплати</option>
+                    <option value="cash selected">Готівкою</option>
+                    <!--option value="bankCard">Банківською карткою</option-->
                 </select> <label  hidden="true" id="errway" class="errorValue">Ви не вказали спосіб оплати</label><br>
               
 <!--                  <input type="submit" class="btn-footer btn btn-primary"  value="Далі" > -->
@@ -235,7 +235,8 @@ $("#checkCode").click(function(e)
                   $("#paypaypay2").html($('#price_val').val());
                   $("#paypaypay3").html($('#price_val2').val());
                   $("#promo_message").css("color", "red");
-                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');  
+                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                  $("#promo_message").show();
                   }
               },
               error:function(data) { 
@@ -360,7 +361,8 @@ lessons_to_visit = $('#other').val();
                  if(data.message=='Промо-код не дійсний, можливо ви зробили помилку')
                  {
                   $("#promo_message").css("color", "red");
-                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');  
+                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                  $("#promo_message").show();
                   $("#paypaypay").html($('#price_val').val());
                   $("#paypaypay2").html($('#price_val').val());
                   $("#paypaypay3").html($('#price_val2').val());

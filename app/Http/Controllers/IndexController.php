@@ -187,10 +187,14 @@ class IndexController extends Controller
       
 $discounts = Discounts::select(['id','training_id','code','value','status'])->where('training_id', $id)->where('code', $promo)->where('status', 1)->first();
        
-if ($discounts!=null)
-{
+ if ($discounts!=null)
+ {
     return response()->json(array('error' => 'no', 'message' => 'Промо-код дійсний', 'discount' => $discounts->value ), 200);
-}
+ }
+ else 
+ {
+    return response()->json(array('error' => 'yes', 'message' => 'Промо-код не дійсний', 'discount' => 0), 200);
+ }
 //       for ($i = 0; $i<count($discounts); $i++)
 //       {
 //           if($id == $discounts[$i]->training_id)
