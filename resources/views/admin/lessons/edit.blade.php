@@ -56,7 +56,7 @@
                           </span>
                           <input id="thumbnail" class="form-control" type="text" @if ($lesson->image) value="{{$lesson->image}}" @endif   name="image">
                         </div>
-                        <img id="holder" @if ($lesson->image) src="{{$trainings->image}}" @endif   style="margin-top:15px;max-height:100px;">
+<img id="holder" @if ($lesson->image) src="{{$lesson->image}}" @endif   style="margin-top:15px;max-height:100px;">
                              
                        
                          <div class="form-group">
