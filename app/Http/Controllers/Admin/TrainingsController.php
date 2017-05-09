@@ -48,7 +48,7 @@ class TrainingsController extends Controller
         return $status;
       })
               ->addColumn('lektor_id', function($training) {
-        $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
+        $lektors = DB::table('lektors')->select('name_surname', 'id')->get();
         for ($i=0; $i<count($lektors); $i++)
         {
             if($training->lektor_id == $lektors[$i]->id)

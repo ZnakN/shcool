@@ -68,7 +68,7 @@ class RequestsController extends Controller
 //        return $status;
 //    })
             ->addColumn('training_id', function($request) {
-        $trainings = DB::table('Trainings')->select('name', 'id')->get();
+        $trainings = DB::table('trainings')->select('name', 'id')->get();
         for ($i=0; $i<count($trainings); $i++)
         {
             if($request->training_id == $trainings[$i]->id)
@@ -90,7 +90,7 @@ class RequestsController extends Controller
      if ($requests == null) {
       return view('errors.404', ['message' => 'Request not found']);
     }
-     $trainings = DB::table('Trainings')->select('name', 'id')->get();
+     $trainings = DB::table('trainings')->select('name', 'id')->get();
         for ($i=0; $i<count($trainings); $i++)
         {
             if($requests->training_id == $trainings[$i]->id)
