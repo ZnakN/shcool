@@ -55,9 +55,9 @@ class IndexController extends Controller
      if ($training == null) {
       return view('errors.404', ['message' => 'Training not found']);
     }
-  $lessons = DB::table('Lessons')->where('training_id' ,$training->id)->where('status', 1)->get();
+  $lessons = DB::table('lessons')->where('training_id' ,$training->id)->where('status', 1)->get();
  
-  $lektors = DB::table('Lektors')->where('id' ,$training->lektor_id)->get();
+  $lektors = DB::table('lektors')->where('id' ,$training->lektor_id)->get();
  // $lektor = $lektors[0];  //->name_surname
  // dump($lessons);
   

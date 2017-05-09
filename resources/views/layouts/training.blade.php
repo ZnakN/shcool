@@ -70,11 +70,11 @@
                  
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <label for="PIB">ПІБ <span class="must-filled">*</span></label><label for="PIB" hidden="true" id="errPIB" class="errorValue">Ви не ввели це поле</label><br> 
-                    <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input red-border"><br>
+                    <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input"><br>
                     <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
                     <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input"><br>
                     <div id="lektions_count" >
-                    <div class="label-title"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
+                    <div class="label-title1"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
                     
                     
                     <div class="simple-text">Обиріть один або декілька варіантів.</div>
@@ -128,7 +128,7 @@
                 <button  id="checkCode" class="check-promocode">Перевірити</button>
                
                 
-                <div class="indent label-title" id="promo_message">Промо-код не дійсний, можливо ви зробили помилку</div>
+                <div class="indent label-title" id="promo_message" style="display:none"  >Промо-код не дійсний, можливо ви зробили помилку</div>
                
                 <select name="way_to_pay" id="way_to_pay" required> 
                     <option disabled selected>Виберіть спосіб оплати</option>

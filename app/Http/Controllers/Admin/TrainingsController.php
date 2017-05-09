@@ -24,7 +24,7 @@ class TrainingsController extends Controller
   public function create()
   {
       $training = new Trainings;
-      $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
+      $lektors = DB::table('lektors')->select('name_surname', 'id')->get();
    
      return view('admin.trainings.edit',['trainings'=>$training, 'lektors'=>$lektors]);
   }
@@ -68,7 +68,7 @@ class TrainingsController extends Controller
   public function edit($id) {
 
     $training = Trainings::find($id);
-    $lektors = DB::table('Lektors')->select('name_surname', 'id')->get();
+    $lektors = DB::table('lektors')->select('name_surname', 'id')->get();
     if ($training == null) {
       return view('errors.404', ['message' => 'Training not found']);
     }
