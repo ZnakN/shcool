@@ -14,9 +14,14 @@ class Trainings extends Model
     ];
     
     public function setUrlAttribute($value) {
+     //dump($value);
       if (!$value)
+      {       
+        $this->attributes['url'] = $this->translit($this->attributes['name']); 
+      }
+      else
       {
-        $this->attributes['url'] = $this->translit($this->attributes['name']);
+          $this->attributes['url'] = preg_replace('/\s+/', '', $this->translit($value)); 
       }
     }    
     

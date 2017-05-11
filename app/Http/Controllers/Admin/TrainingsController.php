@@ -77,7 +77,7 @@ class TrainingsController extends Controller
   }
 
   public function update(Request $request) {
-   
+   //dump($request);
     $id = $request->input('id', '');
 //dump($request);
     $validator = Validator::make($request->all(), [
@@ -118,7 +118,7 @@ class TrainingsController extends Controller
     //ppr($r);
     //ppre($brand);
     
-    return redirect('/admin/trainings');
+   return redirect('/admin/trainings');
   }
 
   public function change_status(Request $request) {
