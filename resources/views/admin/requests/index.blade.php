@@ -25,8 +25,9 @@
                             <th>Сколько уроков</th>
 -->                            <th>Оплачено</th><!--
                             <th>Скидка</th>
--->                            <th>Статус</th><!--
--->                            <th>Действие</th>
+-->                            <th>Статус</th>
+                                <th>Время</th>
+                            <th>Действие</th>
                           </tr>
                         </thead>
                       </table>
@@ -70,6 +71,7 @@ $(function() {
             { data: 'payed', name: 'payed' },
 //            { data: 'discount', name: 'discount' },
             { data: 'status', name: 'status' },
+            { data: 'created_at', name: 'created_at' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ]
     });

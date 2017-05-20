@@ -42,7 +42,7 @@
                           @if($requests->status==1)    <tr>      <th>Статус</th>             <td>   Активнен </td>    </tr> 
                           @else  <tr>      <th>Статус</th>             <td>   Неактивен </td>    </tr>
                           @endif
-                           
+                            <tr>  <th>Время</th>  <td>   {{$requests->created_at}} </td> </tr>
                           </td>        
                         </thead>
                       </table>

@@ -4,13 +4,18 @@
 <article class="event-info">
         <h1>Реєстрація на курс з ділового етикету «{{$training->name}}»</h1>
         <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date}}</div>
+        <div style="white-space: pre-wrap">
+           
+            {{strip_tags($training->description)}}
+            
+        </div></br>
         <div>
-           {{$training->name}}
+<!--           {{$training->name}}-->
                 Дата та час: <strong>{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date }} включно, з {{ date('H:i',strtotime($training->time_from))}} до {{date('H:i',strtotime($training->time_to))}}</strong><br>
                 Місце проведення: <strong>{{$training->adress_where}}</strong><br>
                 Адреса: <strong>{{$training->adress}}</strong><br>
-                Вартість курсу: <strong><div id="paypaypay2">{{$training->full_price}}</div> грн.</strong> (Попередня оплата обов'язкова)<br>
-                Варість одного заняття: <strong><div id="paypaypay3">{{$training->one_price}}</div> грн.</strong><br>
+                Вартість курсу: <strong><span id="paypaypay2" >{{$training->full_price}}</span> грн.</strong> (Попередня оплата обов'язкова)</br>
+                Варість одного заняття: <strong><span id="paypaypay3">{{$training->one_price}}</span> грн.</strong><br>
                  
 <!--                 Date::createFromDate($training->end_date)->format('j-F')-->
             </p>
@@ -47,7 +52,7 @@
                 <div class="lecturer-name">{{$lektor[0]->name_surname}}</div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div>
+                <div style="white-space: pre-wrap">
                    {{strip_tags($lektor[0]->description)}}
                 </div>
             </div>
