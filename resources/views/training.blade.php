@@ -32,7 +32,7 @@
                     <div class="trainings top-line">
                         <span class="training">Заняття {{$j+1}}: </span><span class="training-topic">{{$lessons[$j]->name}}</span>
                         <br/>
-                       {{strip_tags($lessons[$j]->description)}}
+                       {!!$lessons[$j]->description!!}
                     </div>
                 </div>
            @endif
