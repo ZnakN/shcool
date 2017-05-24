@@ -4,9 +4,9 @@
 <article class="event-info">
         <h1>Реєстрація на курс з ділового етикету «{{$training->name}}»</h1>
         <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date}}</div>
-        <div style="white-space: pre-wrap">
+        <div>
            
-            {{strip_tags($training->description)}}
+            {!!$training->description!!}
             
         </div></br>
         <div>
@@ -52,8 +52,8 @@
                 <div class="lecturer-name">{{$lektor[0]->name_surname}}</div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div style="white-space: pre-wrap">
-                   {{strip_tags($lektor[0]->description)}}
+                <div >
+                   {!!$lektor[0]->description!!}
                 </div>
             </div>
         </div>

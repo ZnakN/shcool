@@ -18,7 +18,11 @@ class Lessons extends Model
       {
         $this->attributes['url'] = $this->translit($this->attributes['name']);
       }
-    }
+      else
+      {
+        $this->attributes['url'] = preg_replace('/\s+/', '', $this->translit($value));
+      }
+  }
 
     public function training()
     {

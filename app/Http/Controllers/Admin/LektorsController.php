@@ -42,7 +42,11 @@ class LektorsController extends Controller
       })->addColumn('status', function($lektor) {
         $status = ($lektor->status == 1) ? "<span id='s" . $lektor->id . "'>Активный</span>" : "<span id='s" . $lektor->id . "' >Заблокирован</span>";
         return $status;
-      })->addColumn('image',function($lektor)
+      })->addColumn('description',function($lector)
+        {
+          return mb_substr($lector->description,0,50).'...';
+        })
+        ->addColumn('image',function($lektor)
         {
            $image = ($lektor->image)&&(File::exists(public_path($lektor->image)))? "<img src='$lektor->image' alt='logo' width='150px' >":"";
            return $image;
