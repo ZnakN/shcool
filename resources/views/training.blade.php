@@ -2,7 +2,7 @@
 
 @section('content')
 <article class="event-info">
-        <h1>Реєстрація на курс з ділового етикету «{{$training->name}}»</h1>
+        <h1>{{$training->internal_title}}</h1>
         <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date}}</div>
         <div>
            

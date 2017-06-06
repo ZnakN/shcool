@@ -83,13 +83,13 @@ class IndexController extends Controller
     $disc = '';
     $validator = Validator::make($request->all(), [
         'PIB' => 'required|string|max:1024',
-        'company_name' =>'required|string|max:1024',
-        'sphere' =>'required|string|max:2048',
+        'company_name' =>'string|max:1024',
+        'sphere' =>'string|max:2048',
         'E_mail' => 'required|email|max:1024',
         'phone_number' => 'required|string|max:1024',
         'lessons_to_visit' => 'string|max:2048',
         'promo' => 'string|max:2048',
-        'wishes' => 'required|string|max:2048',
+        //'wishes' => 'required|string|max:2048',
     ]);
 
     if ($validator->fails()) {

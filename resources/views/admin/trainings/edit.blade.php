@@ -26,6 +26,11 @@
                           <label for="name">Название</label>
                           <input type="input" class="form-control" value="{{$trainings->name}}"  id="name" placeholder="name" name="name"  >
                         </div>
+                        
+                        <div class="form-group">
+                          <label for="name">Заголовок на странице тренинга</label>
+                          <input type="input" class="form-control" value="{{$trainings->internal_title}}"  id="name" placeholder="Заголовок на странице тренинга" name="internal_title"  >
+                        </div>
 
                         <div class="form-group">
                           <label for="type">Тип тренинга</label>

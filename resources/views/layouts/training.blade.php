@@ -25,7 +25,7 @@
     </script>
 
 <body>
-    <header class="event-header">
+  <header class="event-header" style="background: url({{$training->image}})50% 100% no-repeat;background-size: cover;" >
         <div class="row header-row">
             <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4">
                 <div class="header-circle">
@@ -71,8 +71,9 @@
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <label for="PIB">ПІБ <span class="must-filled">*</span></label><label for="PIB" hidden="true" id="errPIB" class="errorValue">Ви не ввели це поле</label><br> 
                     <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input"><br>
-                    <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
-                    <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input"><br>
+                    <label for="company">Ваша компанія</label><label  hidden="true" id="errcompany_name" class="errorValue">Ви не ввели це поле</label><br>
+                    <input type="text" id="company" placeholder="Назва" name="company_name" class="text-input">
+                    <br>
                     <div id="lektions_count" >
                     <div class="label-title1"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
                     
@@ -82,15 +83,13 @@
                     <label class="checkbox-label"><input type="checkbox" name="lessons_to_visit" value="Повний курс"> Повний курс</label><br>
                     
                     @for ($i = 0; $i < count($lessons); $i++)
-                    <label class="checkbox-label"><input class="lessons" type="checkbox" name="lessons_to_visit" value="Лекція {{$i+1}}">Лекція {{$i+1}} - {{$lessons[$i]->name}}</label><br>
-<!--                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 2"> Лекція 2</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 3"> Лекція 3</label><br>
-                    <label class="checkbox-label"><input type="checkbox" name="sum-lectures" value="Лекція 4"> Лекція 4</label><br>-->
+                    <label class="checkbox-label"><input class="lessons" type="checkbox" name="lessons_to_visit" value="Лекція {{$i+1}}">Лекція {{$i+1}} </label><br>
+                   
                     @endfor
                     
-                    <label class="checkbox-label"><input class="lessons" type="checkbox" id="another_check" name="lessons_to_visit" value="Інше"> Інше
+                    <!--label class="checkbox-label"><input class="lessons" type="checkbox" id="another_check" name="lessons_to_visit" value="Інше"> Інше
                         <input type="text" id="other" class="text-input-other">
-                    </label>
+                    </label-->
                     </div>
                     
                 </div>
@@ -98,20 +97,22 @@
                 
                 
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                    <label for="company">Ваша компанія <span class="must-filled">*</span></label><label  hidden="true" id="errcompany_name" class="errorValue">Ви не ввели це поле</label><br>
-                    <input type="text" id="company" placeholder="Назва" name="company_name" class="text-input"><br>
-                    <label for="email">E-mail <span class="must-filled">*</span></label><label  hidden="true" id="errE_mail" class="errorValue">Ви не ввели це поле</label><br>
-                    <input type="email" id="email" placeholder="Ваш e-mail" name="E_mail" class="text-input"><br>
-                    <label for="wishes" class="long-label">Яка назва теми найточніше відобразила би Ваші побажання? <span class="must-filled">*</span></label><label  hidden="true" id="errwishes" class="errorValue">Ви не ввели це поле</label><br>
-                    <textarea id="wishes" name="wishes"></textarea>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                    <label for="scope">Сфера діяльності <span class="must-filled">*</span></label><label  hidden="true" id="errshpere" class="errorValue">Ви не ввели це поле</label><br>
-                    <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input"><br>
+                  <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
+                  <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input">
+                    <br>
+                    <label for="scope">Сфера діяльності</label><label  hidden="true" id="errshpere" class="errorValue">Ви не ввели це поле</label><br>
+                    <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input">  
+                    
                     <label class="long-label certificate-label">Чи бажаєте оформити курс лекцій як подарунок?</label>
-                        <div class="simple-text">Після оплати та реєстрації Ви отримаєте подарунковий сертифікат та запрошення на курс</div>
+                    <div class="simple-text">Після оплати та реєстрації Ви отримаєте подарунковий сертифікат та запрошення на курс</div>
                     <input type="radio" name="present" value="1" id="present1"> Так<br>
                     <input type="radio" name="present" value="2" id="present2"> Ні
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                  <label for="email">E-mail <span class="must-filled">*</span></label><label  hidden="true" id="errE_mail" class="errorValue">Ви не ввели це поле</label><br>
+                  <input type="email" id="email" placeholder="Ваш e-mail" name="E_mail" class="text-input">
+                    <br>
+                    
                     
                 </div>
             </div>
