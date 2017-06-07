@@ -310,11 +310,11 @@ lessons_to_visit = $('#other').val();
 //   $('#errPIB').show(); a = 1;
       var a = 0;
     if($('#name').val()=='') {  $('#name').css("border-color", "red");   a=1;   }
-    if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
+    //if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
     if($('#email').val()=='') { $('#email').css("border-color", "red");     a=1; }
     if($('#phone').val()=='') { $('#phone').css("border-color", "red");    a=1;  }     
-    if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
-    if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
+    //if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
+    //if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
     if(lessons_to_visit=='') {  $("#lektions_count").css("border", "1px solid red");     a=1;   }
     if(way_to_pay=='Виберіть спосіб оплати') { $("#way_to_pay").css("border-color", "red");  a=1; }
         if(a==1)
