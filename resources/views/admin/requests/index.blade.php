@@ -57,6 +57,7 @@ $(function() {
         serverSide: true,
         language : rus_lang,
         ajax: '{!! url('admin/requests/users_data') !!}',
+        order: [[ 0, "desc" ]],
         columns: [
          { data: 'id', name: 'id' },
             { data: 'PIB', name: 'PIB' },

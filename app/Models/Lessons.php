@@ -10,7 +10,7 @@ class Lessons extends Model
      protected $table = 'lessons';
     
     protected $fillable = [
-     'name', 'description', 'training_id','image','status', 'meta_title','meta_description','meta_keywords','url'
+     'name', 'description', 'training_id','image','status', 'meta_title','meta_description','meta_keywords','url','price'
     ];
     // , 'date_created'
     public function setUrlAttribute($value) {

@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('main-content')
-	<div class="container-fluid spark-screen">
+<div class="container-fluid spark-screen">
 		<div class="row">
-			<div class="col-md-7 col-md-offset-1">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 <!--                  <div class="panel-heading">{{ trans('admin.trainings.trainings') }}</div>-->
             <div class="panel-heading">Trainings</div>
@@ -95,10 +95,7 @@
                           <input type="number" min="1" step="any" class="form-control" value="{{$trainings->full_price}}"  id="full_price"  name="full_price" >
                         </div>
 
-                        <div class="form-group">
-                          <label for="name">Цена за урок</label>
-                          <input type="number" min="1" step="any" class="form-control" value="{{$trainings->one_price}}"  id="one_price"  name="one_price" >
-                        </div>
+                        
 
                   
                         

@@ -3,7 +3,7 @@
 @section('main-content')
 	<div class="container-fluid spark-screen">
 		<div class="row">
-			<div class="col-md-7 col-md-offset-1">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 <!--                  <div class="panel-heading">{{ trans('admin.trainings.trainings') }}</div>-->
             <div class="panel-heading">Урок</div>
@@ -45,10 +45,15 @@
                         </div>
 <!--                        end Лектор-------------------------------------------------->
                         
+                        <div class="form-group">
+                          <label for="name">Цена за урок</label>
+                          <input type="number" min="1" step="any" class="form-control" value="{{$lesson->price}}"  id="price"  name="price" >
+                        </div>             
+
                         
 <!--                      -->
                         
-                        <div class="input-group">
+<!--                        <div class="input-group">
                           <span class="input-group-btn">
                             <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
                               <i class="fa fa-picture-o"></i> Изображение
@@ -56,7 +61,7 @@
                           </span>
                           <input id="thumbnail" class="form-control" type="text" @if ($lesson->image) value="{{$lesson->image}}" @endif   name="image">
                         </div>
-<img id="holder" @if ($lesson->image) src="{{$lesson->image}}" @endif   style="margin-top:15px;max-height:100px;">
+                        <img id="holder" @if ($lesson->image) src="{{$lesson->image}}" @endif   style="margin-top:15px;max-height:100px;">-->
                              
                        
                          <div class="form-group">
@@ -118,7 +123,7 @@ $(function()
 { 
       
     
-    $('#lfm').filemanager('image');
+    //$('#lfm').filemanager('image');
 
 });  
 

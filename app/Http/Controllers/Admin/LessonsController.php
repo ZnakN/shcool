@@ -51,12 +51,7 @@ class LessonsController extends Controller
               ->addColumn('training_id', function($lesson) {
             
         return $lesson->training->name;
-      })
-              ->addColumn('image',function($lesson)
-        {
-           $image = ($lesson->image)&&(File::exists(public_path($lesson->image)))? "<img src='$lesson->image' alt='image' width='150px' >":"";
-           return $image;
-        })->make(true);
+      })->make(true);
   }
 
   public function edit($id) {

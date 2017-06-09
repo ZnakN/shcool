@@ -65,7 +65,7 @@
                  <input type="hidden" name="urrL" id="urrL" value="{{ asset('/checkCode') }}">
                  
                   <input type="hidden" name="price_val" id="price_val" value="{{$training->full_price}}">
-                  <input type="hidden" name="price_val2" id="price_val2" value="{{$training->one_price}}">
+                  <!--input type="hidden" name="price_val2" id="price_val2" value="{{$training->one_price}}"-->
                   
                  
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -80,12 +80,12 @@
                     
                     <div class="simple-text">Обиріть один або декілька варіантів.</div>
                     
-                    <label class="checkbox-label"><input type="checkbox" name="lessons_to_visit" value="Повний курс"> Повний курс</label><br>
+                    <label class="checkbox-label"><input  class="les" type="checkbox" id="full_price"  name="lessons_to_visit" value="Повний курс" data-price='{{$training->full_price}}'  checked > Повний курс</label><br>
                     
-                    @for ($i = 0; $i < count($lessons); $i++)
-                    <label class="checkbox-label"><input class="lessons" type="checkbox" name="lessons_to_visit" value="Лекція {{$i+1}}">Лекція {{$i+1}} </label><br>
+                    @foreach($lessons as $i=>$lesson)
+                    <label class="checkbox-label"><input class="les lessons" type="checkbox" name="lessons_to_visit" data-price='{{$lesson->price}}'  value="Лекція {{$i+1}}">Лекція {{$i+1}} </label><br>
                    
-                    @endfor
+                    @endforeach
                     
                     <!--label class="checkbox-label"><input class="lessons" type="checkbox" id="another_check" name="lessons_to_visit" value="Інше"> Інше
                         <input type="text" id="other" class="text-input-other">
@@ -151,7 +151,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="{{asset('trainings_images/close.png')}}"></button>
+                        <button type="button" class="close" id="close_dialog"  data-dismiss="modal" aria-label="Close"><img src="{{asset('trainings_images/close.png')}}"></button>
                         <div class="modal-title" id="myModalLabel"><b>Ви зареєструвались на курс «{{$training->name}}»</b></div>
                         <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
                     </div>
@@ -190,11 +190,64 @@
     <script src="{{ asset('js/js/index.js')}}" type="text/javascript"></script>
         
     <script>
-        
+
+$(function()
+{
+   
+   $('.les').click(function()
+   {
+      if ($(this).hasClass('lessons'))
+      {
+        $("#full_price").prop('checked', false);
+      }
+      var p = 0;
+      if($("#full_price").is(':checked')) {
+        p = $('#price_val').val();
+        $('.lessons').prop('checked', false);
+      } 
+      else 
+      {
+          
+        $('.lessons').each(function()
+        {
+           if ($(this).is(':checked'))
+           {
+              $("#full_price").prop('checked', false);
+              p = p+parseInt($(this).attr('data-price'));
+           }
+        })
+      }
+      
+      $('#paypaypay').html(p);
+   });
+   
+});
+
+
+
 $("#checkCode").click(function(e)
 {
   e.preventDefault(e);
   var  url = $('#urrL').val();
+  
+                  var sum_all = 0;
+                  if($("#full_price").is(':checked')) 
+                  {
+                      sum_all = $('#price_val').val();
+                  }
+                  else
+                  {
+                    $('.lessons').each(function()
+                    {
+                       if ($(this).is(':checked'))
+                       {
+                          $("#full_price").prop('checked', false);
+                          sum_all = sum_all+parseInt($(this).attr('data-price'));
+                       }
+                    })
+                  }
+
+  
     
      $.ajax({
                method:'POST',
@@ -221,30 +274,28 @@ $("#checkCode").click(function(e)
                  
                   $("#promo_message").css("color", "green");
                   $("#promo_message").html(data.message);
-                  var sum =  ($("#paypaypay").html() - (($("#paypaypay").html()/100)*data.discount)).toFixed(2);
-                  var sum3 =  ($("#paypaypay3").html() - (($("#paypaypay3").html()/100)*data.discount)).toFixed(2);
+                  
+                                    
+                  
+                  var sum =  (sum_all - ((sum_all/100)*data.discount)).toFixed(2);
                   // console.log(sum);
                   $("#paypaypay").html(sum);
-                  $("#paypaypay2").html(sum);
-                  $("#paypaypay3").html(sum3);
+                  
                   }
                   else
                   {
                   console.log('error');
                   console.log('message');
-                  $("#paypaypay").html($('#price_val').val());
-                  $("#paypaypay2").html($('#price_val').val());
-                  $("#paypaypay3").html($('#price_val2').val());
+                  $("#paypaypay").html(sum_all);
+                  
                   $("#promo_message").css("color", "red");
                   $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
                   $("#promo_message").show();
                   }
               },
               error:function(data) { 
-//                  var errors = data.responseJSON;
-//                  console.log(errors);
-alert('error');
-    }      
+                alert('error');
+              }      
           });
 });           
         
@@ -265,16 +316,6 @@ $("#form").submit(function(e)
  $("#way_to_pay").css("border-color", "#e0e0e0");
  $("#lektions_count").css("border", "none");
 
-// $('#globalError').hide();
-//  $('#errPIB').hide(); 
-//    $('#errcompany_name').hide();  
-//   $('#errE_mail').hide(); 
-//   $('#errphone_number').hide();  
-//  $('#errwishes').hide(); 
-//   $('#errshpere').hide(); 
-//   $('#errlessons_to_visit').hide(); 
-//  $('#errway').hide();  
- //url = asset('/admin/requests/update');
  
  url = $('#urL').val();
  if(($('#promocode').val()!=null)&&($('#promocode').val()!=""))
@@ -293,8 +334,8 @@ $("#form").submit(function(e)
       var lessons_to_visit='';
       
       var lessons = $('input:checkbox:checked').map(function() {
-    return this.value;
-}).get();
+          return this.value;
+      }).get();
       
       //lessons = $('.lessons:checkbox:checked');
       
@@ -303,11 +344,7 @@ $("#form").submit(function(e)
           lessons_to_visit += lessons[i]+' ';         
       }
       
-      if(($('#another_check').is(':checked'))&&$('#another_check').val()=="Інше")
-      {
-lessons_to_visit = $('#other').val();
-      }
-//   $('#errPIB').show(); a = 1;
+      
       var a = 0;
     if($('#name').val()=='') {  $('#name').css("border-color", "red");   a=1;   }
     //if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
@@ -333,14 +370,13 @@ lessons_to_visit = $('#other').val();
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   },
                data:{PIB:$('#name').val(),
-                    company_name:$('#company').val(),
+                    //company_name:$('#company').val(),
                     phone_number:$('#phone').val(),
-                    
                     E_mail:$('#email').val(),
                     training_id:$('#training_id').val(),
-                    wishes:$('#wishes').val(),
+                    //wishes:$('#wishes').val(),
                     present: $('input[name=present]:checked', '#form').val(),
-                    sphere:$('#scope').val(),
+                    //sphere:$('#scope').val(),
                     lessons_to_visit:lessons_to_visit,
                     promo:$('#promocode').val(),
                     discount:discount,
@@ -356,23 +392,21 @@ lessons_to_visit = $('#other').val();
               success:function(data){
                   if(data.error =='yes')
                   {
-                  console.log(data.error);
-                  console.log(data.message);
+                    console.log(data.error);
+                    console.log(data.message);
                   
-                 if(data.message=='Промо-код не дійсний, можливо ви зробили помилку')
-                 {
-                  $("#promo_message").css("color", "red");
-                  $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
-                  $("#promo_message").show();
-                  $("#paypaypay").html($('#price_val').val());
-                  $("#paypaypay2").html($('#price_val').val());
-                  $("#paypaypay3").html($('#price_val2').val());
-                 }
-                             else
-                             {
-                  $('#globalError').show();
-                  $('#globalError').html(data.message);
-                             }
+                    if(data.message=='Промо-код не дійсний, можливо ви зробили помилку')
+                    {
+                      $("#promo_message").css("color", "red");
+                      $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                      $("#promo_message").show();
+                      $("#paypaypay").html($('#price_val').val());
+                    }
+                 else
+                    {
+                      $('#globalError').show();
+                      $('#globalError').html(data.message);
+                    }
                   }
                   else
                   {
@@ -384,12 +418,29 @@ lessons_to_visit = $('#other').val();
                   $("#promo_message").css("color", "green");
                   $("#promo_message").html('Промо-код дійсний');
                   }
-                  var sum =  ($("#paypaypay").html() - (($("#paypaypay").html()/100)*data.discount)).toFixed(2);
-                  var sum3 =  ($("#paypaypay3").html() - (($("#paypaypay3").html()/100)*data.discount)).toFixed(2);
+                  
+                  var sum_all = 0;
+                  if($("#full_price").is(':checked')) 
+                  {
+                      sum_all = $('#price_val').val();
+                  }
+                  else
+                  {
+                    $('.lessons').each(function()
+                    {
+                       if ($(this).is(':checked'))
+                       {
+                          $("#full_price").prop('checked', false);
+                          sum_all = sum_all+parseInt($(this).attr('data-price'));
+                       }
+                    })
+                  }
+                  
+                  
+                  var sum =  (sum_all - ((sum_all/100)*data.discount)).toFixed(2);
                   // console.log(sum);
                   $("#paypaypay").html(sum);
-                  $("#paypaypay2").html(sum);
-                  $("#paypaypay3").html(sum3);
+                  
                   $('#openModal').click();
                   }
 
@@ -403,7 +454,10 @@ lessons_to_visit = $('#other').val();
           });
  }
  
- 
+ $('#close_dialog').click(function()
+ {
+   location.reload();
+ });
  
 });
         

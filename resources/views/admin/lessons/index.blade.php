@@ -16,7 +16,7 @@
                             <th>Id</th>
                             <th>Тренинг</th>
                             <th>Название</th>
-                            <th>Изображение</th>
+                            <th>Цена</th>
                             <th>Статус</th>
                             <th>Действие</th>
                           </tr>
@@ -51,7 +51,7 @@ $(function() {
             { data: 'id', name: 'id' },
             { data: 'training_id', name: 'training_id' },
             { data: 'name', name: 'name' },
-            { data: 'image', name: 'image' },
+            { data: 'price', name: 'price' },
             { data: 'status', name: 'status' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
         ]
