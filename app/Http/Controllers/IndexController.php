@@ -110,36 +110,25 @@ class IndexController extends Controller
     else 
         if( $request->input('promo') != '' )
     {
-        $discounts = Discounts::select(['id','training_id','code','value','status'])->where('training_id', $request->input('training_id'))->where('code', $request->input('promo'))->where('status', 1)->first();
+        $discounts = Discounts::select(['id','training_id','code','value','status'])->where('code', $request->input('promo'))->where('status', 1)->first();
        
                     if ($discounts!=null)
                     {                
                     $a=1;
                     $disc = $discounts->value;
-                   $discountWhere = Discounts::find($discounts->id);
-                   $discountWhere->status = 2;
-                   $discountWhere->save();
+                    $discountWhere = Discounts::find($discounts->id);
+                    $discountWhere->count--;
+                    $discountWhere->save();
+                    if ($discountWhere->count == 0)
+                    {
+                      $discountWhere->status = 2;
                     }
-//        $discounts = Discounts::select(['id','training_id','code','value','status'])->get();
-//          for ($i = 0; $i<count($discounts); $i++)
-//         {
-//           if($request->input('training_id') == $discounts[$i]->training_id)
-//           {
-//               if($request->input('promo') == $discounts[$i]->code)
-//               {
-//                   if($discounts[$i]->status == 1)
-//                   {
-//                       
-//                    $a=1;
-//                    $disc = $discounts[$i]->value;
-//                   $discountWhere = Discounts::find($discounts[$i]->id);
-//                   $discountWhere->status = 2;
-//                   $discountWhere->save();
-//                   
-//                   }
-//               }
-//           }
-//         }
+                    
+                    $discountWhere->save();
+                    
+                    
+                    }
+
         if($a!=1)
         {
              return response()->json(array('error' => 'yes', 'message' => 'Промо-код не дійсний, можливо ви зробили помилку' ), 200);

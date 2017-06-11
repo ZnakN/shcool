@@ -12,12 +12,8 @@
                         <div class="box-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
-                          <label for="name">Трениг</label>
-                          <select class="form-control" name="training_id" id="lektor" >    
-                            @foreach ($trainings as $training)
-                            <option value="{{$training->id}}"   >{{$training->name}}</option>
-                            @endforeach
-                          </select>
+                          <label for="name">Промокод</label>
+                          <input type="input" class="form-control" value=""  id="url" placeholder="Промокод" name="code" >
                         </div>
                         
                         
@@ -27,8 +23,8 @@
                         </div>
                         
                         <div class="form-group">
-                          <label for="name">Количество сгенерированных промокодов</label>
-                          <input type="input" class="form-control" value="10"  id="name_ru" placeholder="Количество сгенерированных промокодов" name="count" >
+                          <label for="name">Количество действий промокодов</label>
+                          <input type="input" class="form-control" value="10"  id="name_ru" placeholder="Количество действий промокодов" name="count" >
                         </div>
                         
                                                 

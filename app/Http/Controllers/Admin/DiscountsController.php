@@ -35,9 +35,6 @@ class DiscountsController extends Controller
     return Datatables::of(Discounts::query())->addColumn('status', function($discount) {
         $status = ($discount->status == 1) ? "<span id='s" . $discount->id . "'>Нет</span>" : "<span id='s" . $discount->id . "' >Да</span>";
         return $status;
-      })->addColumn('training_id', function($lesson) {
-
-        return $lesson->training->name;
       })->make(true);
   }
   
@@ -50,16 +47,14 @@ class DiscountsController extends Controller
   
   public function create(Request $request )
   {
-      $training_id = $request->input('training_id');
+      $training_id = 0;
+      $code = $request->input('code','');
       $value = $request->input('value','');
       $count = $request->input('count',0);
       
-      if ($training_id&&$value&&$count)
+      if ($code&&$value&&$count)
       {
-         for ($i=1;$i<=$count;$i++)
-         {
-            $dicount = Discounts::create(['training_id' => $training_id, 'value' => $value, 'code' => mt_rand(1000000, 9999999),'status'=>1]);
-         }
+            $dicount = Discounts::create(['training_id' => $training_id,'count'=>$count, 'value' => $value, 'code' => $code,'status'=>1]);
       }
       return redirect('/admin/discounts');
   }
