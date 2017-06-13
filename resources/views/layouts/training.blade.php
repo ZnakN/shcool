@@ -152,8 +152,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" id="close_dialog"  data-dismiss="modal" aria-label="Close"><img src="{{asset('trainings_images/close.png')}}"></button>
+                        <div style="color:dimgray; text-align:center; font-size: 120%;"><p><b>Дякуємо!</b></p></div>
                         <div class="modal-title" id="myModalLabel"><b>Ви зареєструвались на курс «{{$training->name}}»</b></div>
-                        <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
+                        <div class="event-date" style="text-align: center;">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
                     </div>
                     <div class="modal-body">
                         Найближчим часом з Вами зв’яжеться менеджер для узгодження деталей.

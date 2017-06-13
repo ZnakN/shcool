@@ -46,7 +46,8 @@ $(function() {
         processing: true,
         serverSide: true,
         language : rus_lang,
-        ajax: '{!! url('admin/discounts/users_data') !!}',
+        "order": [[ 0, "desc" ]],
+        ajax: '{!! url('admin/discounts/users_data') !!}',       
         rowId: 'someId',
         columns: [
             { data: 'id', name: 'id' },
