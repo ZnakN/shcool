@@ -18,6 +18,7 @@
                             <th>Промо - код</th>
                             <th>Значение скидки %</th>
                             <th>Использована</th>
+                            <th>Удалить скидку</th>
                             </tr>
                         </thead>
                       </table>
@@ -46,15 +47,41 @@ $(function() {
         serverSide: true,
         language : rus_lang,
         ajax: '{!! url('admin/discounts/users_data') !!}',
+        rowId: 'someId',
         columns: [
             { data: 'id', name: 'id' },
             { data: 'code', name: 'code' },
             { data: 'value', name: 'value' },
             { data: 'status', name: 'status' },
-            
+            { data: 'action', name: 'action', orderable: false, searchable: false}
         ]
     });
     
+    
+     $('#discounts-table').on('click','.delete',function()
+    {
+         
+       
+      
+       // alert(id);
+         var id = $(this).attr('data-id');
+       $.post('/admin/discounts/delete',{'discount_id':id},function(res)
+       {
+          var r = jQuery.parseJSON(res);
+          if (r.res == 'ok')
+          {
+               
+              $('#b'+id).closest("tr").remove();
+             // $('#b'+id).remove();  .remove();
+          }
+          else
+          {
+            alert(r.message);
+          }
+       });
+       
+       
+    });
     
     
 });

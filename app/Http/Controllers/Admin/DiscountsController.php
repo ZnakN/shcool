@@ -35,6 +35,11 @@ class DiscountsController extends Controller
     return Datatables::of(Discounts::query())->addColumn('status', function($discount) {
         $status = ($discount->status == 1) ? "<span id='s" . $discount->id . "'>Нет</span>" : "<span id='s" . $discount->id . "' >Да</span>";
         return $status;
+      })->addColumn('action', function ($discount) {
+
+     
+       $delete =  '<span id="b' . $discount->id . '" data-id="' . $discount->id . '" class=" btn btn-xs btn-danger delete"><i class="glyphicon glyphicon-trash"></i>Удалить</span>';
+        return $delete;
       })->make(true);
   }
   
@@ -58,5 +63,25 @@ class DiscountsController extends Controller
       }
       return redirect('/admin/discounts');
   }
+  
+  
+  public function delete(Request $request) {
+      $res = [];
+    $id = $request->input('discount_id');
+    $discount = Discounts::find($id);
+    if($discount != null)
+        {
+        $discount->delete();
+         $res = ['res' => 'ok'];
+        }
+        else {
+      $res = ['res' => 'error', 'message' => 'Error : User not found'];
+    }
+    return json_encode($res);
+      
+      
+  }
+  
+  
   
 }

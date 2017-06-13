@@ -59,6 +59,7 @@ Route::get('/admin/viewTrainings/view/{url}', 'Admin\ViewController@viewDetails'
 Route::get('/admin/discounts', 'Admin\DiscountsController@index');
 Route::get('/admin/discounts/users_data', 'Admin\DiscountsController@anyData');
 Route::get('/admin/discounts/add', 'Admin\DiscountsController@add');
+Route::post('/admin/discounts/delete', 'Admin\DiscountsController@delete');
 Route::post('/admin/discounts/create', 'Admin\DiscountsController@create');
 // =====================================================================================
 // =========================== add request =============================================
