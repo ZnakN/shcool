@@ -90,15 +90,16 @@ class RequestsController extends Controller
      if ($requests == null) {
       return view('errors.404', ['message' => 'Request not found']);
     }
-     $trainings = DB::table('trainings')->select('name', 'id')->get();
+     $trainings = DB::table('trainings')->select('name', 'id', 'is_static')->get();
         for ($i=0; $i<count($trainings); $i++)
         {
             if($requests->training_id == $trainings[$i]->id)
             {
         $training_name = $trainings[$i]->name ;
+        $training_static = $trainings[$i]->is_static;
             }
         }
- return view('admin.requests.edit',['requests'=>$requests, 'trainings'=> $training_name]);
+ return view('admin.requests.edit',['requests'=>$requests, 'trainings'=> $training_name, 'training_static'=>$training_static]);
     //return view('admin.trainings.edit', ['trainings' => $trainings]);
   }
 

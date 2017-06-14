@@ -86,14 +86,16 @@
       -->
       @foreach($trainings as $training)
       <tr>
-      <td><div class="table-date">{{ date('j',strtotime($training->begin_date))}}  -  {{ $training->end_date }}  </div> 
+      <td> @if($training->is_static!=1) <div class="table-date"> {{ date('j',strtotime($training->begin_date))}}  -  {{ $training->end_date }}  </div> 
            @for ($i = 0; $i < count($lektors); $i++)
           @if($lektors[$i]->id == $training->lektor_id) 
           {{$lektors[$i]->name_surname }}
           @endif
           @endfor
-
-          «{{$training->name}}» <div class="table-subtext">{{$training->type}}</div></td>
+          
+@endif
+        @if($training->is_static!=1)«@endif{{$training->name}}@if($training->is_static!=1)»@endif  
+          @if($training->is_static!=1)<div class="table-subtext">{{$training->type}}</div>@endif</td>
       <td><a href="/view/{{$training->url}}" target="_blank" class="btn" role="button">Детальніше</a></td>
       </tr>
       @endforeach 

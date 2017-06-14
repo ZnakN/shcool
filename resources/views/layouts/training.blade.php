@@ -29,7 +29,9 @@
         <div class="row header-row">
             <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4">
                 <div class="header-circle">
-                    <div class="header-date">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
+                    @if($training->is_static!=1)
+                    <div class="header-date" style="margin-bottom:0px;">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
+                    @endif
                     <div class="header-school-name">Etiquette School</div>
                     <div class="header-event-topic">{{$training->name}}</div>
                     <div class="header-contact">(044) 466-74-76 <br> info@etiqschool.com.ua</div>
@@ -75,18 +77,29 @@
                     <input type="text" id="company" placeholder="Назва" name="company_name" class="text-input">
                     <br>
                     <div id="lektions_count" >
+                          @if($training->is_static!=1) 
                     <div class="label-title1"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
-                    
-                    
+                    @else
+                    <div class="label-title1"><b>Оберіть лектора? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
+                    @endif
                     <div class="simple-text">Обиріть один або декілька варіантів.</div>
-                    
+                    @if($training->is_static!=1) 
                     <label class="checkbox-label"><input  class="les" type="checkbox" id="full_price"  name="lessons_to_visit" value="Повний курс" data-price='{{$training->full_price}}'  checked > Повний курс</label><br>
+                    @endif
                     
-                    @foreach($lessons as $i=>$lesson)
+                     @if($training->is_static!=1) 
+                   @foreach($lessons as $i=>$lesson)
                     <label class="checkbox-label"><input class="les lessons" type="checkbox" name="lessons_to_visit" data-price='{{$lesson->price}}'  value="Лекція {{$i+1}}">Лекція {{$i+1}} </label><br>
                    
                     @endforeach
+                    @endif
                     
+                     @if($training->is_static==1)
+                     @foreach($all_lektors as $i=>$all_lektor)
+                    <label class="checkbox-label"><input class="les lessons" type="checkbox" name="lessons_to_visit"   value="{{$all_lektor->name_surname}}"> {{$all_lektor->name_surname}} </label><br>
+                   
+                    @endforeach
+                     @endif
                     <!--label class="checkbox-label"><input class="lessons" type="checkbox" id="another_check" name="lessons_to_visit" value="Інше"> Інше
                         <input type="text" id="other" class="text-input-other">
                     </label-->
@@ -103,10 +116,12 @@
                     <label for="scope">Сфера діяльності</label><label  hidden="true" id="errshpere" class="errorValue">Ви не ввели це поле</label><br>
                     <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input">  
                     
+                     @if($training->is_static!=1)
                     <label class="long-label certificate-label">Чи бажаєте оформити курс лекцій як подарунок?</label>
                     <div class="simple-text">Після оплати та реєстрації Ви отримаєте подарунковий сертифікат та запрошення на курс</div>
                     <input type="radio" name="present" value="1" id="present1"> Так<br>
                     <input type="radio" name="present" value="2" id="present2"> Ні
+                    @endif
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                   <label for="email">E-mail <span class="must-filled">*</span></label><label  hidden="true" id="errE_mail" class="errorValue">Ви не ввели це поле</label><br>
@@ -117,7 +132,9 @@
                 </div>
             </div>
         <hr>
+        
             <div class="to-pay">
+                 @if($training->is_static!=1)
                 <div class="amount-to-pay" >Сума для оплати<br><span><div id="paypaypay">{{$training->full_price}}</div> грн</span></div>
                 <label for="promocode" class="indent">Промо-код</label>
                 
@@ -139,9 +156,19 @@
               
 <!--                  <input type="submit" class="btn-footer btn btn-primary"  value="Далі" > -->
 <!--          type="button"        data-toggle="modal" data-target="#myModal"-->
-                <button type="submit" class="btn-footer btn btn-primary"  id="submit" >Далі</button>
+@else
+<select name="way_to_pay" id="way_to_pay" required hidden="true"> 
+                    <option disabled >Виберіть спосіб оплати</option>
+                    <option value="cash selected">Готівкою</option>
+                    <!--option value="bankCard">Банківською карткою</option-->
+                </select> <label  hidden="true" id="errway" class="errorValue">Ви не вказали спосіб оплати</label><br>
+
+
+@endif
+                <button type="submit" class="btn-footer btn btn-primary"  id="submit" >Подати заявку</button>
                 <button hidden="true" type="button"   data-toggle="modal" id="openModal" data-target="#myModal" >Далі</button>
             </div>
+       
         </form>
 <p  hidden="true" id="globalError" class="errorValue"></p><br/>
  <!-- =========================== end form ================================================================================== -->

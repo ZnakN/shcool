@@ -1,9 +1,11 @@
-  @extends('layouts.training',  ['training' => $training, 'lessons'=>$lessons, 'end_date'=>$end_date])
+  @extends('layouts.training',  ['training' => $training, 'lessons'=>$lessons, 'end_date'=>$end_date, 'all_lektors'=>$all_lektors])
 
 @section('content')
 <article class="event-info">
         <h1>{{$training->internal_title}}</h1>
+         @if($training->is_static!=1)
         <div class="event-date">{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date}}</div>
+        @endif
         <div>
            
             {!!$training->description!!}
@@ -11,12 +13,13 @@
         </div></br>
         <div>
 <!--           {{$training->name}}-->
+                @if($training->is_static!=1)
                 Дата та час: <strong>{{ date('j',strtotime($training->begin_date))}}  - {{ $end_date }} включно, з {{ date('H:i',strtotime($training->time_from))}} до {{date('H:i',strtotime($training->time_to))}}</strong><br>
                 Місце проведення: <strong>{{$training->adress_where}}</strong><br>
                 Адреса: <strong>{{$training->adress}}</strong><br>
                 Вартість курсу: <strong><span id="paypaypay2" >{{$training->full_price}}</span> грн.</strong> (Попередня оплата обов'язкова)</br>
                 Варість одного заняття: <strong><span id="paypaypay3">{{$training->one_price}}</span> грн.</strong><br>
-                 
+                 @endif
 <!--                 Date::createFromDate($training->end_date)->format('j-F')-->
             </p>
         </div>
@@ -40,10 +43,12 @@
    </div>
   @endfor
         </div>
+              @if($training->is_static!=1)
         <div class="training-note"><strong>Після проходження всього курсу слухачі отримують сертифікати.</strong></div>
-        
+        @endif
         
     </article>
+  @if($training->is_static!=1)
     <article class="lecturer">
         <h3 class="lecturer-title">ЛЕКТОР</h3>
         <div class="row">
@@ -58,5 +63,6 @@
             </div>
         </div>
     </article>
+  @endif
 <?php echo Session::get('message');?>
 @endsection

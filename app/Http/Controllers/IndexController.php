@@ -32,7 +32,7 @@ class IndexController extends Controller
   
   public function index()
   {
-       $trainings = Trainings::select(['id','name','begin_date','end_date','url','type','lektor_id'])->where(['status'=>1])->get();
+       $trainings = Trainings::select(['id','name','begin_date','end_date','url','type','lektor_id','is_static'])->where(['status'=>1])->orderBy('is_static','asc')->get();
        $lektors = Lektors::select()->get(['id','name_surname','description','image']);
      //  dump($trainings); 
        
@@ -58,6 +58,7 @@ class IndexController extends Controller
   $lessons = DB::table('lessons')->where('training_id' ,$training->id)->where('status', 1)->get();
  
   $lektors = DB::table('lektors')->where('id' ,$training->lektor_id)->get();
+  $all_lektors = DB::table('lektors')->get();
  // $lektor = $lektors[0];  //->name_surname
  // dump($lessons);
   
@@ -71,7 +72,7 @@ class IndexController extends Controller
  // $end_date = strtotime($end_date);
   //$teststr =  strstr($end_date, ' ', true);
   //$teststr[0] =  strtoupper($teststr[0]);
-  return view('training',['training'=>$training, 'lektor'=>$lektors, 'lessons'=>$lessons, 'end_date'=> $end_date]);
+  return view('training',['training'=>$training, 'lektor'=>$lektors, 'lessons'=>$lessons, 'end_date'=> $end_date, 'all_lektors'=>$all_lektors]);
   }
   
   public function update(Request $request) {

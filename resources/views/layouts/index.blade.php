@@ -18,7 +18,35 @@
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
 
+    
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+      <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}" media="screen" >
     <link rel="stylesheet" href="{{asset('css/main.min.css')}}">
+    
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+  
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+   
+   
+   <script>
+       $(document).ready(function(){
+  $(".owl-carousel").owlCarousel(
+          {
+              nav:true,
+                items:4,
+              
+          });
+          
+        
+          
+          
+});
+   </script>
+   
+   
     <script>
       (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -122,25 +150,55 @@
     
     @yield('content')
     
+    
+<!--    
+    <div class="owl-carousel">
+  <div> Your Content </div>
+  <div> Your Content </div>
+  <div> Your Content </div>
+  <div> Your Content </div>
+  <div> Your Content </div>
+  <div> Your Content </div>
+  <div> Your Content </div>
+</div>-->
+    
+    
+    
     <div class="photogallery">
       <div class="logo-container">
         <h2 class="logo">Etiquette School</h2>
         <h3 class="topic">фотогалерея</h3>
       </div>
-      <div class="photogallery__bg">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-6">
-              <img src="img/Layer-2.png" alt="фотогалерея">
+      <div class="photogallery__bg ">
+        <div class="container ">
+          <div class="row ">
+              <div class="owl-carousel owl-theme">
+<!--            style='width:250px;'  owl-carousel owl-theme  -->
+            <div class="col-md-3 col-sm-6 col-xs-6" style=" min-width: 100%; "  >
+             
+                
+                <a data-fancybox="gallery" href="img/Layer-2.png"><img src="img/Layer-2.png"></a>
+               
+                
+                
+<!--              <img src="img/Layer-2.png" alt="фотогалерея">-->
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-              <img src="img/Layer-3.png" alt="фотогалерея">
+            <div class="col-md-3 col-sm-6 col-xs-6" style=" min-width: 100%; " >
+<!--              <img src="img/Layer-3.png" alt="фотогалерея">-->
+             <a data-fancybox="gallery" href="img/Layer-3.png"><img src="img/Layer-3.png"></a>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-              <img src="img/Layer-4.png" alt="фотогалерея">
+            <div class="col-md-3 col-sm-6 col-xs-6" style=" min-width: 100%; " >
+<!--              <img src="img/Layer-4.png" alt="фотогалерея">-->
+            <a data-fancybox="gallery" href="img/Layer-4.png"><img src="img/Layer-4.png"></a>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-6">
-              <img src="img/Layer-5.png" alt="фотогалерея">
+            <div class="col-md-3 col-sm-6 col-xs-6" style=" min-width: 100%; ">
+<!--              <img src="img/Layer-5.png" alt="фотогалерея">-->
+             <a data-fancybox="gallery" href="img/Layer-5.png"><img src="img/Layer-5.png"></a>
+            </div>
+<div class="col-md-3 col-sm-6 col-xs-6" style=" min-width: 100%; ">
+<!--              <img src="img/Layer-5.png" alt="фотогалерея">-->
+              <a data-fancybox="gallery" href="img/Layer-5.png"><img src="img/Layer-5.png"></a>
+            </div>
             </div>
           </div>
           <div class="btn-container">

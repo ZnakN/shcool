@@ -24,7 +24,7 @@
                          @endif
                          
                             <tr>       <th>Сфера деятельности</th>   <td>   {{$requests->sphere}} </td>         </tr>
-                            <tr>       <th>Сколько уроков</th>       <td>   {{$requests->lessons_to_visit}} </td>   </tr>
+                            <tr>       @if($training_static!=1)<th>Сколько уроков</th> @else <th>Какие лекторы</th> @endif      <td>   {{$requests->lessons_to_visit}} </td>   </tr>
                             
                             
                           @if($requests->payed==1)    <tr>      <th>Оплачено</th>             <td>   Да </td>    </tr> 

@@ -140,6 +140,16 @@
                             <option value="2" @if ($trainings->status != 1) {!! 'selected="selected"' !!} @endif >Заблокирован</option>
                           </select>
                         </div>
+                             
+                              <div class="form-group">
+                          <label for="role">Статический тренинг</label>
+                          <select class="form-control" name="is_static" id="is_static" >
+                            <option value="1" @if ($trainings->is_static == 1) {!! 'selected="selected"' !!} @endif >Да</option>
+                            <option value="2" @if ($trainings->is_static != 1) {!! 'selected="selected"' !!} @endif >Нет</option>
+                          </select>
+                        </div>
+                             
+                             
                         
                         <div class="form-group">
                           

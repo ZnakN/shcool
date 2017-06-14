@@ -10,7 +10,7 @@ class Trainings extends Model
     
     protected $fillable = [
     'name','internal_title','description','url','begin_date', 'end_date', 'image','status', 'lektor_id', 'meta_tags', 'meta_title','meta_description','meta_keywords', 
-        'time_from', 'time_to', 'adress_where',  'adress',  'full_price', 'one_price', 'type'
+        'time_from', 'time_to', 'adress_where',  'adress',  'full_price', 'one_price', 'type','is_static'
     ];
     
     public function setUrlAttribute($value) {
