@@ -37,7 +37,9 @@
           {
               nav:true,
                 items:4,
-              
+              autoWidth:false,
+              margin:10,
+              navText : ["<img src='img/left.png'>","<img src='img/right.png'>"]
           });
           
         
@@ -90,6 +92,35 @@
   }
 } ;
 </script>  
+
+
+<style>
+ .owl-prev {
+/*    width: 35px;
+    height: 35px;*/
+    position: absolute;
+    top: 36%;
+    left: -35px;
+    display: block!IMPORTANT;
+    border:0px solid black;
+}
+
+.owl-next {
+/*       width: 35px;
+    height: 35px;*/
+    position: absolute;
+    top: 36%;
+    right: -35px;
+    display: block!IMPORTANT;
+    border:0px solid black;
+}
+/*.owl-prev i, .owl-next i {transform : scale(1,6); color: black;}   */
+    
+    
+</style>
+    
+    
+    
   </head>
 
   <body>
