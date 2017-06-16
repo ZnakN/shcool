@@ -76,7 +76,7 @@ class IndexController extends Controller
   }
   
   public function update(Request $request) {
-   
+   $summ_to_pay = 0;
     $id = $request->input('id', '');
 //dump($request);
     $res = [];
@@ -123,6 +123,8 @@ class IndexController extends Controller
                     if ($discountWhere->count == 0)
                     {
                       $discountWhere->status = 2;
+                      
+                      $summ_to_pay = round($request->input('summ_to_pay')-(($request->input('summ_to_pay')/100))*$disc);
                     }
                     
                     $discountWhere->save();
@@ -157,6 +159,14 @@ class IndexController extends Controller
     $rr = Requests::find($idd);
     $rr->discount_value = $disc;
     $rr->save();
+    
+    if($summ_to_pay == 0)
+    {
+     $summ_to_pay = $request->input('summ_to_pay');
+    }
+     $rrr = Requests::find($idd);
+    $rrr->summ_to_pay  = $summ_to_pay;
+    $rrr->save();
       }
     
       //return json_encode($res);
@@ -174,17 +184,23 @@ class IndexController extends Controller
      
        $id = $request->input('id', '');
        $promo = $request->input('promo_code', '');
-      
-$discounts = Discounts::select(['id','training_id','code','value','status'])->where('training_id', $id)->where('code', $promo)->where('status', 1)->first();
-       
+      //->where('training_id', $id)
+$discounts = Discounts::select(['id','training_id','code','value','status'])->where('code', $promo)->where('status', 1)->first();
+
  if ($discounts!=null)
  {
     return response()->json(array('error' => 'no', 'message' => 'Промо-код дійсний', 'discount' => $discounts->value ), 200);
  }
  else 
  {
-    return response()->json(array('error' => 'yes', 'message' => 'Промо-код не дійсний', 'discount' => 0), 200);
+   return response()->json(array('error' => 'yes', 'message' => 'Промо-код не дійсний', 'id'=>$id, 'promo'=>$promo , 'discount' => 0), 200);
  }
+ 
+ 
+ 
+ 
+ 
+ 
 //       for ($i = 0; $i<count($discounts); $i++)
 //       {
 //           if($id == $discounts[$i]->training_id)
@@ -202,5 +218,24 @@ $discounts = Discounts::select(['id','training_id','code','value','status'])->wh
        
       
   }
+  
+  
+//   public function checkCodeTest(Request $request) {
+//     
+//       $id = $request->input('training_id');
+//       $promo = $request->input('promo');
+//$discounts2 = Discounts::select(['id','training_id','code','value','status'])->get();  
+//$discounts = Discounts::select(['id','training_id','code','value','status'])->where('training_id', $id)->where('code', $promo)->where('status', 1)->first();
+//        
+//dump($id);
+//       dump($promo);
+//       dump($discounts);
+// dump($discounts2);
+//
+//       
+//       
+//      
+//  }
+  
   
 }

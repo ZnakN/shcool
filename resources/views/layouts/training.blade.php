@@ -48,13 +48,21 @@
     
     
     
-    
+
     
     
         <article class="registration-form">
         <h3>Заповніть данні для реєстрації на курс </h3>
         <!-- ============================== form =================================================================================== -->
 <!--        form action="/admin/requests/update" method="post" role="form" enctype="multipart/form-data"-->
+<!--<form enctype="multipart/form-data" method="post" action="{{ asset('/checkCodeTest') }}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+     <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
+     <input type="hidden" name="training_id" id="training_id" value="{{ $training->id }}">
+    <input type="submit">
+</form>-->
+
+
         <form enctype="multipart/form-data" id="form" >
             
             <div class="row">
@@ -62,12 +70,14 @@
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                  
                  <input type="hidden" name="training_id" id="training_id" value="{{ $training->id }}">
-                 <input type="hidden" name="urL" id="urL" value="{{ asset('/update') }}">
                  
+                 <input type="hidden" name="summPay" id="summPay" value="{{$training->full_price}}">
+                 
+                   <input type="hidden" name="urL" id="urL" value="{{ asset('/update') }}">
                  <input type="hidden" name="urrL" id="urrL" value="{{ asset('/checkCode') }}">
                  
                   <input type="hidden" name="price_val" id="price_val" value="{{$training->full_price}}">
-                  <!--input type="hidden" name="price_val2" id="price_val2" value="{{$training->one_price}}"-->
+<!--                  <input type="hidden" name="price_val2" id="price_val2" value="{{$training->one_price}}">-->
                   
                  
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -135,8 +145,7 @@
         
             <div class="to-pay">
                  @if($training->is_static!=1)
-                <div class="amount-to-pay" >Сума для оплати<br><span><div id="paypaypay">{{$training->full_price}}</div> грн</span></div>
-                <label for="promocode" class="indent">Промо-код</label>
+                 <div class="amount-to-pay" >Сума для оплати<br><br><span><span id="paypaypay">{{$training->full_price}} </span> грн</span></div>
                 
             
                 <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
@@ -144,15 +153,15 @@
                 
              
                 <button  id="checkCode" class="check-promocode">Перевірити</button>
-               
+                
                 
                 <div class="indent label-title" id="promo_message"  ></div>
                
-                <select name="way_to_pay" id="way_to_pay" required> 
+<!--                <select name="way_to_pay" id="way_to_pay" required> 
                     <option disabled >Виберіть спосіб оплати</option>
                     <option value="cash selected">Готівкою</option>
-                    <!--option value="bankCard">Банківською карткою</option-->
-                </select> <label  hidden="true" id="errway" class="errorValue">Ви не вказали спосіб оплати</label><br>
+                    option value="bankCard">Банківською карткою</option
+                </select> <label  hidden="true" id="errway" class="errorValue">Ви не вказали спосіб оплати</label><br>-->
               
 <!--                  <input type="submit" class="btn-footer btn btn-primary"  value="Далі" > -->
 <!--          type="button"        data-toggle="modal" data-target="#myModal"-->
@@ -165,8 +174,15 @@
 
 
 @endif
-                <button type="submit" class="btn-footer btn btn-primary"  id="submit" >Подати заявку</button>
-                <button hidden="true" type="button"   data-toggle="modal" id="openModal" data-target="#myModal" >Далі</button>
+
+ @if($training->is_static!=1)
+  <button type="submit" class="btn-footer btn btn-primary"  id="submit"  name="Готівкою" >Оплата готівкою</button>
+<button type="submit" class="btn-footer btn btn-primary"  id="submit2" name="Карткою" >Оплата на карту</button>
+ @else
+                
+                 <button type="submit" class="btn-footer btn btn-primary"  id="submit" >Подати заявку</button>
+                 @endif
+                <button hidden="true" type="button"   data-toggle="modal" id="openModal" data-target="#myModal" >Далі</button>    
             </div>
        
         </form>
@@ -275,7 +291,8 @@ $("#checkCode").click(function(e)
                     })
                   }
 
-  
+//  alert($('#promocode').val());
+// alert($('#training_id').val());
     
      $.ajax({
                method:'POST',
@@ -305,15 +322,18 @@ $("#checkCode").click(function(e)
                   
                                     
                   
-                  var sum =  (sum_all - ((sum_all/100)*data.discount)).toFixed(2);
+                  var sum =  Math.round(sum_all - ((sum_all/100)*data.discount));
                   // console.log(sum);
                   $("#paypaypay").html(sum);
                   
                   }
                   else
                   {
+                     
                   console.log('error');
                   console.log('message');
+                  console.log(data.id);
+                  console.log(data.promo);
                   $("#paypaypay").html(sum_all);
                   
                   $("#promo_message").css("color", "red");
@@ -327,13 +347,28 @@ $("#checkCode").click(function(e)
           });
 });           
         
-        
-        
+jQuery(function($) {         
+      var submitActor = null;
+      var $form1 = $('#form');
+      var $submitActors = $form1.find('button[type=submit]');
+     
+     
         
 $("#form").submit(function(e)
 {
-        
+ 
+ 
+ 
  e.preventDefault(e);
+
+ if (null === submitActor) 
+ {
+ submitActor = $submitActors[0];
+ }
+ console.log(submitActor.name);
+if(submitActor.name=="Готівкою")
+{
+
  $('#name').css("border-color", "#e0e0e0"); 
  $('#company').css("border-color", "#e0e0e0");
  $('#email').css("border-color", "#e0e0e0"); 
@@ -344,6 +379,9 @@ $("#form").submit(function(e)
  $("#way_to_pay").css("border-color", "#e0e0e0");
  $("#lektions_count").css("border", "none");
 
+ 
+
+ 
  
  url = $('#urL').val();
  if(($('#promocode').val()!=null)&&($('#promocode').val()!=""))
@@ -356,8 +394,18 @@ $("#form").submit(function(e)
      discount = 2;
  }
  
+ 
+ 
+   summ_to_pay = $('#summPay').val();
+
+  
+ 
+ 
       var way = document.getElementById('way_to_pay');
-      var way_to_pay = way.options[way.selectedIndex].text;
+             //  var way_to_pay = way.options[way.selectedIndex].text;
+  var way_to_pay = "Готівкою";
+      
+      
       
       var lessons_to_visit='';
       
@@ -408,7 +456,8 @@ $("#form").submit(function(e)
                     lessons_to_visit:lessons_to_visit,
                     promo:$('#promocode').val(),
                     discount:discount,
-                    way_to_pay:way_to_pay
+                    way_to_pay:way_to_pay,
+                    summ_to_pay:summ_to_pay
 
                     
                 },
@@ -465,7 +514,7 @@ $("#form").submit(function(e)
                   }
                   
                   
-                  var sum =  (sum_all - ((sum_all/100)*data.discount)).toFixed(2);
+                var sum =  Math.round(sum_all - ((sum_all/100)*data.discount));
                   // console.log(sum);
                   $("#paypaypay").html(sum);
                   
@@ -482,14 +531,193 @@ $("#form").submit(function(e)
           });
  }
  
+    }
+    
+    
+    if(submitActor.name=="Карткою")
+{
+
+ $('#name').css("border-color", "#e0e0e0"); 
+ $('#company').css("border-color", "#e0e0e0");
+ $('#email').css("border-color", "#e0e0e0"); 
+ $('#phone').css("border-color", "#e0e0e0");
+ $('#wishes').css("border-color", "#e0e0e0");
+ $('#scope').css("border-color", "#e0e0e0");
+ $('#other').css("border-color", "#e0e0e0");
+ $("#way_to_pay").css("border-color", "#e0e0e0");
+ $("#lektions_count").css("border", "none");
+
+ 
+
+ 
+ 
+ url = $('#urL').val();
+ if(($('#promocode').val()!=null)&&($('#promocode').val()!=""))
+ {
+     
+     discount = 1;
+ }
+ else
+ {
+     discount = 2;
+ }
+ 
+ 
+ 
+   summ_to_pay = $('#summPay').val();
+
+  
+ 
+ 
+      var way = document.getElementById('way_to_pay');
+             //  var way_to_pay = way.options[way.selectedIndex].text;
+  var way_to_pay = "Оплата на карту";
+      
+      
+      
+      var lessons_to_visit='';
+      
+      var lessons = $('input:checkbox:checked').map(function() {
+          return this.value;
+      }).get();
+      
+      //lessons = $('.lessons:checkbox:checked');
+      
+      for (i=0; i<lessons.length; i++)
+      {
+          lessons_to_visit += lessons[i]+' ';         
+      }
+      
+      
+      var a = 0;
+    if($('#name').val()=='') {  $('#name').css("border-color", "red");   a=1;   }
+    //if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
+    if($('#email').val()=='') { $('#email').css("border-color", "red");     a=1; }
+    if($('#phone').val()=='') { $('#phone').css("border-color", "red");    a=1;  }     
+    //if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
+    //if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
+    if(lessons_to_visit=='') {  $("#lektions_count").css("border", "1px solid red");     a=1;   }
+    if(way_to_pay=='Виберіть спосіб оплати') { $("#way_to_pay").css("border-color", "red");  a=1; }
+        if(a==1)
+        {
+            
+        }
+        else
+        {
+   
+   
+ 
+ $.ajax({
+               method:'POST',
+               url:url,
+               headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+               data:{PIB:$('#name').val(),
+                    //company_name:$('#company').val(),
+                    phone_number:$('#phone').val(),
+                    E_mail:$('#email').val(),
+                    training_id:$('#training_id').val(),
+                    //wishes:$('#wishes').val(),
+                    present: $('input[name=present]:checked', '#form').val(),
+                    //sphere:$('#scope').val(),
+                    lessons_to_visit:lessons_to_visit,
+                    promo:$('#promocode').val(),
+                    discount:discount,
+                    way_to_pay:way_to_pay,
+                    summ_to_pay:summ_to_pay
+
+                    
+                },
+             beforeSend: function (xhr) {
+//            var token = $('meta[name="csrf_token"]').attr('content');
+//        if (token) {
+//                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+       },
+              success:function(data){
+                  if(data.error =='yes')
+                  {
+                    console.log(data.error);
+                    console.log(data.message);
+                  
+                    if(data.message=='Промо-код не дійсний, можливо ви зробили помилку')
+                    {
+                      $("#promo_message").css("color", "red");
+                      $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                      $("#promo_message").show();
+                      $("#paypaypay").html($('#price_val').val());
+                    }
+                 else
+                    {
+                      $('#globalError').show();
+                      $('#globalError').html(data.message);
+                    }
+                  }
+                  else
+                  {
+                  console.log(data.error);
+                  console.log(data.message);
+                  console.log(data.discount);
+                  if(data.discount !='')
+                  {
+                  $("#promo_message").css("color", "green");
+                  $("#promo_message").html('Промо-код дійсний');
+                  }
+                  
+                  var sum_all = 0;
+                  if($("#full_price").is(':checked')) 
+                  {
+                      sum_all = $('#price_val').val();
+                  }
+                  else
+                  {
+                    $('.lessons').each(function()
+                    {
+                       if ($(this).is(':checked'))
+                       {
+                          $("#full_price").prop('checked', false);
+                          sum_all = sum_all+parseInt($(this).attr('data-price'));
+                       }
+                    })
+                  }
+                  
+                  
+                  var sum =  Math.round(sum_all - ((sum_all/100)*data.discount));
+                  // console.log(sum);
+                  $("#paypaypay").html(sum);
+                  
+                  $('#openModal').click();
+                  }
+
+              },
+              error:function(data) { 
+                  var errors = data.responseJSON;
+                  console.log(errors);
+    }      
+    
+    
+          });
+ }
+ 
+    }
+    
+    
+ 
  $('#close_dialog').click(function()
  {
    location.reload();
  });
  
 });
-        
-        
+   
+   
+   
+    $submitActors.click(function(event) {
+          submitActor = this;
+      });
+   
+    
+});     
        
     </script>
 </body>

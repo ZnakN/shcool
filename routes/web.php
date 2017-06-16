@@ -23,6 +23,7 @@ Route::get('/', 'IndexController@index');
 Route::get('/view/{url}', 'IndexController@viewDetails');
 Route::post('/update', 'IndexController@update');
 Route::post('/checkCode', 'IndexController@checkCode');
+//Route::post('/checkCodeTest', 'IndexController@checkCodeTest');
 
 Route::get('/admin','Admin\AdminController@index');
 
