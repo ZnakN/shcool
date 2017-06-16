@@ -180,7 +180,7 @@
 <button type="submit" class="btn-footer btn btn-primary"  id="submit2" name="Карткою" >Оплата на карту</button>
  @else
                 
-                 <button type="submit" class="btn-footer btn btn-primary"  id="submit" >Подати заявку</button>
+                 <button type="submit" class="btn-footer btn btn-primary"  id="submit" name="Заявка" >Подати заявку</button>
                  @endif
                 <button hidden="true" type="button"   data-toggle="modal" id="openModal" data-target="#myModal" >Далі</button>    
             </div>
@@ -367,7 +367,7 @@ $("#form").submit(function(e)
  submitActor = $submitActors[0];
  }
  console.log(submitActor.name);
-if(submitActor.name=="Готівкою")
+if(submitActor.name=="Готівкою"||submitActor.name=="Заявка")
 {
 
  $('#name').css("border-color", "#e0e0e0"); 
@@ -397,16 +397,23 @@ if(submitActor.name=="Готівкою")
  
  
  
-   summ_to_pay = $('#summPay').val();
+   
 
   
  
  
       var way = document.getElementById('way_to_pay');
              //  var way_to_pay = way.options[way.selectedIndex].text;
+             if(submitActor.name=="Готівкою")
+             {
+  var summ_to_pay = $('#summPay').val();
   var way_to_pay = "Готівкою";
-      
-      
+             }
+       if(submitActor.name=="Заявка")
+             {
+  var way_to_pay = "Заявка";
+  var summ_to_pay = 0;
+             }
       
       var lessons_to_visit='';
       
