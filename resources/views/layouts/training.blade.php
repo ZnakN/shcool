@@ -263,6 +263,7 @@ $(function()
       }
       
       $('#paypaypay').html(p);
+      $('#summPay').val(p);
    });
    
 });
