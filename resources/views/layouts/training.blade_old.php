@@ -180,11 +180,11 @@ echo json_encode([
                     @endif
 
                     @if($training->is_static!=1)
-                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" >Оплата готівкою</button>
-                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" >Оплата на карту</button>
+                    <button type="submit" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" >Оплата готівкою</button>
+                    <button type="submit" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" >Оплата на карту</button>
                     @else
 
-                    <button type="button" class="btn-footer btn btn-primary bsend" data-action="nal_z" id="submit" name="Заявка" >Подати заявку</button>
+                    <button type="submit" class="btn-footer btn btn-primary bsend" data-action="nal_z" id="submit" name="Заявка" >Подати заявку</button>
                     @endif
                     <button hidden="true" type="button"   data-toggle="modal" id="openModal" data-target="#myModal" >Далі</button>    
                 </div>
@@ -239,7 +239,7 @@ echo json_encode([
 
         <script>
 
-        function pay(action)
+        function pay()
         {
             $('#name').css("border-color", "#e0e0e0");
             $('#company').css("border-color", "#e0e0e0");
@@ -251,17 +251,6 @@ echo json_encode([
             $("#way_to_pay").css("border-color", "#e0e0e0");
             $("#lektions_count").css("border", "none");
             // проверка заполненных полей
-            var   aaa = false;
-            var lessons_to_visit = '';
-            
-             var lessons = $('input:checkbox:checked').map(function () {
-                        return this.value;
-                    }).get();
-                    for (i = 0; i < lessons.length; i++)
-                    {
-                        lessons_to_visit += lessons[i] + ' ';
-                    }
-                    
             var a = 0;
             if ($('#name').val() == '') {
                 $('#name').css("border-color", "red");
@@ -278,11 +267,6 @@ echo json_encode([
             if (lessons_to_visit == '') {
                 $("#lektions_count").css("border", "1px solid red");
                 a = 1;
-            }
-
-            if(a == 1)
-            {
-                return false;
             }
 
             // проверка промо-кода
@@ -326,45 +310,9 @@ echo json_encode([
 
 
             }
-            else
-            {
-                discount = 1;
-            }
-            
-            
-            
             if (discount == 1)
             {
-           var   aaa =  send_request(action);
-            }
-                
-
-
-return aaa;
-
-
-            // если результат положытельный
-
-            // если результат отрецательный     
-
-
-        }
-        
-        
-        
-        
-        function send_request(action)
-        {
-            {
-                var discount;
-                if (($('#promocode').val() != null) && ($('#promocode').val() != ""))
-            {
-                discount = 1;
-            }
-            else
-            {
-                discount = 2;
-            }
+                {
 
                     if (action == 'nal')
                     {
@@ -489,6 +437,18 @@ return aaa;
                     return false;
                     }
                 }
+            }
+
+
+
+
+
+
+            // если результат положытельный
+
+            // если результат отрецательный     
+
+
         }
 
 
@@ -498,12 +458,12 @@ return aaa;
             $('.bsend').click(function ()
             {
                 var action = $(this).data('action');
-                if (pay(action))
+                if (pay())
                 {
-                    if ((action == 'nal')||(action == 'nal_z'))
+                    if (action == 'nal')
                     {
                         // показать модальное окно с благодарностью
-                        $('#openModal').click();
+
                     }
                     if (action == 'card')
                     {
@@ -645,18 +605,410 @@ return aaa;
             });
         });
 
+        jQuery(function ($) {
+            var submitActor = null;
+            var $form1 = $('#form');
+            var $submitActors = $form1.find('button[type=submit]');
+
+
+
+            $("#form").submit(function (e)
+            {
+
+
+
+                e.preventDefault(e);
+
+                if (null === submitActor)
+                {
+                    submitActor = $submitActors[0];
+                }
+                console.log(submitActor.name);
+                if (submitActor.name == "Готівкою" || submitActor.name == "Заявка")
+                {
+
+
+
+
+
+
+
+                    url = $('#urL').val();
+                    if (($('#promocode').val() != null) && ($('#promocode').val() != ""))
+                    {
+
+                        discount = 1;
+                    } else
+                    {
+                        discount = 2;
+                    }
+
+                    if ($('#prepay').is(':checked') == true)
+                    {
+                        var prepay = 1;
+                    } else
+                    {
+                        var prepay = 2;
+                    }
+
+
+
+
+
+                    var way = document.getElementById('way_to_pay');
+                    //  var way_to_pay = way.options[way.selectedIndex].text;
+                    if (submitActor.name == "Готівкою")
+                    {
+                        var summ_to_pay = $('#summPay').val();
+                        var way_to_pay = "Готівкою";
+                    }
+                    if (submitActor.name == "Заявка")
+                    {
+                        var way_to_pay = "Заявка";
+                        var summ_to_pay = 0;
+                    }
+
+                    var lessons_to_visit = '';
+
+                    var lessons = $('input:checkbox:checked').map(function () {
+                        return this.value;
+                    }).get();
+
+                    //lessons = $('.lessons:checkbox:checked');
+
+                    for (i = 0; i < lessons.length; i++)
+                    {
+                        lessons_to_visit += lessons[i] + ' ';
+                    }
+
+
+                    var a = 0;
+                    if ($('#name').val() == '') {
+                        $('#name').css("border-color", "red");
+                        a = 1;
+                    }
+                    //if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
+                    if ($('#email').val() == '') {
+                        $('#email').css("border-color", "red");
+                        a = 1;
+                    }
+                    if ($('#phone').val() == '') {
+                        $('#phone').css("border-color", "red");
+                        a = 1;
+                    }
+                    //if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
+                    //if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
+                    if (lessons_to_visit == '') {
+                        $("#lektions_count").css("border", "1px solid red");
+                        a = 1;
+                    }
+                    if (way_to_pay == 'Виберіть спосіб оплати') {
+                        $("#way_to_pay").css("border-color", "red");
+                        a = 1;
+                    }
+                    if (a == 1)
+                    {
+
+                    } else
+                    {
+
+
+
+                        $.ajax({
+                            method: 'POST',
+                            url: url,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {PIB: $('#name').val(),
+                                //company_name:$('#company').val(),
+                                phone_number: $('#phone').val(),
+                                E_mail: $('#email').val(),
+                                training_id: $('#training_id').val(),
+                                //wishes:$('#wishes').val(),
+                                present: $('input[name=present]:checked', '#form').val(),
+                                //sphere:$('#scope').val(),
+                                lessons_to_visit: lessons_to_visit,
+                                promo: $('#promocode').val(),
+                                discount: discount,
+                                way_to_pay: way_to_pay,
+                                summ_to_pay: summ_to_pay,
+                                prepay: prepay
+
+                            },
+                            beforeSend: function (xhr) {
+                                //            var token = $('meta[name="csrf_token"]').attr('content');
+                                //        if (token) {
+                                //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+                            },
+                            success: function (data) {
+                                if (data.error == 'yes')
+                                {
+                                    console.log(data.error);
+                                    console.log(data.message);
+
+                                    if (data.message == 'Промо-код не дійсний, можливо ви зробили помилку')
+                                    {
+                                        $("#promo_message").css("color", "red");
+                                        $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                                        $("#promo_message").show();
+                                        $("#paypaypay").html($('#price_val').val());
+                                    } else
+                                    {
+                                        $('#globalError').show();
+                                        $('#globalError').html(data.message);
+                                    }
+                                } else
+                                {
+                                    console.log(data.error);
+                                    console.log(data.message);
+                                    console.log(data.discount);
+                                    if (data.discount != '')
+                                    {
+                                        $("#promo_message").css("color", "green");
+                                        $("#promo_message").html('Промо-код дійсний');
+                                    }
+
+                                    var sum_all = 0;
+                                    if ($("#full_price").is(':checked'))
+                                    {
+                                        sum_all = $('#price_val').val();
+                                    } else
+                                    {
+                                        $('.lessons').each(function ()
+                                        {
+                                            if ($(this).is(':checked'))
+                                            {
+                                                $("#full_price").prop('checked', false);
+                                                sum_all = sum_all + parseInt($(this).attr('data-price'));
+                                            }
+                                        })
+                                    }
+
+
+                                    var sum = Math.round(sum_all - ((sum_all / 100) * data.discount));
+                                    $('#persent').html(sum / 100);
+                                    if ($('#prepay').is(':checked') == true)
+                                    {
+
+                                        var ss = $('#persent').html();
+                                        sum = ss * 30;
+                                    } else
+                                    {
+                                        var ss = $('#persent').html();
+                                        sum = ss * 100;
+                                    }
+                                    //  $("#paypaypay").html(sum);
+                                    $("#paypaypay").html(sum);
+
+                                    $('#openModal').click();
+                                }
+
+                            },
+                            error: function (data) {
+                                var errors = data.responseJSON;
+                                console.log(errors);
+                            }
+
+
+                        });
+                    }
+
+                }
+
+
+                if (submitActor.name == "Карткою")
+                {
+
+                    $('#name').css("border-color", "#e0e0e0");
+                    $('#company').css("border-color", "#e0e0e0");
+                    $('#email').css("border-color", "#e0e0e0");
+                    $('#phone').css("border-color", "#e0e0e0");
+                    $('#wishes').css("border-color", "#e0e0e0");
+                    $('#scope').css("border-color", "#e0e0e0");
+                    $('#other').css("border-color", "#e0e0e0");
+                    $("#way_to_pay").css("border-color", "#e0e0e0");
+                    $("#lektions_count").css("border", "none");
+
+
+
+
+
+                    url = $('#urL').val();
+                    if (($('#promocode').val() != null) && ($('#promocode').val() != ""))
+                    {
+
+                        discount = 1;
+                    } else
+                    {
+                        discount = 2;
+                    }
+
+
+
+                    summ_to_pay = $('#summPay').val();
+
+
+
+
+                    var way = document.getElementById('way_to_pay');
+                    //  var way_to_pay = way.options[way.selectedIndex].text;
+                    var way_to_pay = "Оплата на карту";
+
+
+
+                    var lessons_to_visit = '';
+
+                    var lessons = $('input:checkbox:checked').map(function () {
+                        return this.value;
+                    }).get();
+
+                    //lessons = $('.lessons:checkbox:checked');
+
+                    for (i = 0; i < lessons.length; i++)
+                    {
+                        lessons_to_visit += lessons[i] + ' ';
+                    }
+
+
+                    var a = 0;
+                    if ($('#name').val() == '') {
+                        $('#name').css("border-color", "red");
+                        a = 1;
+                    }
+                    //if($('#company').val()=='') { $('#company').css("border-color", "red");  a=1; }   
+                    if ($('#email').val() == '') {
+                        $('#email').css("border-color", "red");
+                        a = 1;
+                    }
+                    if ($('#phone').val() == '') {
+                        $('#phone').css("border-color", "red");
+                        a = 1;
+                    }
+                    //if($('#wishes').val()=='') { $('#wishes').css("border-color", "red");   a=1; }
+                    //if($('#scope').val()=='') {  $('#scope').css("border-color", "red");    a=1; }    
+                    if (lessons_to_visit == '') {
+                        $("#lektions_count").css("border", "1px solid red");
+                        a = 1;
+                    }
+                    if (way_to_pay == 'Виберіть спосіб оплати') {
+                        $("#way_to_pay").css("border-color", "red");
+                        a = 1;
+                    }
+                    if (a == 1)
+                    {
+
+                    } else
+                    {
+
+
+
+                        $.ajax({
+                            method: 'POST',
+                            url: url,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {PIB: $('#name').val(),
+                                //company_name:$('#company').val(),
+                                phone_number: $('#phone').val(),
+                                E_mail: $('#email').val(),
+                                training_id: $('#training_id').val(),
+                                //wishes:$('#wishes').val(),
+                                present: $('input[name=present]:checked', '#form').val(),
+                                //sphere:$('#scope').val(),
+                                lessons_to_visit: lessons_to_visit,
+                                promo: $('#promocode').val(),
+                                discount: discount,
+                                way_to_pay: way_to_pay,
+                                summ_to_pay: summ_to_pay
+
+
+                            },
+                            beforeSend: function (xhr) {
+                                //            var token = $('meta[name="csrf_token"]').attr('content');
+                                //        if (token) {
+                                //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+                            },
+                            success: function (data) {
+                                if (data.error == 'yes')
+                                {
+                                    console.log(data.error);
+                                    console.log(data.message);
+
+                                    if (data.message == 'Промо-код не дійсний, можливо ви зробили помилку')
+                                    {
+                                        $("#promo_message").css("color", "red");
+                                        $("#promo_message").html('Промо-код не дійсний, можливо ви зробили помилку');
+                                        $("#promo_message").show();
+                                        $("#paypaypay").html($('#price_val').val());
+                                    } else
+                                    {
+                                        $('#globalError').show();
+                                        $('#globalError').html(data.message);
+                                    }
+                                } else
+                                {
+                                    console.log(data.error);
+                                    console.log(data.message);
+                                    console.log(data.discount);
+                                    if (data.discount != '')
+                                    {
+                                        $("#promo_message").css("color", "green");
+                                        $("#promo_message").html('Промо-код дійсний');
+                                    }
+
+                                    var sum_all = 0;
+                                    if ($("#full_price").is(':checked'))
+                                    {
+                                        sum_all = $('#price_val').val();
+                                    } else
+                                    {
+                                        $('.lessons').each(function ()
+                                        {
+                                            if ($(this).is(':checked'))
+                                            {
+                                                $("#full_price").prop('checked', false);
+                                                sum_all = sum_all + parseInt($(this).attr('data-price'));
+                                            }
+                                        })
+                                    }
+
+
+                                    var sum = Math.round(sum_all - ((sum_all / 100) * data.discount));
+                                    // console.log(sum);
+                                    $("#paypaypay").html(sum);
+
+                                    $('#openModal').click();
+                                }
+
+                            },
+                            error: function (data) {
+                                var errors = data.responseJSON;
+                                console.log(errors);
+                            }
+
+
+                        });
+                    }
+
+                }
+
+
 
                 $('#close_dialog').click(function ()
                 {
                     location.reload();
                 });
 
+            });
 
 
 
+            $submitActors.click(function (event) {
+                submitActor = this;
+            });
 
-        jQuery(function ($) {
- 
 
             $("#prepay").change(function () {
 
@@ -665,14 +1017,14 @@ return aaa;
 
                 if (this.checked) {
 
-                    var b = Math.round($('#persent').html() * 30);
+                    var b = $('#persent').html() * 30;
 
                     $('#paypaypay').html(b);
                     $('#summPay').val(b);
                 } else
                 {
 
-                    b = Math.round($('#persent').html() * 100);
+                    b = $('#persent').html() * 100;
 
                     $('#paypaypay').html(b);
                     $('#summPay').val(b);

@@ -9,7 +9,7 @@ class Discounts extends Model
      protected $table = 'discounts';
     
     protected $fillable = [
-    'training_id','code','status','value',
+    'training_id','code','status','value', 'count'
     ];
     
     public function training() {
