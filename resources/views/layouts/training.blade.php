@@ -146,7 +146,9 @@
             <div class="to-pay">
                  @if($training->is_static!=1)
                  <div class="amount-to-pay" >Сума для оплати<br><br><span><span id="paypaypay">{{$training->full_price}} </span> грн</span></div>
-                
+                 
+                 <label class="checkbox-label"><input class="" type="checkbox" name="prepay"   value="1" id="prepay"> Оплатити предоплатою </label><br>
+                 <div id="persent" hidden="true">{{$training->full_price/100}}</div>
             
                 <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
                 
@@ -261,9 +263,21 @@ $(function()
            }
         })
       }
-      
-      $('#paypaypay').html(p);
-      $('#summPay').val(p);
+      $('#persent').html(p/100);
+   var ss =  $('#persent').html();
+    
+      if($('#prepay').is(':checked') == true)
+      {
+          
+      $('#paypaypay').html(ss*30);
+      $('#summPay').val(ss*30);
+      }
+      else
+      {
+      $('#paypaypay').html(ss*100);
+      $('#summPay').val(ss*100);
+      }
+  
    });
    
 });
@@ -325,6 +339,18 @@ $("#checkCode").click(function(e)
                   
                   var sum =  Math.round(sum_all - ((sum_all/100)*data.discount));
                   // console.log(sum);
+                  $('#persent').html(sum/100);
+                  if($('#prepay').is(':checked') == true)
+                        {
+                            
+                            var ss = $('#persent').html();
+                            sum = ss*30;
+                        }
+                        else
+                        {
+                            var ss = $('#persent').html();
+                            sum = ss*100; 
+                        }
                   $("#paypaypay").html(sum);
                   
                   }
@@ -395,8 +421,14 @@ if(submitActor.name=="Готівкою"||submitActor.name=="Заявка")
      discount = 2;
  }
  
- 
- 
+ if($('#prepay').is(':checked') == true)
+ {
+    var prepay = 1;
+ }
+ else
+ {
+    var prepay = 2; 
+ }
    
 
   
@@ -465,8 +497,8 @@ if(submitActor.name=="Готівкою"||submitActor.name=="Заявка")
                     promo:$('#promocode').val(),
                     discount:discount,
                     way_to_pay:way_to_pay,
-                    summ_to_pay:summ_to_pay
-
+                    summ_to_pay:summ_to_pay,
+                    prepay:prepay
                     
                 },
              beforeSend: function (xhr) {
@@ -523,7 +555,19 @@ if(submitActor.name=="Готівкою"||submitActor.name=="Заявка")
                   
                   
                 var sum =  Math.round(sum_all - ((sum_all/100)*data.discount));
-                  // console.log(sum);
+                 $('#persent').html(sum/100);
+                  if($('#prepay').is(':checked') == true)
+                        {
+                            
+                            var ss = $('#persent').html();
+                            sum = ss*30;
+                        }
+                        else
+                        {
+                            var ss = $('#persent').html();
+                            sum = ss*100; 
+                        }
+                //  $("#paypaypay").html(sum);
                   $("#paypaypay").html(sum);
                   
                   $('#openModal').click();
@@ -724,6 +768,29 @@ if(submitActor.name=="Готівкою"||submitActor.name=="Заявка")
           submitActor = this;
       });
    
+    
+    $("#prepay").change(function() {
+      
+      //$("#persent").html($('#paypaypay').html()/100);
+        
+         
+    if(this.checked) {
+
+     var   b = $('#persent').html()*30;
+        
+      $('#paypaypay').html(b);
+      $('#summPay').val(b);
+    }
+    else
+    {
+    
+       b = $('#persent').html()*100;
+        
+      $('#paypaypay').html(b);
+      $('#summPay').val(b);
+    }
+});
+    
     
 });     
        

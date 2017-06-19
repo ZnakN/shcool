@@ -44,6 +44,8 @@
                           @endif
                             <tr>  <th>Время</th>  <td>   {{$requests->created_at}} </td> </tr>
                              <tr>  <th>Сума к оплате</th>  <td>   {{$requests->summ_to_pay}} </td> </tr>
+                            @if($requests->prepay == 1) <tr>  <th>Предоплата</th>  <td>  Да </td> </tr> @endif
+                            @if($requests->prepay == 2) <tr>  <th>Предоплата</th>  <td>  Нет </td> </tr> @endif
                           </td>        
                         </thead>
                       </table>

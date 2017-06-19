@@ -262,6 +262,7 @@ $names = [];
     $present = [];
     $payed =[];
     $discount = [];
+    $prepay = [];
     for ($i = 0; $i<count($requests); $i++)
     {
          if($requests[$i]->status == 1  )
@@ -281,6 +282,18 @@ $names = [];
          {
              $present[$i] = "Нет";
          }
+         
+         
+          if($requests[$i]->prepay == 1  )
+         {
+             $prepay[$i] = "Да";
+         }
+         else
+         {
+             $prepay[$i] = "Нет";
+         }
+         
+         
          
          if($requests[$i]->payed == 1  )
          {
@@ -334,6 +347,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('P1', 'Дата регистрации') 
             ->setCellValue('Q1', 'Размер скидки') 
             ->setCellValue('R1', 'Сумма к оплате') 
+            ->setCellValue('S1', 'Предоплата') 
         ;
 
 for ($i = 2; $i<=count($requests)+1; $i++)
@@ -357,6 +371,7 @@ for ($i = 2; $i<=count($requests)+1; $i++)
             ->setCellValue("P{$i}", $requests[$i-2]->created_at) 
             ->setCellValue("Q{$i}", $requests[$i-2]->discount_value)    
             ->setCellValue("R{$i}", $requests[$i-2]->summ_to_pay) 
+            ->setCellValue("S{$i}", $prepay[$i-2]) 
                     ;
 }
 
