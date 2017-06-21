@@ -365,16 +365,18 @@ return aaa;
             {
                 discount = 2;
             }
-
+            var summ_to_pay = $('#summPay').val();
                     if (action == 'nal')
                     {
-                        var summ_to_pay = $('#summPay').val();
                         var way_to_pay = "Готівкою";
                     }
                     if (action == 'nal_z')
                     {
                         var way_to_pay = "Заявка";
-                        var summ_to_pay = 0;
+                    }
+                    if (action == 'card')
+                    {
+                        var way_to_pay = "Оплата на карту";
                     }
 
                     if ($('#prepay').is(':checked') == true)
@@ -419,7 +421,8 @@ return aaa;
                             discount: discount,
                             way_to_pay: way_to_pay,
                             summ_to_pay: summ_to_pay,
-                            prepay: prepay
+                            prepay: prepay,
+                            action:action
 
                         },
                         async: false,
@@ -429,7 +432,7 @@ return aaa;
                             //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
                         },
                         success: function (data) {
-                        is_send = 1;
+                        is_send = data;
                             console.log(data.error);
                             console.log(data.message);
                             console.log(data.discount);
@@ -480,9 +483,9 @@ return aaa;
 
 
                     });
-                    if(is_send==1)
+                    if(is_send)
                     {
-                        return true;
+                        return is_send;
                     }
                     else
                     {
@@ -498,7 +501,8 @@ return aaa;
             $('.bsend').click(function ()
             {
                 var action = $(this).data('action');
-                if (pay(action))
+                var r = pay(action); 
+                if (r)
                 {
                     if ((action == 'nal')||(action == 'nal_z'))
                     {
@@ -508,7 +512,10 @@ return aaa;
                     if (action == 'card')
                     {
                         // перейти на страницу оплаты
-
+                        if (r.send_link!=undefined)
+                        {
+                          window.location=r.send_link;
+                        }
                     }
 
                 }

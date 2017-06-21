@@ -23,6 +23,11 @@ Route::get('/', 'IndexController@index');
 Route::get('/view/{url}', 'IndexController@viewDetails');
 Route::post('/update', 'IndexController@update');
 Route::post('/checkCode', 'IndexController@checkCode');
+
+Route::post('/pay_response', 'IndexController@pay_response');
+Route::get('/pay_ok', 'IndexController@pay_ok');
+Route::get('/pay_error', 'IndexController@pay_error');
+Route::get('/test', 'IndexController@test');
 //Route::post('/checkCodeTest', 'IndexController@checkCodeTest');
 
 Route::get('/admin','Admin\AdminController@index');

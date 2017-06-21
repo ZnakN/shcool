@@ -13,6 +13,9 @@ class Requests extends Model
         'promo', 'way_to_pay', 'summ_to_pay', 'prepay'
     ];
     
+    public function training() {
+      return $this->hasOne('App\Models\Trainings', 'id', 'training_id');
+    }
 //    public function setUrlAttribute($value) {
 //      if (!$value)
 //      {
