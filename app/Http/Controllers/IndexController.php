@@ -15,6 +15,7 @@ use App\Models\Lektors;
 use App\Models\Discounts;
 use App\Models\Lessons;
 use App\Models\Requests;
+use App\Mail\cash;  
 use Yajra\Datatables\Facades\Datatables;
 use Illuminate\Support\Facades\File;
 use Validator;
@@ -143,8 +144,18 @@ class IndexController extends Controller {
          
          $send_link = 'https://test-user.tachcard.com/ru/shop/test?a='.$r->summ_to_pay.'&o='.$r->id.'&s='.$this->makeSign($mas);
       }
+      else
+      {
+           $this->send_letter($r, 1);
+      }
     }
       //return json_encode($res);
+
+   // $r = Requests::find(9);
+   
+    
+    
+    
       return response()->json(array('error' => 'no', 'message' => 'Все добре!', 'discount' => $disc,'send_link'=>$send_link), 200);
     
 
@@ -197,6 +208,14 @@ class IndexController extends Controller {
          {
             $request->payed = 1;
             $request->save();
+            if($request->prepay == 1)
+            {
+                $this->send_letter($request, 3);
+            }
+            else
+            {
+            $this->send_letter($request, 2);
+            }
          }
        }
      }
@@ -205,13 +224,35 @@ class IndexController extends Controller {
      
   }
   
-  public function pay_ok()
+  public function pay_ok(Request $r)
   {
-    
+       
+    return view('mail.card');
   }
   
-  public function pay_error()
+  public function pay_error(Request $r)
   {
+    $request_id = $r->get('order_id', '');
+    if($request_id)
+    {
+        
+        $req = Requests::find($request_id);
+        if($req)
+        {
+            $this->send_letter($req, 4);
+             return view('mail.cardfail');
+        }
+        else
+        {
+            return view('errors.404', ['message' => 'Not found']);
+            // 404
+        }
+    }
+    else
+    {
+         return view('errors.404', ['message' => 'Not found']);
+        // відправити на 404
+    }
     
   }
   
@@ -238,6 +279,8 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
+    //    Mail::to($r->E_mail)->send(new \App\Mail\cash($message));
+         Mail::to($r->E_mail)->send(new cash($message));
       break;
       
     case '2':
@@ -249,6 +292,7 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
+         Mail::to($r->E_mail)->send(new cash($message));
         break;
 
       case '3':
@@ -261,6 +305,7 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
+           Mail::to($r->E_mail)->send(new cash($message));
         break;
       
       case '4':
@@ -275,6 +320,7 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
+           Mail::to($r->E_mail)->send(new cash($message));
         break;
 
 
