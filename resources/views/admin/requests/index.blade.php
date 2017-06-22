@@ -7,6 +7,17 @@
 				<div class="panel panel-default">
                   <div class="panel-heading">Заявки</div>
                   
+                  
+                  
+                  <div> 
+                      <select name="train" id="train" class="custom-select">
+                    <option value="Все">Все</option>
+                           @foreach($trainings as $training)
+                    <option value="{{$training->id}}">{{$training->name}}</option>
+                          @endforeach
+                </select>          
+                  </div>
+                  
 					<div class="panel-body">
 <!--                      <a href="/admin/trainings/create" class="btn btn-default" style="margin-bottom: 15px"  >Добавить тренинг</a>-->
                       
@@ -55,6 +66,10 @@ $(function() {
     $('#brands-table').DataTable({
         processing: true,
         serverSide: true,
+         searching: true,
+            info: true,
+            lengthChange: true,
+            retrieve: true,
         language : rus_lang,
         ajax: '{!! url('admin/requests/users_data') !!}',
         order: [[ 0, "desc" ]],
@@ -74,7 +89,10 @@ $(function() {
             { data: 'status', name: 'status' },
             { data: 'created_at', name: 'created_at' },
             { data: 'action', name: 'action', orderable: false, searchable: false}
-        ]
+        ],
+         "columnDefs": [
+    { className: "my_class", "targets": [ 2 ] }
+  ]
     });
     
     $('#brands-table').on('click','.block',function()
@@ -100,6 +118,28 @@ $(function() {
     
     
     
+    $('select[name="train"]').on("change", function(event){
+    var train = $('select[name="train"]').val();
+    console.log(train);
+    var table = $('#brands-table').DataTable();
+    if(train == 'Все')
+    {
+ table.columns('.my_class')
+        .search('')
+        .draw();
+    }
+    else
+    {
+    table.columns('.my_class')
+        .search(train)
+        .draw();
+    }
+//<span>Тренинг222</span>
+});
+    
+    
+    
+
 });
 </script>
 <!--<script>

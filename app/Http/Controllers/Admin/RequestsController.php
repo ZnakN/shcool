@@ -23,7 +23,11 @@ class RequestsController extends Controller
   }
   
   public function index() {
-    return view('admin.requests.index');
+      
+      
+    $trainings = Trainings::select('id','name')->get();
+    //dump($trainings);
+   return view('admin.requests.index', ['trainings' => $trainings]);
   }
   
   public function create()
