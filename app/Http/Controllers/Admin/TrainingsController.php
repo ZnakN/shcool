@@ -80,13 +80,30 @@ class TrainingsController extends Controller
    //dump($request);
     $id = $request->input('id', '');
 //dump($request);
+    
+    if($request->input('is_static')==1)
+    {
+         $validator = Validator::make($request->all(), [
+        'description' => 'required|max:2000',
+        'name' => 'required|string|max:1024',
+        'internal_title' => 'required|string|max:2000',
+        
+    ]);
+        
+    }
+     else {
     $validator = Validator::make($request->all(), [
         'description' => 'required|max:2000',
         'begin_date' =>'required|date',
         'end_date' =>'required|date|after:begin_date',
         'name' => 'required|string|max:1024',
         'internal_title' => 'required|string|max:2000',
-    ]);
+        'full_price' => 'required',
+        'adress_where' => 'required',
+         'adress' => 'required',
+        'time_from' => 'required',
+         'time_to' => 'required',
+  ]); }
 
     if ($validator->fails()) {
       if ($id)
@@ -111,8 +128,20 @@ class TrainingsController extends Controller
     }
     else
     {
+        
+        
+        
       $r = $request->except('_token');
       
+       if($request->input('is_static')==1)
+    {
+           $r["begin_date"] = date("Y-m-d");
+           $r["end_date"]  = date("Y-m-d");
+           $r["full_price"]  = 0;
+    }
+      
+      
+     // dump($r);
       $trainings = Trainings::create($r);
     }
     
