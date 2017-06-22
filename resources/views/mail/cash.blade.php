@@ -65,6 +65,6 @@
         </style>
     </head>
     <body>
-       <p>{{$messages}}</p>  
+      <p>{!!$messages!!}</p>  
     </body>
 </html>

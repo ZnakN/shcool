@@ -30,6 +30,9 @@ class cash extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.cash');
+       $from = "Etiquette School";
+       $subject = "Уведомление от Etiquette School";
+       
+       return $this->from("neroznak@gmail.com", $from)->subject($subject)->view('mail.cash');
     }
 }

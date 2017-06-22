@@ -279,8 +279,6 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
-    //    Mail::to($r->E_mail)->send(new \App\Mail\cash($message));
-         Mail::to($r->E_mail)->send(new cash($message));
       break;
       
     case '2':
@@ -292,7 +290,6 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
-         Mail::to($r->E_mail)->send(new cash($message));
         break;
 
       case '3':
@@ -305,7 +302,6 @@ class IndexController extends Controller {
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
-           Mail::to($r->E_mail)->send(new cash($message));
         break;
       
       case '4':
@@ -313,14 +309,14 @@ class IndexController extends Controller {
         Ви зареєструвалися на курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).<br>
         На жаль ваша оплата не пройшла успішно.<br>
         Ви можете спробувати зареєтруватися та оплатити ще раз на сайті <br> 
-        www.etiqschool.com.ua або пропонуємо вам альтернативний варіант оплати:<br>
+        <a href='www.etiqschool.com.ua'>www.etiqschool.com.ua</a> або пропонуємо вам альтернативний варіант оплати:<br>
         оплата на карту в найближчому терміналі ПриватБанку 5168 7555 2854 8379 Зубкова Е.О<br>
         Вартість курсу " . $r->summ_to_pay . " грн.<br>
         <br>
         Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
         Ваша Etiquette School
         ";
-           Mail::to($r->E_mail)->send(new cash($message));
+           
         break;
 
 
@@ -329,10 +325,10 @@ class IndexController extends Controller {
         break;
     }
     
-    
-    
-    
-    
+    Mail::to($r->E_mail)->send(new cash($message));
+
+
+
     return $message;
   }
   
