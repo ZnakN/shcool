@@ -181,6 +181,7 @@ echo json_encode([
 
                     @if($training->is_static!=1)
                     <button type="button" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" >Оплата готівкою</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" >Оплата на карту</button>
                     @else
 
@@ -525,6 +526,7 @@ return aaa;
 
             $('.les').click(function ()
             {
+                var les_count = $('.lessons').length;
                 if ($(this).hasClass('lessons'))
                 {
                     $("#full_price").prop('checked', false);
@@ -536,12 +538,20 @@ return aaa;
                 } else
                 {
 
+                    var c = 0;
                     $('.lessons').each(function ()
                     {
                         if ($(this).is(':checked'))
                         {
                             $("#full_price").prop('checked', false);
                             p = p + parseInt($(this).attr('data-price'));
+                            c = c+1;
+                        }
+                        if (c == les_count)
+                        {
+                          $('.lessons').prop('checked', false);
+                          $("#full_price").prop('checked', true);
+                          p = $('#price_val').val();
                         }
                     })
                 }

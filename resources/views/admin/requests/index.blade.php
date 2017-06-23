@@ -13,7 +13,7 @@
                       <select name="train" id="train" class="custom-select">
                     <option value="Все">Все</option>
                            @foreach($trainings as $training)
-                    <option value="{{$training->id}}">{{$training->name}}</option>
+                           <option value="{{$training->id}}">{{$training->name.' ('.date('d.m.Y',strtotime($training->begin_date)).' '.date('d.m.Y',strtotime($training->end_date)).')'}}</option>
                           @endforeach
                 </select>          
                   </div>

@@ -25,7 +25,7 @@ class RequestsController extends Controller
   public function index() {
       
       
-    $trainings = Trainings::select('id','name')->get();
+    $trainings = Trainings::select('id','name','begin_date','end_date')->get();
     //dump($trainings);
    return view('admin.requests.index', ['trainings' => $trainings]);
   }
@@ -72,15 +72,15 @@ class RequestsController extends Controller
 //        return $status;
 //    })
             ->addColumn('training_id', function($request) {
-        $trainings = DB::table('trainings')->select('name', 'id')->get();
-        for ($i=0; $i<count($trainings); $i++)
-        {
-            if($request->training_id == $trainings[$i]->id)
-            {
-        $training_name = "<span>{$trainings[$i]->name}</span>" ;
-            }
-        }    
-        return $training_name;
+//        $trainings = DB::table('trainings')->select('name', 'id')->get();
+//        for ($i=0; $i<count($trainings); $i++)
+//        {
+//            if($request->training_id == $trainings[$i]->id)
+//            {
+//        $training_name = "<span>{$trainings[$i]->name}</span>" ;
+//            }
+//        }    
+        return $request->training->name.' ('.date('d.m.Y',strtotime($request->training->begin_date)).' '. date('d.m.Y', strtotime($request->training->end_date)).')';
       })->make(true);
       
               
@@ -103,7 +103,7 @@ class RequestsController extends Controller
         $training_static = $trainings[$i]->is_static;
             }
         }
- return view('admin.requests.edit',['requests'=>$requests, 'trainings'=> $training_name, 'training_static'=>$training_static]);
+ return view('admin.requests.fedit',['requests'=>$requests, 'trainings'=> $training_name, 'training_static'=>$training_static]);
     //return view('admin.trainings.edit', ['trainings' => $trainings]);
   }
 
@@ -115,16 +115,17 @@ class RequestsController extends Controller
     
     $validator = Validator::make($request->all(), [
         'PIB' => 'required|string|max:1024',
-        'company_name' =>'required|string|max:1024',
-        'sphere' =>'required|string|max:2048',
+        'company_name' =>'string|max:1024',
+        'sphere' =>'string|max:2048',
         'E_mail' => 'required|string|max:1024',
         'phone_number' => 'required|string|max:1024',
         'lessons_to_visit' => 'string|max:2048',
         'promo' => 'string|max:2048',
-        'wishes' => 'required|string|max:2048',
+        'wishes' => 'string|max:2048',
     ]);
 
     if ($validator->fails()) {
+      ppre($validator->errors());
       if ($id)
       {
         return redirect('admin/requests/edit/' . $id)
