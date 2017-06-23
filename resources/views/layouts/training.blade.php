@@ -374,6 +374,7 @@ return aaa;
                     if (action == 'nal_z')
                     {
                         var way_to_pay = "Заявка";
+                        summ_to_pay = 0;
                     }
                     if (action == 'card')
                     {
