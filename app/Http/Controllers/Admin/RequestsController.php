@@ -25,7 +25,7 @@ class RequestsController extends Controller
   public function index() {
       
       
-    $trainings = Trainings::select('id','name','begin_date','end_date')->get();
+    $trainings = Trainings::select('id','name','begin_date','end_date','is_static')->get();
     //dump($trainings);
    return view('admin.requests.index', ['trainings' => $trainings]);
   }
@@ -80,7 +80,7 @@ class RequestsController extends Controller
 //        $training_name = "<span>{$trainings[$i]->name}</span>" ;
 //            }
 //        }    
-        return $request->training->name.' ('.date('d.m.Y',strtotime($request->training->begin_date)).' '. date('d.m.Y', strtotime($request->training->end_date)).')';
+        return  ($request->training->is_static != 1)? $request->training->name.' ('.date('d.m.Y',strtotime($request->training->begin_date)).' '. date('d.m.Y', strtotime($request->training->end_date)).')': $request->training->name;
       })->make(true);
       
               

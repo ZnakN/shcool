@@ -147,16 +147,17 @@ echo json_encode([
 
                 <div class="to-pay">
                     @if($training->is_static!=1)
+                    <b>Промокод</b> <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код"><button  id="checkCode" class="check-promocode">Перевірити</button>
                     <div class="amount-to-pay" >Сума для оплати<br><br><span><span id="paypaypay">{{$training->full_price}} </span> грн</span></div>
 
-                    <label class="checkbox-label"><input class="" type="checkbox" name="prepay"   value="1" id="prepay"> Оплатити предоплатою </label><br>
+                    <label class="checkbox-label"><input class="" type="checkbox" name="prepay"   value="1" id="prepay"> Я хочу оплатити частинами , зараз внесу предплату у розмірі 30% </label><br>
                     <div id="persent" hidden="true">{{$training->full_price/100}}</div>
 
-                    <input id="promocode" type="text" name="promo" placeholder="Введіть промо-код">
+                    
 
 
 
-                    <button  id="checkCode" class="check-promocode">Перевірити</button>
+                    
 
 
                     <div class="indent label-title" id="promo_message"  ></div>
@@ -202,7 +203,9 @@ echo json_encode([
                             <button type="button" class="close" id="close_dialog"  data-dismiss="modal" aria-label="Close"><img src="{{asset('trainings_images/close.png')}}"></button>
                             <div style="color:dimgray; text-align:center; font-size: 120%;"><p><b>Дякуємо!</b></p></div>
                             <div class="modal-title" id="myModalLabel"><b>Ви зареєструвались на курс «{{$training->name}}»</b></div>
+                            @if($training->is_static!=1)  
                             <div class="event-date" style="text-align: center;">{{ date('j',strtotime($training->begin_date))}}  - {{$end_date}}</div>
+                            @endif
                         </div>
                         <div class="modal-body">
                             Найближчим часом з Вами зв’яжеться менеджер для узгодження деталей.
@@ -548,7 +551,7 @@ return aaa;
                             p = p + parseInt($(this).attr('data-price'));
                             c = c+1;
                         }
-                        if (c == les_count)
+                        if ((c == les_count)&&(c!=1))
                         {
                           $('.lessons').prop('checked', false);
                           $("#full_price").prop('checked', true);
