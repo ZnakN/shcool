@@ -33,6 +33,6 @@ class cash extends Mailable
        $from = "Etiquette School";
        $subject = "Уведомление от Etiquette School";
        
-       return $this->from("neroznak@gmail.com", $from)->subject($subject)->view('mail.cash');
+       return $this->from("info@etiqschool.com.ua", $from)->subject($subject)->view('mail.cash');
     }
 }

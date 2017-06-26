@@ -142,7 +142,7 @@ class IndexController extends Controller {
          
          //ppre($mas);
          
-         $send_link = 'https://test-user.tachcard.com/ru/shop/test?a='.$r->summ_to_pay.'&o='.$r->id.'&s='.$this->makeSign($mas);
+         $send_link = 'https://test-user.tachcard.com/ru/shop/test?a=' . $r->summ_to_pay . '&o=' . $r->id . '&s=' . $this->makeSign($mas) . '&u=' . $r->PIB . '&d=Оплата за тренинг : ' . $r->training->name;
       }
       else
       {
@@ -188,40 +188,38 @@ class IndexController extends Controller {
   
   public function pay_response(Request $r)
   {
-     
-     $id = $r->json('id','');
-     $order_id = $r->json('order_id','');
-     $amount = $r->json('amount','');
-     $d_sd = $r->json('send_date','');
-     $d_cr = $r->json('created_at','');
-     $sign = $r->json('sign','');
-     
-     if ($id&&$order_id&&$amount&&$d_sd&&$d_cr&&$sign)
-     {
-       // проверка подписи
-       $ps = [$order_id,$d_sd,$d_cr,$amount];
-       $check_sign = $this->makeSign($ps);
-       if ($check_sign == $sign)
-       {
-         $request = Requests::find($order_id);
-         if ($request)
-         {
-            $request->payed = 1;
-            $request->save();
-            if($request->prepay == 1)
-            {
-                $this->send_letter($request, 3);
-            }
-            else
-            {
+    $content = file_get_contents('php://input');
+    $resp = json_decode($content);
+    Log::info($content);
+    $id = isset($resp->id) ? $resp->id : '';
+    $order_id = isset($resp->order_id) ? $resp->order_id : '';
+    //Log::info('ID : '.$id);Log::info('Order_id : '.$order_id);
+
+
+    $amount = isset($resp->amount) ? $resp->amount : '';
+    $d_sd = isset($resp->send_date) ? $resp->send_date : '';
+    $d_cr = isset($resp->created_at) ? $resp->created_at : '';
+    $sign = isset($resp->sign) ? $resp->sign : '';
+
+    if ($id && $order_id && $amount && $d_sd && $d_cr && $sign) {
+      // проверка подписи
+      $ps = ['order_id' => $order_id, 'send_date' => $d_sd, 'created_at' => $d_cr, 'amount' => $amount];
+      $check_sign = $this->makeSign($ps);
+      Log::info('CH_SIGN : ' . $check_sign);
+
+      if ($check_sign == $sign) {
+        $request = Requests::find($order_id);
+        if ($request) {
+          $request->payed = 1;
+          $request->save();
+          if ($request->prepay == 1) {
+            $this->send_letter($request, 3);
+          } else {
             $this->send_letter($request, 2);
-            }
-         }
-       }
-     }
-      
-     
-     
+          }
+        }
+      }
+    }
   }
   
   public function pay_ok(Request $r)
@@ -325,8 +323,8 @@ class IndexController extends Controller {
         break;
     }
     
-    Mail::to($r->E_mail)->send(new cash($message));
-
+         Mail::to($r->E_mail)->send(new cash($message));
+      
 
 
     return $message;
