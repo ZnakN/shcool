@@ -97,7 +97,7 @@ class TrainingsController extends Controller
         'begin_date' =>'required|date',
         'end_date' =>'required|date|after:begin_date',
         'name' => 'required|string|max:1024',
-//        'description' => 'required|max:2000',
+        'description' => 'required|max:2000',
         'url' => 'required',
         'type' =>'required',
         'internal_title' => 'required|string|max:2000',

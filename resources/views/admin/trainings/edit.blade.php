@@ -42,7 +42,7 @@
                           <label for="text_ru">Описание</label>
                           <textarea class="form-control"   id="description" placeholder="description" name="description" >{{$trainings->description}}</textarea>
                         </div>
-                        
+<!--                         <textarea class="form-control"   id="description2" placeholder="description" name="description2" >{{$trainings->description}}</textarea>-->
                         <div class="form-group">
                           <label for="name">URL</label>
                           <input type="input" class="form-control" value="{{$trainings->url}}"  id="url" placeholder="url" name="url" >
@@ -216,8 +216,10 @@ $(function()
 
  $("#forma").submit(function(e)
     {
+
         e.preventDefault(e);
-       
+        
+       // alert(CKEDITOR.instances['description'].getData());
          $.ajax({
                             method: 'POST',
                             url:'/admin/trainings/update',
@@ -229,7 +231,7 @@ $(function()
             'name':$('#name').val(),
             'internal_title':$('#zag').val(),
             'type':$('#type').val(),
-            'description':$('#description').html(),
+            'description':CKEDITOR.instances['description'].getData(),
             'url':$('#url').val(),
             'lektor_id':$('#lektor option:selected').val(),
             'begin_date':$('#begin_date').val(),

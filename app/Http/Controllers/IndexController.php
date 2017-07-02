@@ -132,8 +132,9 @@ class IndexController extends Controller {
       $r->summ_to_pay = ($summ_to_pay)?$summ_to_pay: $request->input('summ_to_pay');
       $r->save();
       
-        
-      
+        //
+       
+      // Mail::to("etiq.school@gmail.com")->send(new cash($message));
       
       $send_link = '';
       if ($request->input('action','')=='card')
