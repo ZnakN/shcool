@@ -85,6 +85,29 @@ $(function() {
     
     
     
+      $('#brands-table').on('click','.delete',function()
+    {
+       var id = $(this).data('id');
+      //alert(id);
+       $.post('/admin/trainings/delete',{'trainings_id':id},function(res)
+       {
+          var r = jQuery.parseJSON(res);
+          if (r.res == 'ok')
+          {
+             $('#d'+id).closest('tr').remove();
+            
+          }
+          else
+          {
+            alert(r.message);
+          }
+       });
+       
+       
+    });
+    
+    
+    
 });
 </script>
 @endpush

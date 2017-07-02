@@ -52,8 +52,8 @@ class RequestsController extends Controller
         } else {
           $block = '<span id="b' . $request->id . '" data-id="' . $request->id . '"  class="btn btn-xs btn-success block"><i class="glyphicon glyphicon-ok"></i> Активировать</span>';
         }
-
-        $delete = ''; //'<a href="#edit-' . $user->id . '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+ $delete = '<span id="d' . $request->id . '" data-id="' . $request->id . '"  class="btn btn-xs btn-danger delete"><i class="glyphicon glyphicon-trash"></i>Удалить</span>';
+     //   $delete = ''; //'<a href="#edit-' . $user->id . '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
         return $edit . ' ' . $block . ' ' . $delete;
       })->addColumn('status', function($request) {
         $status = ($request->status == 1) ? "<span id='s" . $request->id . "'>Активный</span>" : "<span id='s" . $request->id . "' >Заблокирован</span>";
@@ -197,6 +197,26 @@ class RequestsController extends Controller
 
     return json_encode($res);
   }
+  
+  
+    
+   public function delete(Request $request) {
+    $res = [];
+    $id = $request->input('requests_id');
+    $trainings = Requests::find($id);
+
+    if (!($trainings == null)) {
+     
+      $trainings->delete();
+      $res = ['res' => 'ok'];
+    } else {
+      $res = ['res' => 'error', 'message' => 'Error : User not found'];
+    }
+
+    return json_encode($res);
+  }
+  
+  
      
   public function viewExport() {
         $requests = Requests::all();

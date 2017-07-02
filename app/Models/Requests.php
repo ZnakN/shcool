@@ -10,7 +10,7 @@ class Requests extends Model
     
     protected $fillable = [
     'PIB','company_name','phone_number','E_mail', 'training_id', 'status', 'wishes', 'present', 'sphere','lessons_to_visit', 'payed' ,'discount',
-        'promo', 'way_to_pay', 'summ_to_pay', 'prepay'
+        'promo', 'way_to_pay', 'summ_to_pay', 'prepay', 'comment'
     ];
     
     public function training() {

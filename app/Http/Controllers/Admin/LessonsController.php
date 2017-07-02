@@ -41,8 +41,8 @@ class LessonsController extends Controller
         } else {
           $block = '<span id="b' . $lesson->id . '" data-id="' . $lesson->id . '"  class="btn btn-xs btn-success block"><i class="glyphicon glyphicon-ok"></i> Активировать</span>';
         }
-
-        $delete = ''; //'<a href="#edit-' . $user->id . '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+ $delete = '<span id="d' . $lesson->id . '" data-id="' . $lesson->id . '"  class="btn btn-xs btn-danger delete"><i class="glyphicon glyphicon-trash"></i>Удалить</span>';
+      //  $delete = ''; //'<a href="#edit-' . $user->id . '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
         return $edit . ' ' . $block . ' ' . $delete;
       })->addColumn('status', function($lesson) {
         $status = ($lesson->status == 1) ? "<span id='s" . $lesson->id . "'>Активный</span>" : "<span id='s" . $lesson->id . "' >Заблокирован</span>";
@@ -130,4 +130,21 @@ class LessonsController extends Controller
 
     return json_encode($res);
   }
+  
+    public function delete(Request $request) {
+    $res = [];
+    $id = $request->input('lesson_id');
+    $trainings = Lessons::find($id);
+
+    if (!($trainings == null)) {
+     
+      $trainings->delete();
+      $res = ['res' => 'ok'];
+    } else {
+      $res = ['res' => 'error', 'message' => 'Error : User not found'];
+    }
+
+    return json_encode($res);
+  }
+  
 }

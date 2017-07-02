@@ -24,6 +24,7 @@
             </p>
         </div>
     </article>
+@if($training->is_static==1)
     <article class="event-program">
             <h3>Програма курсу «{{$training->name}}»</h3>
         <div class="">
@@ -43,11 +44,14 @@
    </div>
   @endfor
         </div>
-              @if($training->is_static!=1)
-        <div class="training-note"><strong>Після проходження всього курсу слухачі отримують сертифікати.</strong></div>
-        @endif
-        
+            
+<!--       <div class="training-note"><strong>Після проходження всього курсу слухачі отримують сертифікати.</strong></div>-->
     </article>
+ @endif
+ 
+  
+        
+ 
   @if($training->is_static!=1)
     <article class="lecturer">
         <h3 class="lecturer-title">ЛЕКТОР</h3>

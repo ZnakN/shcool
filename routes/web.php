@@ -41,6 +41,7 @@ Route::post('/admin/users/change_status', 'Admin\UsersController@change_status')
 Route::get('/admin/trainings', 'Admin\TrainingsController@index');
 Route::get('/admin/trainings/users_data', 'Admin\TrainingsController@anyData');
 Route::get('/admin/trainings/edit/{id}', 'Admin\TrainingsController@edit');
+Route::post('/admin/trainings/delete', 'Admin\TrainingsController@delete');
 Route::post('/admin/trainings/update', 'Admin\TrainingsController@update');
 Route::post('/admin/trainings/change_status', 'Admin\TrainingsController@change_status');
 Route::get('/admin/trainings/create', 'Admin\TrainingsController@create');
@@ -76,6 +77,7 @@ Route::get('/admin/requests/export', 'Admin\RequestsController@viewExport');
 Route::post('/admin/requests/makeExport', 'Admin\RequestsController@makeExport');
 
 Route::get('/admin/requests/edit/{id}', 'Admin\RequestsController@edit');
+Route::post('/admin/requests/delete', 'Admin\RequestsController@delete');
 Route::post('/admin/requests/update', 'Admin\RequestsController@update');
 Route::post('/admin/requests/change_status', 'Admin\RequestsController@change_status');
 //Route::get('/admin/requests/create', 'Admin\RequestsController@create');
@@ -88,6 +90,7 @@ Route::post('/admin/requests/change_status', 'Admin\RequestsController@change_st
 Route::get('/admin/lessons', 'Admin\LessonsController@index');
 Route::get('/admin/lessons/users_data', 'Admin\LessonsController@anyData');
 Route::get('/admin/lessons/edit/{id}', 'Admin\LessonsController@edit');
+Route::post('/admin/lessons/delete', 'Admin\LessonsController@delete');
 Route::post('/admin/lessons/update', 'Admin\LessonsController@update');
 Route::post('/admin/lessons/change_status', 'Admin\LessonsController@change_status');
 Route::get('/admin/lessons/create', 'Admin\LessonsController@create');

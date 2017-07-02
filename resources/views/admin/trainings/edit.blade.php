@@ -9,9 +9,10 @@
             <div class="panel-heading">Trainings</div>
 
 					<div class="panel-body">
-                      <form action="/admin/trainings/update" method="post" role="form" enctype="multipart/form-data" >
+<!--                                             action="/admin/trainings/update" method="post" role="form" enctype="multipart/form-data"-->
+                      <form enctype="multipart/form-data" id="forma">
                         <div class="box-body">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                       
                         @if ($trainings->id)
                         <input type="hidden" name="id" value="{{$trainings->id}}">
                         
@@ -29,7 +30,7 @@
                         
                         <div class="form-group">
                           <label for="name">Заголовок на странице тренинга</label>
-                          <input type="input" class="form-control" value="{{$trainings->internal_title}}"  id="name" placeholder="Заголовок на странице тренинга" name="internal_title"  >
+                          <input type="input" class="form-control" value="{{$trainings->internal_title}}"  id="zag" placeholder="Заголовок на странице тренинга" name="internal_title"  >
                         </div>
 
                         <div class="form-group">
@@ -212,6 +213,105 @@ $(function()
     $('#lfm').filemanager('image');
 
 });  
+
+ $("#forma").submit(function(e)
+    {
+        e.preventDefault(e);
+       
+         $.ajax({
+                            method: 'POST',
+                            url:'/admin/trainings/update',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+            'name':$('#name').val(),
+            'internal_title':$('#zag').val(),
+            'type':$('#type').val(),
+            'description':$('#description').html(),
+            'url':$('#url').val(),
+            'lektor_id':$('#lektor option:selected').val(),
+            'begin_date':$('#begin_date').val(),
+            'end_date':$('#end_date').val(),
+            'time_from':$('#time_from').val(),
+            'time_to':$('#time_to').val(),
+               'adress_where':$('#adress_where').val(),
+               'adress':$('#adress').val(),
+               'full_price':$('#full_price').val(),
+              'image':$('#thumbnail').val(),
+              'meta_title':$('#meta_title').val(),
+               'meta_description':$('#meta_description').val(),
+               'meta_keywords':$('#meta_keywords').val(),
+           'status':$('#status option:selected').val(),
+            'is_static':$('#is_static option:selected').val(),
+                            },
+                            beforeSend: function (xhr) {
+                                //            var token = $('meta[name="csrf_token"]').attr('content');
+                                //        if (token) {
+                                //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+                                $('#name').css("border-color", "#ccc"); 
+                                $('#zag').css("border-color", "#ccc");
+                                $('#type').css("border-color", "#ccc");
+                                $('#description').css("border-color", "#ccc");
+                                $('#lektor').css("border-color", "#ccc");
+                                $('#begin_date').css("border-color", "#ccc");
+                                $('#end_date').css("border-color", "#ccc");
+                                 $('#url').css("border-color", "#ccc");
+                                $('#time_from').css("border-color", "#ccc");
+                                $('#time_to').css("border-color", "#ccc");
+                                $('#adress_where').css("border-color", "#ccc");
+                                $('#adress').css("border-color", "#ccc");
+                                $('#full_price').css("border-color", "#ccc");
+                                $('#thumbnail').css("border-color", "#ccc");
+                                $('#status').css("border-color", "#ccc");
+                                $('#is_static').css("border-color", "#ccc");
+                            },
+                            success: function (data) {
+                               if(data.res == 'no')
+                               {
+                                  if  ($('#name').val()=='') { $('#name').css("border-color", "red"); }
+                                  if  ($('#zag').val()=='') { $('#zag').css("border-color", "red"); }
+                                  if  ($('#type').val()=='') { $('#type').css("border-color", "red"); }
+                                  if  ($('#description').val()=='') { $('#description').css("border-color", "red"); }
+                                  if  ($('#lektor option:selected').val()=='') { $('#lektor').css("border-color", "red"); }
+                                  if  ($('#begin_date').val()=='') { $('#begin_date').css("border-color", "red"); }
+                                  if  ($('#end_date').val()=='') { $('#end_date').css("border-color", "red"); }
+                                  if  ($('#time_from').val()=='') { $('#time_from').css("border-color", "red"); }
+                                  if  ($('#time_to').val()=='') { $('#time_to').css("border-color", "red"); }
+                                  if  ($('#adress_where').val()=='') { $('#adress_where').css("border-color", "red"); }
+                                  if  ($('#adress').val()=='') { $('#adress').css("border-color", "red"); }
+                                  if  ($('#full_price').val()=='') { $('#full_price').css("border-color", "red"); }
+                                  if  ($('#thumbnail').val()=='') { $('#thumbnail').css("border-color", "red"); }
+                                   if  ($('#url').val()=='') { $('#url').css("border-color", "red"); }
+                                  
+//                                  if  ($('#meta_title').val()=='') { $('#meta_title').css("border-color", "red"); }
+//                                  if  ($('#meta_description').val()=='') { $('#meta_description').css("border-color", "red"); }
+                                  if  ($('#status option:selected').val()=='') { $('#status').css("border-color", "red"); }
+                                  if  ($('#is_static option:selected').val()=='') { $('#is_static').css("border-color", "red"); }
+                                  
+                               }
+                               else
+                               {
+                                   window.location.href = "http://school/admin/trainings";
+                               }
+                               
+                              
+
+                            },
+                            error: function (data) {
+                               
+                               
+                               
+                               alert('error!');
+                               
+                               
+                            }
+
+
+                        });
+
+        
+    });
 
 </script>
 @endpush

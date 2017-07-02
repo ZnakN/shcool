@@ -64,6 +64,13 @@
               </div>
               @endif
               
+               <div class="form-group">
+                <label for="name">Сумма оплаты</label>
+                <label class="form-control" >{{$requests->summ_to_pay}}</label>
+              </div>
+              
+              
+              
               <div class="form-group">
                 <label for="role">Оплачено</label>
                 <select class="form-control" name="payed" id="payed" >
@@ -96,6 +103,12 @@
                 <label for="name">Статус</label>
                 <label class="form-control" >@if($requests->status==1) Да @else Нет @endif</label>
               </div>
+              
+              
+              <div class="form-group">
+              <label for="meta_description">Коментарий</label>
+              <textarea class="form-control" id="meta_description" name="comment" rows="10"  >{{$requests->comment}} </textarea>
+              </div>    
 
               <div class="form-group">
 

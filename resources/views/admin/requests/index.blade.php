@@ -119,7 +119,26 @@ $(function() {
        
     });
     
-    
+        $('#brands-table').on('click','.delete',function()
+    {
+       var id = $(this).data('id');
+      
+       $.post('/admin/requests/delete',{'requests_id':id},function(res)
+       {
+          var r = jQuery.parseJSON(res);
+          if (r.res == 'ok')
+          {
+             $('#d'+id).closest('tr').remove();
+            
+          }
+          else
+          {
+            alert(r.message);
+          }
+       });
+       
+       
+    });
     
     
     $('select[name="train"]').on("change", function(event){

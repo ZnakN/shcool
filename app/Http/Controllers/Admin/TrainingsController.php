@@ -40,8 +40,8 @@ class TrainingsController extends Controller
         } else {
           $block = '<span id="b' . $training->id . '" data-id="' . $training->id . '"  class="btn btn-xs btn-success block"><i class="glyphicon glyphicon-ok"></i> Активировать</span>';
         }
-
-        $delete = ''; //'<a href="#edit-' . $user->id . '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+        $delete = '<span id="d' . $training->id . '" data-id="' . $training->id . '"  class="btn btn-xs btn-danger delete"><i class="glyphicon glyphicon-trash"></i>Удалить</span>';
+       
         return $edit . ' ' . $block . ' ' . $delete;
       })->addColumn('status', function($training) {
         $status = ($training->status == 1) ? "<span id='s" . $training->id . "'>Активный</span>" : "<span id='s" . $training->id . "' >Заблокирован</span>";
@@ -81,47 +81,60 @@ class TrainingsController extends Controller
     $id = $request->input('id', '');
 //dump($request);
     
-    if($request->input('is_static')==1)
-    {
-         $validator = Validator::make($request->all(), [
-        'description' => 'required|max:2000',
-        'name' => 'required|string|max:1024',
-        'internal_title' => 'required|string|max:2000',
+   // if($request->input('is_static')==1)
+  //  {
+//         $validator = Validator::make($request->all(), [
+//        'description' => 'required|max:2000',
+//        'name' => 'required|string|max:1024',
+//        'internal_title' => 'required|string|max:2000',
+//        
+//    ]);
         
-    ]);
-        
-    }
-     else {
+  //  }
+  //   else {
     $validator = Validator::make($request->all(), [
-        'description' => 'required|max:2000',
+        'name' => 'required|max:2000',
         'begin_date' =>'required|date',
         'end_date' =>'required|date|after:begin_date',
         'name' => 'required|string|max:1024',
+//        'description' => 'required|max:2000',
+        'url' => 'required',
+        'type' =>'required',
         'internal_title' => 'required|string|max:2000',
         'full_price' => 'required',
         'adress_where' => 'required',
          'adress' => 'required',
+        'image'=>'required',
+        'lektor_id' => 'required',
+        'status' => 'required',
+        'is_static' => 'required',
         'time_from' => 'required',
          'time_to' => 'required',
-  ]); }
+  ]); 
+    
+    // }
 
     if ($validator->fails()) {
-      if ($id)
-      {
-        return redirect('admin/trainings/edit/' . $id)
-            ->withErrors($validator)
-            ->withInput();
-      }
-      else
-      {
-        return redirect('admin/trainings/create/')
-            ->withErrors($validator)
-            ->withInput();
-      }
+        
+         return response()->json(array('res' => 'no', 'message' => 'Ви ввели некоректні дані!'), 200);
+//      if ($id)
+//      {
+//        return redirect('admin/trainings/edit/' . $id)
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
+//      else
+//      {
+//        return redirect('admin/trainings/create/')
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
       
     }
+    else
+    {
 
-    if ($id)
+    if ($id)  
     {
       $trainings = Trainings::find($id);
       $trainings->update($request->except('_token'));
@@ -132,7 +145,7 @@ class TrainingsController extends Controller
         
         
       $r = $request->except('_token');
-      
+     
        if($request->input('is_static')==1)
     {
            $r["begin_date"] = date("Y-m-d");
@@ -148,7 +161,9 @@ class TrainingsController extends Controller
     //ppr($r);
     //ppre($brand);
     
-   return redirect('/admin/trainings');
+ //  return redirect('/admin/trainings');
+     return response()->json(array('res' => 'ok', 'message' => 'all right!'), 200);
+    }
   }
 
   public function change_status(Request $request) {
@@ -174,4 +189,23 @@ class TrainingsController extends Controller
 
     return json_encode($res);
   }
+  
+   public function delete(Request $request) {
+    $res = [];
+    $id = $request->input('trainings_id');
+    $trainings = Trainings::find($id);
+
+    if (!($trainings == null)) {
+     
+      $trainings->delete();
+      $res = ['res' => 'ok'];
+    } else {
+      $res = ['res' => 'error', 'message' => 'Error : User not found'];
+    }
+
+    return json_encode($res);
+  }
+  
+  
+  
 }

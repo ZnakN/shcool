@@ -46,6 +46,7 @@ $(function() {
         processing: true,
         serverSide: true,
         language : rus_lang,
+        "order": [[ 0, "desc" ]],
         ajax: '{!! url('admin/lessons/users_data') !!}',
         columns: [
             { data: 'id', name: 'id' },
@@ -67,6 +68,28 @@ $(function() {
           {
              $('#s'+id).replaceWith(r.status);
              $('#b'+id).replaceWith(r.block_button);
+          }
+          else
+          {
+            alert(r.message);
+          }
+       });
+       
+       
+    });
+    
+    
+        $('#lesson-table').on('click','.delete',function()
+    {
+       var id = $(this).data('id');
+      
+       $.post('/admin/lessons/delete',{'lesson_id':id},function(res)
+       {
+          var r = jQuery.parseJSON(res);
+          if (r.res == 'ok')
+          {
+             $('#d'+id).closest('tr').remove();
+            
           }
           else
           {

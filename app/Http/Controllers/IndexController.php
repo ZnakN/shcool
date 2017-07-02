@@ -266,6 +266,11 @@ class IndexController extends Controller {
   
   private function send_letter(Requests $r,$type)
   {
+//      if($r->prepay==1)
+//      {
+//      $training = Trainings::find($r->training_id)->full_price;
+//      }
+      
     switch ($type) {
       case '1':
         $message = "Добрий день!<br>
