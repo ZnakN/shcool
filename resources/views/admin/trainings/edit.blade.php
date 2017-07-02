@@ -14,7 +14,7 @@
                         <div class="box-body">
                        
                         @if ($trainings->id)
-                        <input type="hidden" name="id" value="{{$trainings->id}}">
+<!--                        <input type="hidden" name="id" value="{{$trainings->id}}">-->
                         
                         <div class="form-group">
                           <label for="id">Id</label>
@@ -225,6 +225,7 @@ $(function()
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             data: {
+            'id':$('#id').val(),
             'name':$('#name').val(),
             'internal_title':$('#zag').val(),
             'type':$('#type').val(),
