@@ -11,15 +11,15 @@ class cash extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $messages;
+    public $r;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($messages)
+    public function __construct($r)
     {
-        $this->messages = $messages;
+        $this->r = $r;
        // $this->from("Etiquette_School@gmail.com");
     }
 

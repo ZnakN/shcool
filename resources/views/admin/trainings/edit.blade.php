@@ -170,7 +170,8 @@
 
 @push('ls')
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<!--<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>-->
+<script src="https://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
 <script>
   var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -178,6 +179,9 @@
     filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
     filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
   };
+  
+
+
     CKEDITOR.replace( 'description',options );
     //CKEDITOR.replace( 'text_ua',options );
 </script>

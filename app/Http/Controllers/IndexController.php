@@ -267,58 +267,75 @@ class IndexController extends Controller {
   
   private function send_letter(Requests $r,$type)
   {
-//      if($r->prepay==1)
-//      {
-//      $training = Trainings::find($r->training_id)->full_price;
-//      }
+      $total_summ = $r->summ_to_pay; // при выборке клиентом оплаты частями  - в письме ему указывать полную стоимость курса, а не его часть.
+      if($r->prepay==1) // если есть предоплата, находим полную цену тренинга (добавляем + 70%)
+      {
+          $total_summ = ($r->summ_to_pay*100)/30;
+      }
+
+      
+      
+      if($r->lessons_to_visit=="Повний курс ")
+      {
+         $kurs = "Вартість курсу:";
+      }
+      else
+      {
+         $kurs = "Вартість лекцій:";
+      }
       
     switch ($type) {
       case '1':
-        $message = "Добрий день!<br>
-        Ви зареєструвалися на курс - ".$r->training->name." (".date('d.m.Y',strtotime($r->training->begin_date))." - ". date('d.m.Y', strtotime($r->training->end_date)) ." ).<br>
-        Для підтвердження участі необхідно здійснити попередню оплату.<br>
-        Вартість курсу ".$r->summ_to_pay." грн.<br>
-        Для здійснення оплати найближчим часом з вами зв'яжеться менеджер.<br>
-        <br>
-        Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
-        Ваша Etiquette School
+          
+//    <h3>Добрий день, {{$r->PIB}}</h3>
+//<p>Ви зареєструвалися на курс - {{$r->training->name}} ({{date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date))}}).</p>
+//<p>Для підтвердження участі необхідно здійснити попередню оплату.<br/>
+//    
+//@if ($r->lessons_to_visit=="Повний курс ") Вартість курсу: <strong>{{$r->summ_to_pay}} грн</strong>.<br/> @endif 
+//@if ($r->lessons_to_visit!="Повний курс ") Вартість лекцій: <strong>{{$r->summ_to_pay}} грн</strong>.<br/>  @endif
+//Для здійснення оплати найближчим часом з вами зв'яжеться менеджер.</p>
+//						<!-- Callout Panel -->
+//						<p class="callout">
+//							Раді відповісти на всі ваші запитання за номером (067) 466 74 76 <br/>
+//							Ваша Etiquette School
+//						</p><!-- /Callout Panel -->		
+             
+          
+          
+        $message = "<h3>Добрий день, ".$r->PIB."</h3>
+        <p>Ви зареєструвалися на курс - ".$r->training->name." (".date('d.m.Y',strtotime($r->training->begin_date))." - ". date('d.m.Y', strtotime($r->training->end_date)) ." ).</p>
+        <p>Для підтвердження участі необхідно здійснити попередню оплату.<br>
+        ".$kurs." "."<strong>".$total_summ."</strong> грн.<br>
+        Для здійснення оплати найближчим часом з вами зв'яжеться менеджер.</p>
         ";
+            
       break;
       
     case '2':
-        $message = "Добрий день!<br>
-        Ви зареєструвалися  і оплатили курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).<br>
-        Чекаємо Вас ". date('d.m.Y', strtotime($r->training->begin_date)) ." ".$r->training->time_from."<br>
-        за вдресою " . $r->training->adress_where." ". $r->training->adress . " .<br>
-        <br>
-        Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
-        Ваша Etiquette School
+        $message = "<h3>Добрий день, ".$r->PIB."</h3>
+        <p>Ви зареєструвалися  і оплатили курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).</p>
+        <p>Чекаємо Вас ". date('d.m.Y', strtotime($r->training->begin_date)) ." ".$r->training->time_from."</p>
+        <p>за вдресою " . $r->training->adress_where." ". $r->training->adress . " .</p>
         ";
         break;
 
       case '3':
-        $message = "Добрий день!<br>
-        Ви зареєструвалися на курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).<br>
-        Для підтвердження участі необхідно здійснити попередню оплату.<br>
-        Вартість курсу " . $r->summ_to_pay . " грн.<br>
-        Для здійснення оплати найближчим часом з вами зв'яжеться менеджер.<br>
-        <br>
-        Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
-        Ваша Etiquette School
+        $message = "<h3>Добрий день, ".$r->PIB."</h3>
+        <p>Ви зареєструвалися на курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).</p>
+        Для підтвердження участі необхідно здійснити попередню оплату.<br> 
+        ".$kurs." "."<strong>".$total_summ."</strong> грн.<br>
+        Для здійснення оплати найближчим часом з вами зв'яжеться менеджер.<br> 
         ";
         break;
       
       case '4':
-        $message = "Добрий день!<br>
-        Ви зареєструвалися на курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).<br>
-        На жаль ваша оплата не пройшла успішно.<br>
+        $message = "<h3>Добрий день, ".$r->PIB."</h3>
+        <p>Ви зареєструвалися на курс - " . $r->training->name . " (" . date('d.m.Y', strtotime($r->training->begin_date)) . " - " . date('d.m.Y', strtotime($r->training->end_date)) . " ).</p>
+        <p>На жаль ваша оплата не пройшла успішно.</p>
         Ви можете спробувати зареєтруватися та оплатити ще раз на сайті <br> 
         <a href='www.etiqschool.com.ua'>www.etiqschool.com.ua</a> або пропонуємо вам альтернативний варіант оплати:<br>
-        оплата на карту в найближчому терміналі ПриватБанку 5168 7555 2854 8379 Зубкова Е.О<br>
-        Вартість курсу " . $r->summ_to_pay . " грн.<br>
-        <br>
-        Раді відповісти на всі ваші запитання за номером (067) 466 74 76<br>
-        Ваша Etiquette School
+        плата на карту в найближчому терміналі ПриватБанку 5168 7555 2854 8379 Зубкова Е.О<br>
+        <p>Вартість курсу <strong>" . $total_summ . "</strong> грн.</p>
         ";
            
         break;
@@ -331,7 +348,68 @@ class IndexController extends Controller {
     
          Mail::to($r->E_mail)->send(new cash($message));
       
-
+         
+         
+         if($r->present == 2)
+         {
+             $present = 'Ні';
+         }
+         else
+         {
+             $present = 'Так';
+         }
+         
+          if($r->discount == 2)
+         {
+             $discount = 'Ні';
+         }
+         else
+         {
+              $discount = 'Так';
+         }
+         
+          if($r->prepay == 2)
+         {
+             $prepay = 'Ні';
+         }
+         else
+         {
+              $prepay = 'Так';
+         }
+         
+           if($r->payed == 2)
+         {
+             $payed = 'Ні';
+         }
+         else
+         {
+              $payed = 'Так';
+         }
+         
+         $message2 = "<h3>Нова заявка</h3>".
+                 "Призвіщее ім'я:              ".$r->PIB."<br>".
+                 "Ім'я компанії:               ".$r->company_name."<br>".
+                 "Телефон:                     ".$r->phone_number."<br>".
+                  "E_mail:                     ".$r->E_mail."<br>".
+                 "Тренінг:                     ".$r->training->name."<br>".
+                 "Оформлено як подарунок:      ".$present."<br>".
+                 "Дата:                        ".$r->created_at."<br>".
+                  "Сфера:                      ".$r->sphere."<br>".
+                 
+                  "Кількість уроків:           ".$r->lessons_to_visit."<br>".
+                 
+                 "Знижка:                      ".$discount."<br>".
+                  "Промо-код:                  ".$r->promo."<br>".
+                 "Спосіб оплати:               ".$r->way_to_pay."<br>".
+                 "Кількість знижки:            ".$r->discount_value."<br>".
+                 "Передоплата:                 ".$prepay."<br>".
+                 "Сума оплати:                ".$r->summ_to_pay."<br>".
+                  "Оплачено:                   ".$payed."<br>"
+                 ;
+         
+         
+         Mail::to("etiq.school@gmail.com")->send(new cash($message2));
+         
 
     return $message;
   }
