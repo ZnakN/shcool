@@ -1,7 +1,6 @@
 @extends('layouts.custom')
 
 @section('content')  
-<div class="row">
   <div class="successful-payment">
     <br>
     <br>
@@ -13,5 +12,4 @@
          <br>
          <br>
   </div>
-</div>
 @endsection
