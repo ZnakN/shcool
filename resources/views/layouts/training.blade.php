@@ -182,7 +182,7 @@ echo json_encode([
 
                     @if($training->is_static!=1)
                     <button type="button" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" style="margin: 10px;">Оплата готівкою</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
                     <button type="button" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" style="margin: 10px;">Оплата на карту</button>
                     @else
 
