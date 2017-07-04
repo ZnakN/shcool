@@ -85,9 +85,25 @@ echo json_encode([
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <label for="PIB">ПІБ <span class="must-filled">*</span></label><label for="PIB" hidden="true" id="errPIB" class="errorValue">Ви не ввели це поле</label><br> 
                         <input type="text" id="name" name="PIB" placeholder="Як до вас звертатися?" class="text-input"><br>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
+                        <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input">
+                        </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <label for="email">E-mail <span class="must-filled">*</span></label><label  hidden="true" id="errE_mail" class="errorValue">Ви не ввели це поле</label><br>
+                        <input type="email" id="email" placeholder="Ваш e-mail" name="E_mail" class="text-input">
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <label for="company">Ваша компанія</label><label  hidden="true" id="errcompany_name" class="errorValue">Ви не ввели це поле</label><br>
                         <input type="text" id="company" placeholder="Назва" name="company_name" class="text-input">
-                        <br>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <label for="scope">Сфера діяльності</label><label  hidden="true" id="errshpere" class="errorValue">Ви не ввели це поле</label><br>
+                        <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input">  
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <div id="lektions_count" >
                             @if($training->is_static!=1) 
                             <div class="label-title1"><b>Скільки лекцій Ви плануєте відвідати? <span class="must-filled">*</span></b><label  hidden="true" id="errlessons_to_visit" class="errorValue">Ви не ввели це поле</label></div>
@@ -116,18 +132,8 @@ echo json_encode([
                                <input type="text" id="other" class="text-input-other">
                            </label-->
                         </div>
-
                     </div>
-
-
-
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <label for="phone">Номер телефону <span class="must-filled">*</span></label><label for="phone" hidden="true" id="errphone_number" class="errorValue">Ви не ввели це поле</label><br> 
-                        <input type="tel" id="phone" name="phone_number"  placeholder="+38(0__) ___-__-__"  class="text-input">
-                        <br>
-                        <label for="scope">Сфера діяльності</label><label  hidden="true" id="errshpere" class="errorValue">Ви не ввели це поле</label><br>
-                        <input type="text" id="scope" placeholder="Наприклад, агро, рітейл" name="sphere" class="text-input">  
-
                         @if($training->is_static!=1)
                         <label class="long-label certificate-label">Чи бажаєте оформити курс лекцій як подарунок?</label>
                         <div class="simple-text">Після оплати та реєстрації Ви отримаєте подарунковий сертифікат та запрошення на курс</div>
@@ -135,13 +141,7 @@ echo json_encode([
                         <input type="radio" name="present" value="2" id="present2"> Ні
                         @endif
                     </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <label for="email">E-mail <span class="must-filled">*</span></label><label  hidden="true" id="errE_mail" class="errorValue">Ви не ввели це поле</label><br>
-                        <input type="email" id="email" placeholder="Ваш e-mail" name="E_mail" class="text-input">
-                        <br>
-
-
-                    </div>
+                    
                 </div>
                 <hr>
 
@@ -181,9 +181,9 @@ echo json_encode([
                     @endif
 
                     @if($training->is_static!=1)
-                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" >Оплата готівкою</button>
+                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit" data-action="nal" name="Готівкою" style="margin: 10px;">Оплата готівкою</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" >Оплата на карту</button>
+                    <button type="button" class="btn-footer btn btn-primary bsend"  id="submit2" data-action="card" name="Карткою" style="margin: 10px;">Оплата на карту</button>
                     @else
 
                     <button type="button" class="btn-footer btn btn-primary bsend" data-action="nal_z" id="submit" name="Заявка" >Подати заявку</button>
