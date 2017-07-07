@@ -26,7 +26,7 @@
 				<div class="content">
 				<table bgcolor="#ebebeb">
 					<tr>
-						<td><img src="/img/logo.jpg" /></td>
+                      <td><img src="{{URL::asset('/img/logo.jpg')}}" /></td>
 						<td align="right"><h6 class="collapse">ПЕРША ШКОЛА ДІЛОВИХ МАНЕР ТА КОМУНІКАЦІЙ</h6></td>
 					</tr>
 				</table>
