@@ -263,7 +263,7 @@ $(function()
                                 $('#lektor').css("border-color", "#ccc");
                                 $('#begin_date').css("border-color", "#ccc");
                                 $('#end_date').css("border-color", "#ccc");
-                                 $('#url').css("border-color", "#ccc");
+                                $('#cke_description').css("border-color", "#ccc");
                                 $('#time_from').css("border-color", "#ccc");
                                 $('#time_to').css("border-color", "#ccc");
                                 $('#adress_where').css("border-color", "#ccc");
@@ -274,12 +274,19 @@ $(function()
                                 $('#is_static').css("border-color", "#ccc");
                             },
                             success: function (data) {
+                                if(data.res == 'no_static')
+                                {
+                                    if  (CKEDITOR.instances['description'].getData()=='') { $('#cke_description').css("border-color", "red"); }
+                                    if  ($('#name').val()=='') { $('#name').css("border-color", "red"); }
+                                    if  ($('#zag').val()=='') { $('#zag').css("border-color", "red"); }
+                                }
+                                else
                                if(data.res == 'no')
                                {
                                   if  ($('#name').val()=='') { $('#name').css("border-color", "red"); }
                                   if  ($('#zag').val()=='') { $('#zag').css("border-color", "red"); }
                                   if  ($('#type').val()=='') { $('#type').css("border-color", "red"); }
-                                  if  ($('#description').val()=='') { $('#description').css("border-color", "red"); }
+                                   if  (CKEDITOR.instances['description'].getData()=='') { $('#cke_description').css("border-color", "red"); }
                                   if  ($('#lektor option:selected').val()=='') { $('#lektor').css("border-color", "red"); }
                                   if  ($('#begin_date').val()=='') { $('#begin_date').css("border-color", "red"); }
                                   if  ($('#end_date').val()=='') { $('#end_date').css("border-color", "red"); }
@@ -289,7 +296,7 @@ $(function()
                                   if  ($('#adress').val()=='') { $('#adress').css("border-color", "red"); }
                                   if  ($('#full_price').val()=='') { $('#full_price').css("border-color", "red"); }
                                   if  ($('#thumbnail').val()=='') { $('#thumbnail').css("border-color", "red"); }
-                                   if  ($('#url').val()=='') { $('#url').css("border-color", "red"); }
+                                  
                                   
 //                                  if  ($('#meta_title').val()=='') { $('#meta_title').css("border-color", "red"); }
 //                                  if  ($('#meta_description').val()=='') { $('#meta_description').css("border-color", "red"); }
@@ -299,19 +306,14 @@ $(function()
                                }
                                else
                                {
-                                   window.location.href = "http://school/admin/trainings";
+                                window.location.href = "/admin/trainings";
                                }
                                
                               
 
                             },
-                            error: function (data) {
-                               
-                               
-                               
-                               alert('error!');
-                               
-                               
+                            error: function (data) {                              
+                               alert('error!');      
                             }
 
 

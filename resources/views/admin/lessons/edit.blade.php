@@ -9,7 +9,7 @@
             <div class="panel-heading">Урок</div>
 
 					<div class="panel-body">
-                      <form action="/admin/lessons/update" method="post" role="form" enctype="multipart/form-data" >
+                      <form enctype="multipart/form-data" id="forma" >
                         <div class="box-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         @if ($lesson->id)
@@ -37,7 +37,7 @@
 <!--            size="3"            Лектор ----------------------------------------------------->
                          <div class="form-group">
                           <label for="name">Трениг</label>
-                          <select class="form-control" name="training_id" id="lektor" >    
+                          <select class="form-control" name="training_id" id="training_id" >    
                             @foreach ($trainings as $training)
                               <option value="{{$training->id}}"  @if ($training->id == $lesson->training_id) {!! 'selected="selected"' !!} @endif >{{$training->name}}</option>
                             @endforeach
@@ -107,7 +107,8 @@
 
 @push('ls')
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<!--<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>-->
+<script src="https://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
 <script>
   var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -124,6 +125,76 @@ $(function()
       
     
     //$('#lfm').filemanager('image');
+    
+    
+    
+    
+    $("#forma").submit(function(e)
+    {
+
+        e.preventDefault(e);
+        
+       // alert(CKEDITOR.instances['description'].getData());
+         $.ajax({
+                            method: 'POST',
+                            url:'/admin/lessons/update',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+            'id':$('#id').val(),
+            'name':$('#name').val(),           
+            'description':CKEDITOR.instances['description'].getData(),         
+            'training_id':$('#training_id option:selected').val(),
+            'price':$('#price').val(),
+              'meta_title':$('#meta_title').val(),
+               'meta_description':$('#meta_description').val(),
+               'meta_keywords':$('#meta_keywords').val(),
+           'status':$('#status option:selected').val(),
+           
+                            },
+                            beforeSend: function (xhr) {
+                                //            var token = $('meta[name="csrf_token"]').attr('content');
+                                //        if (token) {
+                                //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+                                $('#name').css("border-color", "#ccc"); 
+                                $('#description').css("border-color", "#ccc");
+                                $('#training_id').css("border-color", "#ccc");
+                                 $('#price').css("border-color", "#ccc");
+                                $('#cke_description').css("border-color", "#ccc");                             
+                                $('#status').css("border-color", "#ccc");
+                            },
+                            success: function (data) {
+                              
+                               if(data.res == 'no')
+                               {
+                                  if  ($('#name').val()=='') { $('#name').css("border-color", "red"); }
+                                  if  ($('#price').val()=='') { $('#price').css("border-color", "red"); }
+                                  if  ($('#training_id option:selected').val()=='') { $('#training_id').css("border-color", "red"); }
+                                   if  (CKEDITOR.instances['description'].getData()=='') { $('#cke_description').css("border-color", "red"); }                                   
+//                                  if  ($('#meta_title').val()=='') { $('#meta_title').css("border-color", "red"); }
+//                                  if  ($('#meta_description').val()=='') { $('#meta_description').css("border-color", "red"); }
+                                  if  ($('#status option:selected').val()=='') { $('#status').css("border-color", "red"); }
+                                
+                                  
+                               }
+                               else
+                               {
+                                window.location.href = "/admin/lessons";
+                               }
+                               
+                              
+
+                            },
+                            error: function (data) {                              
+                               alert('error!');      
+                            }
+
+
+                        });
+
+        
+    });
 
 });  
 

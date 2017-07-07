@@ -80,26 +80,25 @@ class TrainingsController extends Controller
    //dump($request);
     $id = $request->input('id', '');
 //dump($request);
-    
-   // if($request->input('is_static')==1)
-  //  {
-//         $validator = Validator::make($request->all(), [
-//        'description' => 'required|max:2000',
-//        'name' => 'required|string|max:1024',
-//        'internal_title' => 'required|string|max:2000',
-//        
-//    ]);
+   
+ if($request->input('is_static')==1)
+  {
+         $validator = Validator::make($request->all(), [
+        'description' => 'required|max:2000',
+        'name' => 'required|string|max:1024',
+        'internal_title' => 'required|string|max:2000',
         
-  //  }
-  //   else {
-    $validator = Validator::make($request->all(), [
+    ]);       
+  }
+   else {
+       $valrul = [
         'name' => 'required|max:2000',
         'begin_date' =>'required|date',
         'end_date' =>'required|date|after:begin_date',
         'name' => 'required|string|max:1024',
         'description' => 'required|max:2000',
-        'url' => 'required',
         'type' =>'required',
+        
         'internal_title' => 'required|string|max:2000',
         'full_price' => 'required',
         'adress_where' => 'required',
@@ -110,13 +109,25 @@ class TrainingsController extends Controller
         'is_static' => 'required',
         'time_from' => 'required',
          'time_to' => 'required',
-  ]); 
-    
-    // }
+  ];
+        if ($id)  
+        {
+          $valrul[ 'url' ] = 'reqired';        
+        }
+       $validator = Validator::make($request->all(), $valrul); 
+ }
 
     if ($validator->fails()) {
         
+        
+        if($request->input('is_static')==1)
+  {
+         return response()->json(array('res' => 'no_static', 'message' => 'Ви ввели некоректні дані!'), 200);
+  }
+  else
+  {     
          return response()->json(array('res' => 'no', 'message' => 'Ви ввели некоректні дані!'), 200);
+  }
 //      if ($id)
 //      {
 //        return redirect('admin/trainings/edit/' . $id)
@@ -138,6 +149,7 @@ class TrainingsController extends Controller
     {
       $trainings = Trainings::find($id);
       $trainings->update($request->except('_token'));
+         
     }
     else
     {
@@ -156,13 +168,14 @@ class TrainingsController extends Controller
       
      // dump($r);
       $trainings = Trainings::create($r);
+         
     }
     
     //ppr($r);
     //ppre($brand);
     
- //  return redirect('/admin/trainings');
-     return response()->json(array('res' => 'ok', 'message' => 'all right!'), 200);
+ 
+    return response()->json(array('res' => 'ok', 'message' => 'all right!'), 200);
     }
   }
 

@@ -68,25 +68,32 @@ class LektorsController extends Controller
 //dump($request);
     $id = $request->input('id', '');
 
-    $validator = Validator::make($request->all(), [
+     $valrul = [
         'description' => 'required|max:3000',
         'name_surname' => 'required|string|max:1024',
-    ]);
+        'image'=>'required',
+        'status' => 'required',
+    ];
+    if ($id)
+      {
+         $valrul[ 'url' ] = 'reqired';    
+      }
+    $validator = Validator::make($request->all(), $valrul);
 
     if ($validator->fails()) {
-      if ($id)
-      {
-        return redirect('admin/lektors/edit/' . $id)
-            ->withErrors($validator)
-            ->withInput();
-      }
-      else
-      {
-        return redirect('admin/lektors/create/')
-            ->withErrors($validator)
-            ->withInput();
-      }
-      
+//      if ($id)
+//      {
+//        return redirect('admin/lektors/edit/' . $id)
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
+//      else
+//      {
+//        return redirect('admin/lektors/create/')
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
+      return response()->json(array('res' => 'no', 'message' => 'Ви ввели некоректні дані!'), 200);
     }
 
     if ($id)
@@ -103,8 +110,8 @@ class LektorsController extends Controller
     
     //ppr($r);
     //ppre($brand);
-    
-    return redirect('/admin/lektors');
+    return response()->json(array('res' => 'ok', 'message' => 'all right!'), 200);
+    //return redirect('/admin/lektors');
   }
 
   public function change_status(Request $request) {

@@ -8,7 +8,7 @@
                   <div class="panel-heading">Лекторы</div>
 
 					<div class="panel-body">
-                      <form action="/admin/lektors/update" method="post" role="form" enctype="multipart/form-data" >
+                      <form enctype="multipart/form-data" id="forma" >
                         <div class="box-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         @if ($lektors->id)
@@ -98,7 +98,8 @@
 
 @push('ls')
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<!--<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>-->
+<script src="https://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
 <script>
   var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -139,6 +140,77 @@ $(function()
     var cropperHeader = new Croppic('img_d',options);
     
     $('#lfm').filemanager('image');
+
+
+
+
+
+  $("#forma").submit(function(e)
+    {
+
+        e.preventDefault(e);
+        
+       // alert(CKEDITOR.instances['description'].getData());
+         $.ajax({
+                            method: 'POST',
+                            url:'/admin/lektors/update',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+            'id':$('#id').val(),
+            'name_surname':$('#name_surname').val(),           
+            'description':CKEDITOR.instances['description'].getData(),  
+             'url':$('#url').val(),
+              'image':$('#thumbnail').val(),
+              'meta_title':$('#meta_title').val(),
+               'meta_description':$('#meta_description').val(),
+               'meta_keywords':$('#meta_keywords').val(),
+           'status':$('#status option:selected').val(),
+           
+                            },
+                            beforeSend: function (xhr) {
+                                //            var token = $('meta[name="csrf_token"]').attr('content');
+                                //        if (token) {
+                                //                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);           }
+                                $('#name_surname').css("border-color", "#ccc"); 
+                                $('#description').css("border-color", "#ccc");
+                                $('#url').css("border-color", "#ccc");
+                                 $('#thumbnail').css("border-color", "#ccc");
+                                $('#cke_description').css("border-color", "#ccc");                             
+                                $('#status').css("border-color", "#ccc");
+                            },
+                            success: function (data) {
+                              
+                               if(data.res == 'no')
+                               {
+                                  if  ($('#name_surname').val()=='') { $('#name_surname').css("border-color", "red"); }
+                               //  if  ($('#url').val()=='') { $('#url').css("border-color", "red"); }
+                                  if  ($('#thumbnail').val()=='') { $('#thumbnail').css("border-color", "red"); }
+                                   if  (CKEDITOR.instances['description'].getData()=='') { $('#cke_description').css("border-color", "red"); }                                   
+//                                  if  ($('#meta_title').val()=='') { $('#meta_title').css("border-color", "red"); }
+//                                  if  ($('#meta_description').val()=='') { $('#meta_description').css("border-color", "red"); }
+                                  if  ($('#status option:selected').val()=='') { $('#status').css("border-color", "red"); }
+                                
+                                  
+                               }
+                               else
+                               {
+                                window.location.href = "/admin/lektors";
+                               }
+                               
+                              
+
+                            },
+                            error: function (data) {                              
+                               alert('error!');      
+                            }
+
+
+                        });
+
+        
+    });
 
 });  
 

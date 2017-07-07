@@ -70,23 +70,27 @@ class LessonsController extends Controller
     $id = $request->input('id', '');
 //dump($request);
     $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:1024',
         'description' => 'required|max:2000',
+        'price' => 'required',
+        'training_id' => 'required',
+        'status' => 'required'
     ]);
 
     if ($validator->fails()) {
-      if ($id)
-      {
-        return redirect('admin/lessons/edit/' . $id)
-            ->withErrors($validator)
-            ->withInput();
-      }
-      else
-      {
-        return redirect('admin/lessons/create/')
-            ->withErrors($validator)
-            ->withInput();
-      }
-      
+//      if ($id)
+//      {
+//        return redirect('admin/lessons/edit/' . $id)
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
+//      else
+//      {
+//        return redirect('admin/lessons/create/')
+//            ->withErrors($validator)
+//            ->withInput();
+//      }
+        return response()->json(array('res' => 'no', 'message' => 'Ви ввели некоректні дані!'), 200);
     }
 
     if ($id)
@@ -104,7 +108,7 @@ class LessonsController extends Controller
     //ppr($r);
     //ppre($brand);
     
-    return redirect('/admin/lessons');
+    return response()->json(array('res' => 'ok', 'message' => 'all right!'), 200);
   }
 
   public function change_status(Request $request) {
