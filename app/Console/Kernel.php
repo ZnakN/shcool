@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-    ];
+        Commands\SendEmail::class
+  ];
 
     /**
      * Define the application's command schedule.
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-    }
+        $schedule->command('ermail')->everyTenMinutes();
+  }
 
     /**
      * Register the Closure based commands for the application.
