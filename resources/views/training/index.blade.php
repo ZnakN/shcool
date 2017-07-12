@@ -14,6 +14,7 @@
               
         </div>
     </article>
+@if($training->is_static!=1)
     <article class="event-program">
             <h3>Програма курсу «{{$training->name}}»</h3>
         <div class="">
@@ -37,6 +38,7 @@
         
         
     </article>
+@endif
     <article class="lecturer">
         <h3 class="lecturer-title">ЛЕКТОР</h3>
         <div class="row">

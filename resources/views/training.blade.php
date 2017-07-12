@@ -24,7 +24,7 @@
             </p>
         </div>
     </article>
-@if($training->is_static==1)
+@if($training->is_static!=1)
     <article class="event-program">
             <h3>Програма курсу «{{$training->name}}»</h3>
         <div class="">
