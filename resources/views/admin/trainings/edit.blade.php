@@ -248,6 +248,7 @@ $(function()
                'adress_where':$('#adress_where').val(),
                'adress':$('#adress').val(),
                'full_price':$('#full_price').val(),
+               'one_price':$('#one_price').val(),
               'image':$('#thumbnail').val(),
               'meta_title':$('#meta_title').val(),
                'meta_description':$('#meta_description').val(),
