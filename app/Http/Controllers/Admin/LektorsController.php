@@ -76,7 +76,7 @@ class LektorsController extends Controller
     ];
     if ($id)
       {
-         $valrul[ 'url' ] = 'reqired';    
+         $valrul[ 'url' ] = 'required';    
       }
     $validator = Validator::make($request->all(), $valrul);
 

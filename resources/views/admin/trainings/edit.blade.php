@@ -96,7 +96,10 @@
                           <input type="number" min="1" step="any" class="form-control" value="{{$trainings->full_price}}"  id="full_price"  name="full_price" >
                         </div>
 
-                        
+                        <div class="form-group">
+                          <label for="name">Цена за урок</label>
+                          <input type="number" min="1" step="any" class="form-control" value="{{$trainings->one_price}}"  id="one_price"  name="one_price" >
+                        </div>
 
                   
                         

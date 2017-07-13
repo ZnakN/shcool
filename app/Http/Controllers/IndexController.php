@@ -55,7 +55,7 @@ class IndexController extends Controller {
     $lessons = DB::table('lessons')->where('training_id', $training->id)->where('status', 1)->get();
 
     $lektors = DB::table('lektors')->where('id', $training->lektor_id)->get();
-    $all_lektors = DB::table('lektors')->get();
+    $all_lektors = DB::table('lektors')->where('status','2')->get();
     // $lektor = $lektors[0];  //->name_surname
     // dump($lessons);
 //    View::composer('layouts.training', function($view)
