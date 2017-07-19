@@ -23,6 +23,7 @@ use DB;
 use View;
 use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class IndexController extends Controller {
 
@@ -189,6 +190,7 @@ class IndexController extends Controller {
   
   public function pay_response(Request $r)
   {
+    $res = [];
     $content = file_get_contents('php://input');
     $resp = json_decode($content);
     Log::info($content);
@@ -219,8 +221,11 @@ class IndexController extends Controller {
             $this->send_letter($request, 2);
           }
         }
+        $res['status'] = true;
       }
     }
+    echo json_encode($res);
+    exit;
   }
   
   public function pay_ok(Request $r)
